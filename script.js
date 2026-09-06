@@ -1,18 +1,60 @@
+const SITE_ASSET_VERSION = '20260906-2225';
+
 const enhancementStyles = document.createElement('link');
 enhancementStyles.rel = 'stylesheet';
-enhancementStyles.href = 'enhancements.css';
+enhancementStyles.href = `enhancements.css?v=${SITE_ASSET_VERSION}`;
 document.head.appendChild(enhancementStyles);
 
-if (document.querySelector('.photo-portrait')) {
-  const aboutPhotoStyles = document.createElement('link');
-  aboutPhotoStyles.rel = 'stylesheet';
-  aboutPhotoStyles.href = 'about-photo.css';
-  document.head.appendChild(aboutPhotoStyles);
+async function loadSitePhotos() {
+  const definitions = [
+    {
+      selector: '.photo-portrait',
+      parts: ['portrait-0.txt', 'portrait-1.txt', 'portrait-2.txt', 'portrait-3.txt']
+    },
+    {
+      selector: '.photo-school',
+      parts: ['school-0.txt', 'school-1.txt', 'school-2.txt']
+    },
+    {
+      selector: '.photo-venice',
+      parts: ['venice-0.txt', 'venice-gap-a.txt', 'venice-gap-b.txt', 'venice-1.txt', 'venice-2.txt', 'venice-3a.txt', 'venice-3b.txt']
+    }
+  ];
+
+  async function readChunk(name) {
+    const response = await fetch(`assets/photo-data/${name}?v=${SITE_ASSET_VERSION}`, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Photo chunk ${name} failed: ${response.status}`);
+    return (await response.text()).trim();
+  }
+
+  async function loadDefinition(definition) {
+    const targets = Array.from(document.querySelectorAll(definition.selector));
+    if (!targets.length) return;
+
+    targets.forEach((target) => target.classList.add('photo-hq-loading'));
+    const chunks = await Promise.all(definition.parts.map(readChunk));
+    const dataUrl = `data:image/webp;base64,${chunks.join('')}`;
+
+    targets.forEach((target) => {
+      target.style.setProperty('background-image', `url("${dataUrl}")`, 'important');
+      target.classList.remove('photo-hq-loading');
+      target.classList.add('photo-hq-ready');
+      target.dataset.photoReady = 'true';
+      target.dataset.photoSource = dataUrl;
+    });
+  }
+
+  const results = await Promise.allSettled(definitions.map(loadDefinition));
+  results.forEach((result) => {
+    if (result.status === 'rejected') console.error('[site photos]', result.reason);
+  });
+  document.documentElement.classList.add('site-photos-loaded');
 }
+
+loadSitePhotos();
 
 const navToggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.main-nav');
-
 if (navToggle && nav) {
   navToggle.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
@@ -32,8 +74,8 @@ const socialIcons = {
 };
 
 document.querySelectorAll('[data-social]').forEach((link) => {
-  const service = link.dataset.social;
   const icon = link.querySelector('.social-icon');
+  const service = link.dataset.social;
   if (icon && socialIcons[service]) icon.innerHTML = socialIcons[service];
 });
 
@@ -51,7 +93,7 @@ function applyLanguage(lang) {
   });
 
   document.querySelectorAll('[data-placeholder-lt][data-placeholder-en]').forEach((el) => {
-    el.placeholder = el.dataset[`placeholder${lang === 'lt' ? 'Lt' : 'En'}`];
+    el.placeholder = lang === 'lt' ? el.dataset.placeholderLt : el.dataset.placeholderEn;
   });
 
   document.querySelectorAll('[data-contact-form]').forEach((form) => {
@@ -84,7 +126,6 @@ function applyLanguage(lang) {
 document.querySelectorAll('[data-lang-option]').forEach((button) => {
   button.addEventListener('click', () => applyLanguage(button.dataset.langOption));
 });
-
 applyLanguage(currentLanguage);
 
 function setFormStatus(form, type, ltText, enText) {
@@ -97,12 +138,9 @@ function setFormStatus(form, type, ltText, enText) {
 document.querySelectorAll('[data-contact-form]').forEach((form) => {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-
-    const honey = form.querySelector('input[name="_honey"]');
-    if (honey && honey.value) return;
-
     const button = form.querySelector('.form-submit');
-    const previousText = button ? button.textContent : '';
+    const originalLt = button?.dataset.lt;
+    const originalEn = button?.dataset.en;
 
     if (button) {
       button.classList.add('is-loading');
@@ -111,25 +149,21 @@ document.querySelectorAll('[data-contact-form]').forEach((form) => {
     }
     setFormStatus(form, '', '', '');
 
-    const formData = new FormData(form);
     const payload = {};
-    formData.forEach((value, key) => {
+    new FormData(form).forEach((value, key) => {
       if (key !== '_honey') payload[key] = value;
     });
 
     try {
       const response = await fetch(form.action, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(payload)
       });
-
       const data = await response.json().catch(() => ({}));
-      const failed = !response.ok || data.success === false || data.success === 'false';
-      if (failed) throw new Error(data.message || 'Submission failed');
+      if (!response.ok || data.success === false || data.success === 'false') {
+        throw new Error(data.message || 'Submission failed');
+      }
 
       form.reset();
       applyLanguage(currentLanguage);
@@ -151,7 +185,8 @@ document.querySelectorAll('[data-contact-form]').forEach((form) => {
       if (button) {
         button.classList.remove('is-loading');
         button.disabled = false;
-        button.textContent = previousText;
+        if (originalLt) button.dataset.lt = originalLt;
+        if (originalEn) button.dataset.en = originalEn;
         applyLanguage(currentLanguage);
       }
     }
@@ -178,12 +213,11 @@ function initPhotoLightbox() {
   let lastFocused = null;
 
   function getPhotoBackground(trigger) {
-    const candidates = [trigger, trigger.querySelector('.site-photo')].filter(Boolean);
-    for (const node of candidates) {
-      const background = getComputedStyle(node).backgroundImage;
-      if (background && background !== 'none') return background;
-    }
-    return '';
+    if (trigger.dataset.photoSource) return `url("${trigger.dataset.photoSource}")`;
+    const nested = trigger.querySelector('[data-photo-source]');
+    if (nested?.dataset.photoSource) return `url("${nested.dataset.photoSource}")`;
+    const background = getComputedStyle(trigger).backgroundImage;
+    return background && background !== 'none' ? background : '';
   }
 
   function openLightbox(trigger) {
@@ -203,7 +237,7 @@ function initPhotoLightbox() {
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('lightbox-open');
     viewer.style.backgroundImage = '';
-    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    lastFocused?.focus?.();
   }
 
   triggers.forEach((trigger) => {
@@ -211,58 +245,36 @@ function initPhotoLightbox() {
       event.preventDefault();
       openLightbox(trigger);
     });
-    if (trigger.tagName !== 'BUTTON') {
-      trigger.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openLightbox(trigger);
-        }
-      });
-    }
+    trigger.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openLightbox(trigger);
+      }
+    });
   });
-
-  lightbox.querySelectorAll('[data-lightbox-close]').forEach((el) => {
-    el.addEventListener('click', closeLightbox);
+  lightbox.querySelectorAll('[data-lightbox-close]').forEach((element) => {
+    element.addEventListener('click', closeLightbox);
   });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
   });
 }
-
 initPhotoLightbox();
 
 function initMotion() {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const header = document.querySelector('.site-header');
-
-  const updateHeader = () => {
-    if (header) header.classList.toggle('scrolled', window.scrollY > 18);
-  };
+  const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 18);
   updateHeader();
   window.addEventListener('scroll', updateHeader, { passive: true });
 
-  if (reduceMotion || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
 
   const selectors = [
-    '.page-hero > *',
-    '.hero-copy > *',
-    '.hero-art',
-    '.section-heading > *',
-    '.feature-card',
-    '.photo-story-card',
-    '.profile-image-wrap',
-    '.profile-prose',
-    '.timeline-item',
-    '.discog-row',
-    '.embed-card',
-    '.video-card',
-    '.score-feature',
-    '.contact-row',
-    '.contact-form',
-    '.social-button',
-    '.statement > *'
+    '.page-hero > *', '.hero-copy > *', '.hero-art', '.section-heading > *',
+    '.feature-card', '.photo-story-card', '.profile-image-wrap', '.profile-prose',
+    '.timeline-item', '.discog-row', '.embed-card', '.video-card', '.score-feature',
+    '.contact-row', '.contact-form', '.social-button', '.statement > *'
   ];
-
   const items = Array.from(document.querySelectorAll(selectors.join(',')));
   items.forEach((item, index) => {
     item.classList.add('reveal-item');
@@ -278,13 +290,11 @@ function initMotion() {
       observer.unobserve(entry.target);
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
-
   items.forEach((item) => observer.observe(item));
 }
 
-if (enhancementStyles.sheet) {
-  initMotion();
-} else {
+if (enhancementStyles.sheet) initMotion();
+else {
   enhancementStyles.addEventListener('load', initMotion, { once: true });
   enhancementStyles.addEventListener('error', initMotion, { once: true });
 }
