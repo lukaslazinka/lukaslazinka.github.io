@@ -158,6 +158,79 @@ document.querySelectorAll('[data-contact-form]').forEach((form) => {
   });
 });
 
+function initPhotoLightbox() {
+  const triggers = Array.from(document.querySelectorAll('[data-lightbox-photo]'));
+  if (!triggers.length) return;
+
+  const lightbox = document.createElement('div');
+  lightbox.className = 'photo-lightbox';
+  lightbox.setAttribute('aria-hidden', 'true');
+  lightbox.innerHTML = `
+    <div class="photo-lightbox-backdrop" data-lightbox-close></div>
+    <div class="photo-lightbox-panel" role="dialog" aria-modal="true" aria-label="Nuotraukos peržiūra">
+      <button type="button" class="photo-lightbox-close" data-lightbox-close aria-label="Uždaryti">×</button>
+      <div class="photo-lightbox-image" role="img"></div>
+    </div>`;
+  document.body.appendChild(lightbox);
+
+  const viewer = lightbox.querySelector('.photo-lightbox-image');
+  const closeButton = lightbox.querySelector('.photo-lightbox-close');
+  let lastFocused = null;
+
+  function getPhotoBackground(trigger) {
+    const candidates = [trigger, trigger.querySelector('.site-photo')].filter(Boolean);
+    for (const node of candidates) {
+      const background = getComputedStyle(node).backgroundImage;
+      if (background && background !== 'none') return background;
+    }
+    return '';
+  }
+
+  function openLightbox(trigger) {
+    const background = getPhotoBackground(trigger);
+    if (!background) return;
+    lastFocused = document.activeElement;
+    viewer.style.backgroundImage = background;
+    viewer.setAttribute('aria-label', trigger.getAttribute('aria-label') || 'Lukas Lazinka');
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+    closeButton.focus();
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+    viewer.style.backgroundImage = '';
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      openLightbox(trigger);
+    });
+    if (trigger.tagName !== 'BUTTON') {
+      trigger.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openLightbox(trigger);
+        }
+      });
+    }
+  });
+
+  lightbox.querySelectorAll('[data-lightbox-close]').forEach((el) => {
+    el.addEventListener('click', closeLightbox);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+  });
+}
+
+initPhotoLightbox();
+
 function initMotion() {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const header = document.querySelector('.site-header');
