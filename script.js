@@ -169,6 +169,7 @@ function initMotion() {
     '.hero-art',
     '.section-heading > *',
     '.feature-card',
+    '.photo-story-card',
     '.profile-image-wrap',
     '.profile-prose',
     '.timeline-item',
