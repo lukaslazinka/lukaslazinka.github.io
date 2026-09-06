@@ -1,3 +1,8 @@
+const enhancementStyles = document.createElement('link');
+enhancementStyles.rel = 'stylesheet';
+enhancementStyles.href = 'enhancements.css';
+document.head.appendChild(enhancementStyles);
+
 const navToggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.main-nav');
 
@@ -42,6 +47,15 @@ function applyLanguage(lang) {
     el.placeholder = el.dataset[`placeholder${lang === 'lt' ? 'Lt' : 'En'}`];
   });
 
+  document.querySelectorAll('[data-contact-form]').forEach((form) => {
+    const subjectField = form.querySelector('input[name="_subject"]');
+    if (subjectField) {
+      subjectField.value = lang === 'lt'
+        ? (form.dataset.subjectLt || 'Žinutė iš svetainės — Lukas Lazinka')
+        : (form.dataset.subjectEn || 'Website message — Lukas Lazinka');
+    }
+  });
+
   const title = lang === 'lt' ? document.body.dataset.titleLt : document.body.dataset.titleEn;
   if (title) document.title = title;
   const description = lang === 'lt' ? document.body.dataset.descriptionLt : document.body.dataset.descriptionEn;
@@ -66,19 +80,130 @@ document.querySelectorAll('[data-lang-option]').forEach((button) => {
 
 applyLanguage(currentLanguage);
 
-document.querySelectorAll('[data-mailto-form]').forEach((form) => {
-  form.addEventListener('submit', (event) => {
+function setFormStatus(form, type, ltText, enText) {
+  const status = form.querySelector('[data-form-status]');
+  if (!status) return;
+  status.className = `form-status ${type || ''}`.trim();
+  status.textContent = currentLanguage === 'lt' ? ltText : enText;
+}
+
+document.querySelectorAll('[data-contact-form]').forEach((form) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const data = new FormData(form);
-    const name = String(data.get('name') || '').trim();
-    const email = String(data.get('email') || '').trim();
-    const message = String(data.get('message') || '').trim();
-    const subject = currentLanguage === 'lt'
-      ? (form.dataset.subjectLt || 'Žinutė iš svetainės — Lukas Lazinka')
-      : (form.dataset.subjectEn || 'Website message — Lukas Lazinka');
-    const body = currentLanguage === 'lt'
-      ? `Vardas: ${name}\nEl. paštas: ${email}\n\nŽinutė:\n${message}`
-      : `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
-    window.location.href = `mailto:lazinka.music@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    const honey = form.querySelector('input[name="_honey"]');
+    if (honey && honey.value) return;
+
+    const button = form.querySelector('.form-submit');
+    const previousText = button ? button.textContent : '';
+
+    if (button) {
+      button.classList.add('is-loading');
+      button.disabled = true;
+      button.textContent = currentLanguage === 'lt' ? 'Siunčiama…' : 'Sending…';
+    }
+    setFormStatus(form, '', '', '');
+
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((value, key) => {
+      if (key !== '_honey') payload[key] = value;
+    });
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json().catch(() => ({}));
+      const failed = !response.ok || data.success === false || data.success === 'false';
+      if (failed) throw new Error(data.message || 'Submission failed');
+
+      form.reset();
+      applyLanguage(currentLanguage);
+      setFormStatus(
+        form,
+        'success',
+        'Žinutė išsiųsta. Ačiū — atsakysiu jūsų nurodytu el. paštu.',
+        'Message sent. Thank you — I will reply to the email address you provided.'
+      );
+    } catch (error) {
+      console.error(error);
+      setFormStatus(
+        form,
+        'error',
+        'Žinutės išsiųsti nepavyko. Pabandykite dar kartą arba parašykite tiesiogiai el. paštu.',
+        'The message could not be sent. Please try again or email me directly.'
+      );
+    } finally {
+      if (button) {
+        button.classList.remove('is-loading');
+        button.disabled = false;
+        button.textContent = previousText;
+        applyLanguage(currentLanguage);
+      }
+    }
   });
 });
+
+function initMotion() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const header = document.querySelector('.site-header');
+
+  const updateHeader = () => {
+    if (header) header.classList.toggle('scrolled', window.scrollY > 18);
+  };
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+  const selectors = [
+    '.page-hero > *',
+    '.hero-copy > *',
+    '.hero-art',
+    '.section-heading > *',
+    '.feature-card',
+    '.profile-image-wrap',
+    '.profile-prose',
+    '.timeline-item',
+    '.discog-row',
+    '.embed-card',
+    '.video-card',
+    '.score-feature',
+    '.contact-row',
+    '.contact-form',
+    '.social-button',
+    '.statement > *'
+  ];
+
+  const items = Array.from(document.querySelectorAll(selectors.join(',')));
+  items.forEach((item, index) => {
+    item.classList.add('reveal-item');
+    if (item.matches('.profile-image-wrap, .section-heading > :first-child')) item.classList.add('reveal-left');
+    if (item.matches('.hero-art, .profile-prose, .section-heading > :last-child')) item.classList.add('reveal-right');
+    item.style.setProperty('--reveal-delay', `${(index % 5) * 55}ms`);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+
+  items.forEach((item) => observer.observe(item));
+}
+
+if (enhancementStyles.sheet) {
+  initMotion();
+} else {
+  enhancementStyles.addEventListener('load', initMotion, { once: true });
+  enhancementStyles.addEventListener('error', initMotion, { once: true });
+}
