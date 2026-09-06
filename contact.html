@@ -1,50 +1,49 @@
 <!doctype html>
-<html lang="en">
+<html lang="lt">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Contact Lithuanian composer Lukas Lazinka.">
-  <title>Contact — Lukas Lazinka</title>
+  <meta name="description" content="Susisiekite su kompozitoriumi Luku Lazinka.">
+  <title>Kontaktai — Lukas Lazinka</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body data-title-lt="Kontaktai — Lukas Lazinka" data-title-en="Contact — Lukas Lazinka" data-description-lt="Susisiekite su kompozitoriumi Luku Lazinka." data-description-en="Contact Lithuanian composer Lukas Lazinka.">
 <header class="site-header">
-  <a class="brand" href="index.html" aria-label="Lukas Lazinka home"><span class="brand-name">Lukas Lazinka</span><span class="brand-role">Composer</span></a>
-  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
-  <nav id="main-nav" class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="about.html">About</a><a href="music.html">Discography</a><a href="works.html">Scores</a><a href="inquiries.html">Inquiries</a><a class="active" href="contact.html">Contact</a></nav>
+  <a class="brand" href="index.html"><span class="brand-name">Lukas Lazinka</span><span class="brand-role" data-lt="Kompozitorius" data-en="Composer">Kompozitorius</span></a>
+  <div class="header-right">
+    <nav id="main-nav" class="main-nav"><a href="index.html" data-lt="Pagrindinis" data-en="Home">Pagrindinis</a><a href="about.html" data-lt="Apie mane" data-en="About">Apie mane</a><a href="music.html" data-lt="Diskografija" data-en="Discography">Diskografija</a><a href="works.html" data-lt="Partitūros" data-en="Scores">Partitūros</a><a href="inquiries.html" data-lt="Užklausos" data-en="Inquiries">Užklausos</a><a class="active" href="contact.html" data-lt="Kontaktai" data-en="Contact">Kontaktai</a></nav>
+    <div class="lang-switch"><button class="lang-current" type="button" data-lang-current>LT</button><div class="lang-menu"><button class="lang-option" type="button" data-lang-option="en">EN</button></div></div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" data-lt="Meniu" data-en="Menu">Meniu</button>
+  </div>
 </header>
 <main>
-  <section class="page-hero shell">
-    <p class="eyebrow">Contact · Susisiekime</p>
-    <h1>Contact</h1>
-    <p class="page-lead">Contact Lukas Lazinka directly or use the bilingual message form.</p>
-  </section>
+  <section class="page-hero shell"><p class="eyebrow" data-lt="Susisiekime" data-en="Get in touch">Susisiekime</p><h1 data-lt="Kontaktai" data-en="Contact">Kontaktai</h1><p class="page-lead" data-lt="Susisiekite tiesiogiai arba parašykite žinutę naudodami formą." data-en="Contact Lukas Lazinka directly or use the message form.">Susisiekite tiesiogiai arba parašykite žinutę naudodami formą.</p></section>
   <section class="content-grid shell">
-    <div class="content-label">Direct contact</div>
+    <div class="content-label" data-lt="Tiesioginis kontaktas" data-en="Direct contact">Tiesioginis kontaktas</div>
     <div>
       <div class="contact-list">
-        <div class="contact-row"><span>Email</span><a href="mailto:lazinka.music@gmail.com">lazinka.music@gmail.com</a></div>
-        <div class="contact-row"><span>Location</span><span>Vilnius, Lithuania</span></div>
+        <div class="contact-row"><span class="contact-key" data-lt="El. paštas" data-en="Email">El. paštas</span><a href="mailto:lazinka.music@gmail.com">lazinka.music@gmail.com</a></div>
+        <div class="contact-row"><span class="contact-key" data-lt="Vieta" data-en="Location">Vieta</span><span data-lt="Vilnius, Lietuva" data-en="Vilnius, Lithuania">Vilnius, Lietuva</span></div>
       </div>
       <div class="contact-form-wrap">
-        <form class="contact-form" data-mailto-form data-subject="Website contact — Lukas Lazinka">
-          <label>Vardas | Name <span>(required | privaloma)</span><input type="text" name="name" required autocomplete="name"></label>
-          <label>El. pašto adresas | Email <span>(required | privaloma)</span><input type="email" name="email" required autocomplete="email"></label>
-          <label>Jūsų žinutė | Message <span>(required | privaloma)</span><textarea name="message" rows="8" required></textarea></label>
-          <button class="button primary form-submit" type="submit">Siųsti | Send</button>
-          <p class="form-note">The form opens your email application and addresses the message to lazinka.music@gmail.com.</p>
+        <form class="contact-form" data-mailto-form data-subject-lt="Žinutė iš svetainės — Lukas Lazinka" data-subject-en="Website contact — Lukas Lazinka">
+          <label class="form-field"><span><span class="field-label" data-lt="Vardas" data-en="Name">Vardas</span><span class="field-required" data-lt="(privaloma)" data-en="(required)">(privaloma)</span></span><input type="text" name="name" required autocomplete="name" data-placeholder-lt="Jūsų vardas" data-placeholder-en="Your name" placeholder="Jūsų vardas"></label>
+          <label class="form-field"><span><span class="field-label" data-lt="El. pašto adresas" data-en="Email address">El. pašto adresas</span><span class="field-required" data-lt="(privaloma)" data-en="(required)">(privaloma)</span></span><input type="email" name="email" required autocomplete="email" data-placeholder-lt="jusu@email.lt" data-placeholder-en="you@example.com" placeholder="jusu@email.lt"></label>
+          <label class="form-field form-field-wide"><span><span class="field-label" data-lt="Jūsų žinutė" data-en="Your message">Jūsų žinutė</span><span class="field-required" data-lt="(privaloma)" data-en="(required)">(privaloma)</span></span><textarea name="message" rows="8" required data-placeholder-lt="Parašykite žinutę..." data-placeholder-en="Write your message..." placeholder="Parašykite žinutę..."></textarea></label>
+          <button class="button primary form-submit" type="submit" data-lt="Siųsti žinutę" data-en="Send message">Siųsti žinutę</button>
+          <p class="form-note" data-lt="Paspaudus „Siųsti žinutę“, bus atidaryta jūsų el. pašto programa ir paruoštas laiškas adresu lazinka.music@gmail.com." data-en="When you press “Send message”, your email application will open with a prepared message addressed to lazinka.music@gmail.com.">Paspaudus „Siųsti žinutę“, bus atidaryta jūsų el. pašto programa ir paruoštas laiškas adresu lazinka.music@gmail.com.</p>
         </form>
       </div>
       <div class="social-links">
-        <a href="https://open.spotify.com/artist/0OLJuP7L1mKxVhFV4AkyDA" target="_blank" rel="noopener">Spotify</a>
-        <a href="https://www.youtube.com/@LukasLazinka" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.facebook.com/llazinka" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://www.instagram.com/lukaslazinka" target="_blank" rel="noopener">Instagram</a>
+        <a class="social-button" data-social="spotify" href="https://open.spotify.com/artist/0OLJuP7L1mKxVhFV4AkyDA" target="_blank" rel="noopener"><span class="social-icon"></span><span>Spotify</span></a>
+        <a class="social-button" data-social="youtube" href="https://www.youtube.com/@LukasLazinka" target="_blank" rel="noopener"><span class="social-icon"></span><span>YouTube</span></a>
+        <a class="social-button" data-social="facebook" href="https://www.facebook.com/llazinka" target="_blank" rel="noopener"><span class="social-icon"></span><span>Facebook</span></a>
+        <a class="social-button" data-social="instagram" href="https://www.instagram.com/lukaslazinka" target="_blank" rel="noopener"><span class="social-icon"></span><span>Instagram</span></a>
       </div>
     </div>
   </section>
 </main>
-<footer class="site-footer shell"><div><strong>Lukas Lazinka</strong><span>Composer · Lithuania</span></div><div class="footer-right"><a href="mailto:lazinka.music@gmail.com">lazinka.music@gmail.com</a><span>© <span data-year></span> Lukas Lazinka. All rights reserved.</span></div></footer>
+<footer class="site-footer shell"><div><strong>Lukas Lazinka</strong><span data-lt="Kompozitorius · Lietuva" data-en="Composer · Lithuania">Kompozitorius · Lietuva</span><div class="social-links footer-socials"><a class="social-button" data-social="spotify" href="https://open.spotify.com/artist/0OLJuP7L1mKxVhFV4AkyDA" target="_blank" rel="noopener"><span class="social-icon"></span><span>Spotify</span></a><a class="social-button" data-social="youtube" href="https://www.youtube.com/@LukasLazinka" target="_blank" rel="noopener"><span class="social-icon"></span><span>YouTube</span></a><a class="social-button" data-social="facebook" href="https://www.facebook.com/llazinka" target="_blank" rel="noopener"><span class="social-icon"></span><span>Facebook</span></a><a class="social-button" data-social="instagram" href="https://www.instagram.com/lukaslazinka" target="_blank" rel="noopener"><span class="social-icon"></span><span>Instagram</span></a></div></div><div class="footer-right"><a href="mailto:lazinka.music@gmail.com">lazinka.music@gmail.com</a><span>© <span data-year></span> Lukas Lazinka. <span data-lt="Visos teisės saugomos." data-en="All rights reserved.">Visos teisės saugomos.</span></span></div></footer>
 </body>
 </html>
