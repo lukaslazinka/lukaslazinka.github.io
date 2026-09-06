@@ -1,9 +1,14 @@
-const SITE_ASSET_VERSION = '20260906-2225';
+const SITE_ASSET_VERSION = '20260906-2255';
 
 const enhancementStyles = document.createElement('link');
 enhancementStyles.rel = 'stylesheet';
 enhancementStyles.href = `enhancements.css?v=${SITE_ASSET_VERSION}`;
 document.head.appendChild(enhancementStyles);
+
+const paletteStyles = document.createElement('link');
+paletteStyles.rel = 'stylesheet';
+paletteStyles.href = `palette.css?v=${SITE_ASSET_VERSION}`;
+document.head.appendChild(paletteStyles);
 
 async function loadSitePhotos() {
   const definitions = [
