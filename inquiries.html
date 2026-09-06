@@ -22,12 +22,17 @@
   <section class="content-grid shell">
     <div class="content-label" data-lt="Žinutė" data-en="Message">Žinutė</div>
     <div class="contact-form-wrap" style="margin-top:0">
-      <form class="contact-form" data-mailto-form data-subject-lt="Profesinė užklausa iš svetainės — Lukas Lazinka" data-subject-en="Website inquiry — Lukas Lazinka">
+      <form class="contact-form" data-contact-form data-subject-lt="Profesinė užklausa iš svetainės — Lukas Lazinka" data-subject-en="Website inquiry — Lukas Lazinka" action="https://formsubmit.co/ajax/lazinka.music@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Profesinė užklausa iš svetainės — Lukas Lazinka">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_url" value="https://lukaslazinka.github.io/inquiries.html">
+        <input class="honey-field" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label class="form-field"><span><span class="field-label" data-lt="Vardas" data-en="Name">Vardas</span><span class="field-required" data-lt="(privaloma)" data-en="(required)">(privaloma)</span></span><input type="text" name="name" required autocomplete="name" data-placeholder-lt="Jūsų vardas" data-placeholder-en="Your name" placeholder="Jūsų vardas"></label>
         <label class="form-field"><span><span class="field-label" data-lt="El. pašto adresas" data-en="Email address">El. pašto adresas</span><span class="field-required" data-lt="(privaloma)" data-en="(required)">(privaloma)</span></span><input type="email" name="email" required autocomplete="email" data-placeholder-lt="jusu@email.lt" data-placeholder-en="you@example.com" placeholder="jusu@email.lt"></label>
         <label class="form-field form-field-wide"><span><span class="field-label" data-lt="Jūsų žinutė" data-en="Your message">Jūsų žinutė</span><span class="field-required" data-lt="(privaloma)" data-en="(required)">(privaloma)</span></span><textarea name="message" rows="8" required data-placeholder-lt="Trumpai aprašykite savo užklausą..." data-placeholder-en="Tell me briefly about your inquiry..." placeholder="Trumpai aprašykite savo užklausą..."></textarea></label>
         <button class="button primary form-submit" type="submit" data-lt="Siųsti žinutę" data-en="Send message">Siųsti žinutę</button>
-        <p class="form-note" data-lt="Paspaudus „Siųsti žinutę“, bus atidaryta jūsų el. pašto programa ir paruoštas laiškas adresu lazinka.music@gmail.com." data-en="When you press “Send message”, your email application will open with a prepared message addressed to lazinka.music@gmail.com.">Paspaudus „Siųsti žinutę“, bus atidaryta jūsų el. pašto programa ir paruoštas laiškas adresu lazinka.music@gmail.com.</p>
+        <p class="form-note" data-lt="Užklausa siunčiama tiesiai iš svetainės į lazinka.music@gmail.com — pašto programos atidaryti nereikės." data-en="Your inquiry is sent directly from the website to lazinka.music@gmail.com — no email application will open.">Užklausa siunčiama tiesiai iš svetainės į lazinka.music@gmail.com — pašto programos atidaryti nereikės.</p>
+        <p class="form-status" data-form-status aria-live="polite"></p>
       </form>
     </div>
   </section>
