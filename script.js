@@ -3,6 +3,13 @@ enhancementStyles.rel = 'stylesheet';
 enhancementStyles.href = 'enhancements.css';
 document.head.appendChild(enhancementStyles);
 
+if (document.querySelector('.photo-portrait')) {
+  const aboutPhotoStyles = document.createElement('link');
+  aboutPhotoStyles.rel = 'stylesheet';
+  aboutPhotoStyles.href = 'about-photo.css';
+  document.head.appendChild(aboutPhotoStyles);
+}
+
 const navToggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.main-nav');
 
