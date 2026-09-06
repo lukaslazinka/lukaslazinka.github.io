@@ -1,63 +1,66 @@
 <!doctype html>
-<html lang="en">
+<html lang="lt">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Official website of Lithuanian composer Lukas Lazinka — biography, discography, scores and contact information.">
-  <title>Lukas Lazinka — Composer</title>
+  <meta name="description" content="Oficiali Lietuvos kompozitoriaus Luko Lazinkos svetainė.">
+  <title>Lukas Lazinka — Kompozitorius</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body data-title-lt="Lukas Lazinka — Kompozitorius" data-title-en="Lukas Lazinka — Composer" data-description-lt="Oficiali Lietuvos kompozitoriaus Luko Lazinkos svetainė — biografija, diskografija, partitūros ir kontaktai." data-description-en="Official website of Lithuanian composer Lukas Lazinka — biography, discography, scores and contact information.">
 <header class="site-header">
-  <a class="brand" href="index.html" aria-label="Lukas Lazinka home"><span class="brand-name">Lukas Lazinka</span><span class="brand-role">Composer</span></a>
-  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
-  <nav id="main-nav" class="main-nav" aria-label="Main navigation"><a class="active" href="index.html">Home</a><a href="about.html">About</a><a href="music.html">Discography</a><a href="works.html">Scores</a><a href="inquiries.html">Inquiries</a><a href="contact.html">Contact</a></nav>
+  <a class="brand" href="index.html" aria-label="Lukas Lazinka"><span class="brand-name">Lukas Lazinka</span><span class="brand-role" data-lt="Kompozitorius" data-en="Composer">Kompozitorius</span></a>
+  <div class="header-right">
+    <nav id="main-nav" class="main-nav" aria-label="Main navigation">
+      <a class="active" href="index.html" data-lt="Pagrindinis" data-en="Home">Pagrindinis</a>
+      <a href="about.html" data-lt="Apie mane" data-en="About">Apie mane</a>
+      <a href="music.html" data-lt="Diskografija" data-en="Discography">Diskografija</a>
+      <a href="works.html" data-lt="Partitūros" data-en="Scores">Partitūros</a>
+      <a href="inquiries.html" data-lt="Užklausos" data-en="Inquiries">Užklausos</a>
+      <a href="contact.html" data-lt="Kontaktai" data-en="Contact">Kontaktai</a>
+    </nav>
+    <div class="lang-switch" aria-label="Language selector">
+      <button class="lang-current" type="button" data-lang-current>LT</button>
+      <div class="lang-menu"><button class="lang-option" type="button" data-lang-option="en">EN</button></div>
+    </div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" data-lt="Meniu" data-en="Menu">Meniu</button>
+  </div>
 </header>
 <main>
   <section class="hero shell">
     <div class="hero-copy">
-      <p class="eyebrow">Lithuanian composer · Vilnius</p>
-      <h1>Music between structure and emotion.</h1>
-      <p class="hero-lead">Official website of Lukas Lazinka — composer working across contemporary, electronic, classical and pop-influenced musical language.</p>
+      <p class="eyebrow" data-lt="Lietuvos kompozitorius · Vilnius" data-en="Lithuanian composer · Vilnius">Lietuvos kompozitorius · Vilnius</p>
+      <h1 data-lt="Muzika tarp struktūros ir emocijos." data-en="Music between structure and emotion.">Muzika tarp struktūros ir emocijos.</h1>
+      <p class="hero-lead" data-lt="Oficiali Luko Lazinkos svetainė — kompozitorius, kuriantis šiuolaikinės, elektroninės, klasikinės ir populiariosios muzikos sankirtoje." data-en="Official website of Lukas Lazinka — a composer working across contemporary, electronic, classical and pop-influenced musical language.">Oficiali Luko Lazinkos svetainė — kompozitorius, kuriantis šiuolaikinės, elektroninės, klasikinės ir populiariosios muzikos sankirtoje.</p>
       <div class="actions">
-        <a class="button primary" href="music.html">Explore discography</a>
-        <a class="button secondary" href="works.html">View scores</a>
+        <a class="button primary" href="music.html" data-lt="Peržiūrėti diskografiją" data-en="Explore discography">Peržiūrėti diskografiją</a>
+        <a class="button secondary" href="works.html" data-lt="Žiūrėti partitūras" data-en="View scores">Žiūrėti partitūras</a>
       </div>
       <div class="social-links">
-  <a href="https://open.spotify.com/artist/0OLJuP7L1mKxVhFV4AkyDA" target="_blank" rel="noopener">Spotify</a>
-  <a href="https://www.youtube.com/@LukasLazinka" target="_blank" rel="noopener">YouTube</a>
-  <a href="https://www.facebook.com/llazinka" target="_blank" rel="noopener">Facebook</a>
-  <a href="https://www.instagram.com/lukaslazinka" target="_blank" rel="noopener">Instagram</a>
-</div>
+        <a class="social-button" data-social="spotify" href="https://open.spotify.com/artist/0OLJuP7L1mKxVhFV4AkyDA" target="_blank" rel="noopener" aria-label="Spotify"><span class="social-icon"></span><span>Spotify</span></a>
+        <a class="social-button" data-social="youtube" href="https://www.youtube.com/@LukasLazinka" target="_blank" rel="noopener" aria-label="YouTube"><span class="social-icon"></span><span>YouTube</span></a>
+        <a class="social-button" data-social="facebook" href="https://www.facebook.com/llazinka" target="_blank" rel="noopener" aria-label="Facebook"><span class="social-icon"></span><span>Facebook</span></a>
+        <a class="social-button" data-social="instagram" href="https://www.instagram.com/lukaslazinka" target="_blank" rel="noopener" aria-label="Instagram"><span class="social-icon"></span><span>Instagram</span></a>
+      </div>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <div class="orb orb-one"></div><div class="orb orb-two"></div>
-      <div class="staff-line line-one"></div><div class="staff-line line-two"></div><div class="staff-line line-three"></div>
-      <div class="mark mark-one"></div><div class="mark mark-two"></div>
-    </div>
+    <div class="hero-art" aria-hidden="true"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="staff-line line-one"></div><div class="staff-line line-two"></div><div class="staff-line line-three"></div><div class="mark mark-one"></div><div class="mark mark-two"></div></div>
   </section>
 
   <section class="section shell">
-    <div class="section-heading"><p class="eyebrow">Portfolio</p><h2>The music, the story and the work.</h2></div>
+    <div class="section-heading"><p class="eyebrow" data-lt="Kūryba" data-en="Portfolio">Kūryba</p><h2 data-lt="Muzika, istorija ir kūrybinis darbas." data-en="The music, the story and the work.">Muzika, istorija ir kūrybinis darbas.</h2></div>
     <div class="card-grid">
-      <a class="feature-card" href="music.html"><span class="card-index">01</span><h3>Discography</h3><p>Singles and releases from 2019 onward, with Spotify players.</p><span class="card-link">Listen →</span></a>
-      <a class="feature-card" href="works.html"><span class="card-index">02</span><h3>Scores</h3><p>Published score material and downloadable PDFs.</p><span class="card-link">View scores →</span></a>
-      <a class="feature-card" href="about.html"><span class="card-index">03</span><h3>About</h3><p>Biography, musical education, ensembles and artistic profile.</p><span class="card-link">Read biography →</span></a>
+      <a class="feature-card" href="music.html"><span class="card-index">01</span><h3 data-lt="Diskografija" data-en="Discography">Diskografija</h3><p data-lt="Singlai, EP ir įrašai nuo 2019 metų su Spotify grotuvais." data-en="Singles and releases from 2019 onward, with Spotify players.">Singlai, EP ir įrašai nuo 2019 metų su Spotify grotuvais.</p><span class="card-link" data-lt="Klausytis →" data-en="Listen →">Klausytis →</span></a>
+      <a class="feature-card" href="works.html"><span class="card-index">02</span><h3 data-lt="Partitūros" data-en="Scores">Partitūros</h3><p data-lt="Publikuota natų medžiaga ir atsisiunčiamos PDF partitūros." data-en="Published score material and downloadable PDFs.">Publikuota natų medžiaga ir atsisiunčiamos PDF partitūros.</p><span class="card-link" data-lt="Žiūrėti partitūras →" data-en="View scores →">Žiūrėti partitūras →</span></a>
+      <a class="feature-card" href="about.html"><span class="card-index">03</span><h3 data-lt="Apie mane" data-en="About">Apie mane</h3><p data-lt="Biografija, muzikinis išsilavinimas, ansambliai ir kūrybinis profilis." data-en="Biography, musical education, ensembles and artistic profile.">Biografija, muzikinis išsilavinimas, ansambliai ir kūrybinis profilis.</p><span class="card-link" data-lt="Skaityti biografiją →" data-en="Read biography →">Skaityti biografiją →</span></a>
     </div>
   </section>
 
-  <section class="statement shell">
-    <p class="eyebrow">Lukas Lazinka</p>
-    <p class="statement-text">Varied, sensual and otherworldly music shaped by compositional systems and expressive contrast.</p>
-  </section>
+  <section class="statement shell"><p class="eyebrow">Lukas Lazinka</p><p class="statement-text" data-lt="Įvairi, jausminga ir nežemiška muzika, formuojama kompozicinių sistemų ir išraiškingų kontrastų." data-en="Varied, sensual and otherworldly music shaped by compositional systems and expressive contrast.">Įvairi, jausminga ir nežemiška muzika, formuojama kompozicinių sistemų ir išraiškingų kontrastų.</p></section>
 </main>
 <footer class="site-footer shell">
-  <div><strong>Lukas Lazinka</strong><span>Composer · Lithuania</span></div>
-  <div class="footer-right">
-    <a href="mailto:lazinka.music@gmail.com">lazinka.music@gmail.com</a>
-    <span>© <span data-year></span> Lukas Lazinka. All rights reserved.</span>
-  </div>
+  <div><strong>Lukas Lazinka</strong><span data-lt="Kompozitorius · Lietuva" data-en="Composer · Lithuania">Kompozitorius · Lietuva</span><div class="social-links footer-socials"><a class="social-button" data-social="spotify" href="https://open.spotify.com/artist/0OLJuP7L1mKxVhFV4AkyDA" target="_blank" rel="noopener" aria-label="Spotify"><span class="social-icon"></span><span>Spotify</span></a><a class="social-button" data-social="youtube" href="https://www.youtube.com/@LukasLazinka" target="_blank" rel="noopener" aria-label="YouTube"><span class="social-icon"></span><span>YouTube</span></a><a class="social-button" data-social="facebook" href="https://www.facebook.com/llazinka" target="_blank" rel="noopener" aria-label="Facebook"><span class="social-icon"></span><span>Facebook</span></a><a class="social-button" data-social="instagram" href="https://www.instagram.com/lukaslazinka" target="_blank" rel="noopener" aria-label="Instagram"><span class="social-icon"></span><span>Instagram</span></a></div></div>
+  <div class="footer-right"><a href="mailto:lazinka.music@gmail.com">lazinka.music@gmail.com</a><span>© <span data-year></span> Lukas Lazinka. <span data-lt="Visos teisės saugomos." data-en="All rights reserved.">Visos teisės saugomos.</span></span></div>
 </footer>
 </body>
 </html>
