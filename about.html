@@ -7,6 +7,8 @@
   <title>Apie mane — Lukas Lazinka</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="photos.css">
+  <link rel="stylesheet" href="about-photo.css">
+  <link rel="stylesheet" href="photo-fixes.css">
   <script src="script.js" defer></script>
 </head>
 <body data-title-lt="Apie mane — Lukas Lazinka" data-title-en="About — Lukas Lazinka" data-description-lt="Luko Lazinkos biografija, muzikinis išsilavinimas ir kūrybinis profilis." data-description-en="Biography, education and artistic profile of Lithuanian composer Lukas Lazinka.">
@@ -22,12 +24,21 @@
   <section class="page-hero shell"><p class="eyebrow" data-lt="Biografija" data-en="Biography">Biografija</p><h1 data-lt="Apie mane" data-en="About">Apie mane</h1><p class="page-lead" data-lt="Muzikinis išsilavinimas, atlikėjo patirtis ir kūrybinis kelias." data-en="Musical education, performance background and compositional profile.">Muzikinis išsilavinimas, atlikėjo patirtis ir kūrybinis kelias.</p></section>
 
   <section class="profile-layout shell">
-    <div class="profile-image-wrap"><div class="profile-image site-photo photo-portrait" role="img" aria-label="Lukas Lazinka"></div></div>
+    <div class="profile-image-wrap" data-lightbox-photo tabindex="0" role="button" aria-label="Padidinti Luko Lazinkos portretą"><div class="profile-image site-photo photo-portrait" role="img" aria-label="Lukas Lazinka"></div></div>
     <div class="prose profile-prose">
       <p data-lt="Lukas Lazinka gimė 2002 m. Ignalinoje, Lietuvoje. Jo muzikinis kelias prasidėjo 2009 m., kai jis pradėjo mokytis Ignalinos Česlovo Kudabos pradinėje mokykloje, dabar – Ignalinos Česlovo Kudabos gimnazijoje, ir tuo pat metu įstojo į Ignalinos muzikos mokyklos akordeono klasę. Vėliau ši mokykla buvo reorganizuota į Ignalinos Miko Petrausko muzikos mokyklą. Mokydamasis muzikos mokykloje Lukas dalyvavo įvairiuose koncertuose su mokyklos kolektyvais Ignalinos rajone ir užsienyje." data-en="Lukas Lazinka was born in 2002 in Ignalina, Lithuania. His musical journey began in 2009 when he enrolled in Ignalina Česlovas Kudaba primary school, now known as Ignalina Česlovas Kudaba gymnasium, and at the same time started his studies at Ignalina music school, accordion class, which was later reorganised into the Ignalina Mikas Petrauskas music school. While studying at the music school, Lukas took part in various concerts together with the music school's ensembles both in Ignalina district and abroad.">Lukas Lazinka gimė 2002 m. Ignalinoje, Lietuvoje. Jo muzikinis kelias prasidėjo 2009 m., kai jis pradėjo mokytis Ignalinos Česlovo Kudabos pradinėje mokykloje, dabar – Ignalinos Česlovo Kudabos gimnazijoje, ir tuo pat metu įstojo į Ignalinos muzikos mokyklos akordeono klasę. Vėliau ši mokykla buvo reorganizuota į Ignalinos Miko Petrausko muzikos mokyklą. Mokydamasis muzikos mokykloje Lukas dalyvavo įvairiuose koncertuose su mokyklos kolektyvais Ignalinos rajone ir užsienyje.</p>
       <p data-lt="2017 m. Lukas pradėjo mokytis Vilniaus Juozo Tallat-Kelpšos konservatorijoje, akordeono specialybėje. Konservatorijoje jis toliau tobulino akordeono atlikimo gebėjimus, aktyviai dalyvavo koncertuose, konkursuose ir festivaliuose Lietuvoje bei užsienyje. Jo solo ir ansambliniai pasirodymai buvo įvertinti prizais." data-en="In 2017 Lukas started his studies at the Vilnius Juozas Tallat-Kelpša conservatory, accordion specialty. At the conservatory he continued his development in accordion, actively participating in concerts, competitions and festivals in Lithuania and abroad. His performances, both solo and in ensembles, have been recognised and awarded prizes.">2017 m. Lukas pradėjo mokytis Vilniaus Juozo Tallat-Kelpšos konservatorijoje, akordeono specialybėje. Konservatorijoje jis toliau tobulino akordeono atlikimo gebėjimus, aktyviai dalyvavo koncertuose, konkursuose ir festivaliuose Lietuvoje bei užsienyje. Jo solo ir ansambliniai pasirodymai buvo įvertinti prizais.</p>
       <p data-lt="Dvyliktoje klasėje Lukas pradėjo studijuoti kompoziciją pas prof. Ričardą Kabelį. Tai tapo svarbia jo muzikinės veiklos kryptimi ir paskatino giliau domėtis kūryba bei kompozicinėmis technikomis. 2021 m. Lukas įstojo į Lietuvos muzikos ir teatro akademijos Kompozicijos katedrą, kur tęsė studijas pas prof. Ričardą Kabelį. 2016 m. jis buvo išrinktas Ignalinos metų jaunuoju talentu." data-en="In the twelfth grade of the Conservatory, Lukas started studying composition with Prof. Ričardas Kabelis, which became an important aspect of his musical activity and opened a deeper interest in creativity and compositional techniques. In 2021, Lukas enrolled at the Lithuanian Academy of Music and Theatre, Department of Composition, continuing his studies with Prof. Ričardas Kabelis. In 2016 he was named Ignalina Young Talent of the Year.">Dvyliktoje klasėje Lukas pradėjo studijuoti kompoziciją pas prof. Ričardą Kabelį. Tai tapo svarbia jo muzikinės veiklos kryptimi ir paskatino giliau domėtis kūryba bei kompozicinėmis technikomis. 2021 m. Lukas įstojo į Lietuvos muzikos ir teatro akademijos Kompozicijos katedrą, kur tęsė studijas pas prof. Ričardą Kabelį. 2016 m. jis buvo išrinktas Ignalinos metų jaunuoju talentu.</p>
     </div>
+  </section>
+
+  <section class="about-photo-strip shell" aria-label="Akimirkos">
+    <button type="button" class="photo-story-card site-photo photo-school" data-lightbox-photo aria-label="Padidinti Luko Lazinkos nuotrauką profesinėje aplinkoje">
+      <div class="photo-story-caption"><div><small data-lt="Profesinė veikla" data-en="Professional work">Profesinė veikla</small><strong data-lt="Muzika ir ugdymas" data-en="Music and education">Muzika ir ugdymas</strong></div><span>Vilnius</span></div>
+    </button>
+    <button type="button" class="photo-story-card site-photo photo-venice" data-lightbox-photo aria-label="Padidinti Luko Lazinkos nuotrauką Venecijoje">
+      <div class="photo-story-caption"><div><small data-lt="Akimirka" data-en="Moment">Akimirka</small><strong data-lt="Venecija" data-en="Venice">Venecija</strong></div><span>Italia</span></div>
+    </button>
   </section>
 
   <section class="section shell split-section"><div><p class="eyebrow" data-lt="Patirtis" data-en="Background">Patirtis</p><h2 data-lt="Muzikos kolektyvai" data-en="Music ensembles">Muzikos kolektyvai</h2></div><div class="timeline-list">
