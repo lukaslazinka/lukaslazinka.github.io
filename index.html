@@ -7,6 +7,8 @@
   <title>Lukas Lazinka — Kompozitorius</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="photos.css">
+  <link rel="stylesheet" href="about-photo.css">
+  <link rel="stylesheet" href="photo-fixes.css">
   <script src="script.js" defer></script>
 </head>
 <body data-title-lt="Lukas Lazinka — Kompozitorius" data-title-en="Lukas Lazinka — Composer" data-description-lt="Oficiali Lietuvos kompozitoriaus Luko Lazinkos svetainė — biografija, diskografija, partitūros ir kontaktai." data-description-en="Official website of Lithuanian composer Lukas Lazinka — biography, discography, scores and contact information.">
@@ -61,7 +63,7 @@
     </div>
 
     <div class="hero-art hero-portrait-art">
-      <img class="hero-portrait" src="https://lukaslazinka.wordpress.com/wp-content/uploads/2024/11/246129258_1048336289332294_410431248519094884_n.jpg" alt="Lukas Lazinka">
+      <div class="hero-portrait site-photo photo-portrait" data-lightbox-photo tabindex="0" role="img" aria-label="Lukas Lazinka"></div>
       <div class="hero-image-shade"></div>
       <div class="orb orb-one"></div><div class="orb orb-two"></div>
       <div class="staff-line line-one"></div><div class="staff-line line-two"></div><div class="staff-line line-three"></div>
@@ -78,12 +80,12 @@
   </section>
 
   <section class="home-visual-story shell" aria-label="Akimirkos">
-    <a class="photo-story-card site-photo photo-school" href="about.html" role="img" aria-label="Lukas Lazinka profesinėje aplinkoje">
+    <button type="button" class="photo-story-card site-photo photo-school" data-lightbox-photo aria-label="Padidinti Luko Lazinkos nuotrauką profesinėje aplinkoje">
       <div class="photo-story-caption"><div><small data-lt="Profesinė veikla" data-en="Professional work">Profesinė veikla</small><strong data-lt="Muzika ir ugdymas" data-en="Music and education">Muzika ir ugdymas</strong></div><span>Vilnius</span></div>
-    </a>
-    <a class="photo-story-card site-photo photo-venice" href="about.html" role="img" aria-label="Lukas Lazinka Venecijoje">
+    </button>
+    <button type="button" class="photo-story-card site-photo photo-venice" data-lightbox-photo aria-label="Padidinti Luko Lazinkos nuotrauką Venecijoje">
       <div class="photo-story-caption"><div><small data-lt="Akimirka" data-en="Moment">Akimirka</small><strong data-lt="Venecija" data-en="Venice">Venecija</strong></div><span>Italia</span></div>
-    </a>
+    </button>
   </section>
 
   <section class="section shell">
