@@ -1,0 +1,207 @@
+:root{
+  --blob-gold:#f0d27d;
+  --blob-gold-light:#fff1b8;
+  --blob-gold-deep:#b98727;
+  --blob-gold-soft:rgba(240,210,125,.11);
+  --blob-gold-mid:rgba(240,210,125,.24);
+  --blob-gold-strong:rgba(240,210,125,.46);
+}
+
+@keyframes blobGlowPulse{
+  0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.23),0 0 13px rgba(240,210,125,.10)}
+  50%{box-shadow:0 14px 32px rgba(0,0,0,.27),0 0 27px rgba(240,210,125,.24)}
+}
+@keyframes blobMiniFloat{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-2px) rotate(1deg)}
+}
+@keyframes blobSheen{
+  0%{transform:translateX(-170%) skewX(-18deg);opacity:0}
+  20%{opacity:.16}
+  52%{opacity:.44}
+  100%{transform:translateX(390%) skewX(-18deg);opacity:0}
+}
+
+/* Sitewide organic control language. */
+.button,
+.social-button,
+.lang-current,
+.lang-option,
+.nav-toggle,
+.form-submit,
+.photo-lightbox-close,
+.text-action{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  border-color:rgba(240,210,125,.34) !important;
+  box-shadow:0 10px 26px rgba(0,0,0,.20),0 0 15px rgba(240,210,125,.10) !important;
+  transition:transform .25s ease,border-radius .38s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease,color .25s ease !important;
+}
+
+.button::before,
+.social-button::before,
+.lang-current::before,
+.lang-option::before,
+.nav-toggle::before,
+.form-submit::before,
+.photo-lightbox-close::before,
+.text-action::before{
+  content:"";
+  position:absolute;
+  top:-70%;
+  bottom:-70%;
+  left:-34%;
+  width:24%;
+  pointer-events:none;
+  z-index:-1;
+  background:linear-gradient(90deg,transparent,rgba(255,247,209,.48),transparent);
+  transform:translateX(-170%) skewX(-18deg);
+}
+
+.button:hover::before,
+.social-button:hover::before,
+.lang-current:hover::before,
+.lang-option:hover::before,
+.nav-toggle:hover::before,
+.form-submit:hover::before,
+.photo-lightbox-close:hover::before,
+.text-action:hover::before{animation:blobSheen .9s ease both}
+
+.button:hover,
+.social-button:hover,
+.lang-current:hover,
+.lang-option:hover,
+.nav-toggle:hover,
+.form-submit:hover,
+.photo-lightbox-close:hover,
+.text-action:hover{
+  transform:translateY(-3px) scale(1.025) !important;
+  border-color:rgba(255,229,145,.76) !important;
+  box-shadow:0 17px 36px rgba(0,0,0,.28),0 0 28px rgba(240,210,125,.24) !important;
+}
+
+/* Main buttons: different blob silhouettes throughout the site. */
+.button{
+  color:#f8e8b6 !important;
+  background:linear-gradient(135deg,rgba(240,210,125,.10),rgba(240,210,125,.025)) !important;
+  border-radius:52% 48% 43% 57% / 55% 42% 58% 45% !important;
+  padding:12px 20px !important;
+}
+.button:nth-of-type(2n){border-radius:41% 59% 57% 43% / 48% 61% 39% 52% !important}
+.button:nth-of-type(3n){border-radius:60% 40% 51% 49% / 39% 56% 44% 61% !important}
+.button.primary{
+  color:#171208 !important;
+  border-color:rgba(255,238,170,.72) !important;
+  background:linear-gradient(130deg,#fff1b8 0%,#f0d27d 43%,#c69535 100%) !important;
+  box-shadow:0 12px 30px rgba(0,0,0,.24),0 0 22px rgba(240,210,125,.18) !important;
+  animation:blobGlowPulse 4.8s ease-in-out infinite;
+}
+.button.primary:hover{
+  color:#120f08 !important;
+  border-radius:43% 57% 56% 44% / 43% 61% 39% 57% !important;
+  background:linear-gradient(125deg,#fff7d4 0%,#f1d37f 44%,#d2a340 100%) !important;
+}
+.button.secondary:hover{
+  border-radius:61% 39% 45% 55% / 58% 41% 59% 42% !important;
+  background:linear-gradient(135deg,rgba(240,210,125,.20),rgba(255,255,255,.035)) !important;
+}
+
+/* Small controls are blobs too, not plain rectangles. */
+.lang-current{border-radius:57% 43% 52% 48% / 43% 58% 42% 57% !important;color:#f5dda0 !important}
+.lang-option{border-radius:42% 58% 61% 39% / 58% 45% 55% 42% !important;color:#f5dda0 !important}
+.nav-toggle{border-radius:61% 39% 48% 52% / 52% 61% 39% 48% !important;color:#f5dda0 !important}
+.photo-lightbox-close{border-radius:43% 57% 61% 39% / 57% 41% 59% 43% !important;color:#f5dda0 !important}
+.form-submit{border-radius:56% 44% 62% 38% / 42% 57% 43% 58% !important;animation:blobGlowPulse 4.5s ease-in-out infinite}
+
+/* Social buttons alternate between visibly organic forms. */
+.social-links .social-button{
+  color:#f2dda4 !important;
+  background:linear-gradient(135deg,rgba(240,210,125,.07),rgba(255,255,255,.012)) !important;
+}
+.social-links .social-button:nth-child(1){border-radius:61% 39% 52% 48% / 46% 61% 39% 54% !important}
+.social-links .social-button:nth-child(2){border-radius:41% 59% 62% 38% / 58% 43% 57% 42% !important}
+.social-links .social-button:nth-child(3){border-radius:56% 44% 38% 62% / 41% 57% 43% 59% !important}
+.social-links .social-button:nth-child(4){border-radius:39% 61% 54% 46% / 62% 40% 60% 38% !important}
+.social-links .social-button:hover{background:rgba(240,210,125,.13) !important}
+
+/* Compact text actions become tiny gold organic chips. */
+.text-action{
+  border:1px solid rgba(240,210,125,.28) !important;
+  border-bottom:1px solid rgba(240,210,125,.38) !important;
+  border-radius:55% 45% 59% 41% / 43% 62% 38% 57% !important;
+  padding:7px 12px !important;
+  color:#eed89c !important;
+  background:rgba(240,210,125,.04) !important;
+}
+
+/* Play button becomes an animated gold drop. */
+.release-play{
+  color:#f4dda0 !important;
+  border:1px solid rgba(240,210,125,.46) !important;
+  border-radius:64% 36% 55% 45% / 42% 60% 40% 58% !important;
+  background:linear-gradient(135deg,rgba(255,240,180,.17),rgba(240,210,125,.04)) !important;
+  box-shadow:0 0 20px rgba(240,210,125,.13) !important;
+  animation:blobMiniFloat 3.7s ease-in-out infinite;
+}
+.selected-release:hover .release-play{box-shadow:0 0 29px rgba(240,210,125,.28) !important}
+
+/* More gold on interaction-heavy details. */
+.card-link,
+.work-arrow,
+.release-arrow,
+.discog-year,
+.timeline-item span,
+.score-price,
+.score-edition-number,
+.fact-number,
+.hero-year-chip,
+.text-action,
+.contact-key{
+  color:var(--blob-gold) !important;
+  text-shadow:0 0 13px rgba(240,210,125,.20) !important;
+}
+
+/* Inputs get gold focus halos to match the buttons. */
+.contact-form input:focus,
+.contact-form textarea:focus{
+  border-color:rgba(240,210,125,.72) !important;
+  box-shadow:0 0 0 2px rgba(240,210,125,.10),0 0 20px rgba(240,210,125,.08) !important;
+}
+
+/* Gold edge halo on panels and cards. */
+.feature-card,
+.selected-release,
+.embed-card,
+.video-card,
+.score-edition,
+.work-row,
+.work-index>a,
+.timeline-item,
+.discog-row,
+.contact-row,
+.press-photo-card{
+  border-color:rgba(240,210,125,.16) !important;
+}
+.feature-card:hover,
+.selected-release:hover,
+.embed-card:hover,
+.video-card:hover,
+.score-edition:hover,
+.work-row:hover,
+.work-index>a:hover,
+.timeline-item:hover,
+.discog-row:hover,
+.contact-row:hover,
+.press-photo-card:hover{
+  border-color:rgba(240,210,125,.46) !important;
+  box-shadow:0 16px 38px rgba(0,0,0,.22),0 0 24px rgba(240,210,125,.12) !important;
+}
+
+@media(max-width:760px){
+  .button,.social-button,.lang-current,.lang-option,.nav-toggle,.form-submit,.photo-lightbox-close,.text-action,.release-play{animation:none !important}
+  .button:hover,.social-button:hover,.lang-current:hover,.lang-option:hover,.nav-toggle:hover,.form-submit:hover,.photo-lightbox-close:hover,.text-action:hover{transform:translateY(-2px) !important}
+}
+@media(prefers-reduced-motion:reduce){
+  .button,.social-button,.lang-current,.lang-option,.nav-toggle,.form-submit,.photo-lightbox-close,.text-action,.release-play{animation:none !important}
+}
