@@ -1,0 +1,446 @@
+/* 2026-09-07: modern editorial-gold refinement. Mostly hover/transform effects; no fullscreen blur animation. */
+
+:root{
+  --modern-gold:#f4d77d;
+  --modern-gold-2:#c99b3e;
+  --modern-ivory:#fff4d2;
+  --modern-ink:#17130c;
+  --modern-line:rgba(244,215,125,.28);
+  --modern-panel:rgba(58,43,17,.22);
+  --modern-panel-strong:rgba(93,68,23,.30);
+}
+
+/* Make the whole visual language warmer and less empty-black. */
+body{
+  background-color:#15120d !important;
+}
+main{
+  position:relative;
+}
+main::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(ellipse 42% 24% at 52% 18%,rgba(244,215,125,.07),transparent 72%),
+    radial-gradient(ellipse 35% 22% at 18% 44%,rgba(201,155,62,.065),transparent 74%),
+    radial-gradient(ellipse 42% 24% at 86% 76%,rgba(244,215,125,.055),transparent 74%);
+}
+
+/* Modern pill navigation without losing the editorial character. */
+.main-nav{
+  gap:5px !important;
+}
+.main-nav a{
+  position:relative;
+  padding:8px 11px !important;
+  border:1px solid transparent;
+  border-radius:999px;
+  transition:background .25s ease,border-color .25s ease,color .25s ease,box-shadow .25s ease,transform .25s ease !important;
+}
+.main-nav a::after{
+  display:none !important;
+}
+.main-nav a:hover{
+  color:var(--modern-ivory) !important;
+  border-color:rgba(244,215,125,.28);
+  background:linear-gradient(135deg,rgba(244,215,125,.10),rgba(244,215,125,.025));
+  box-shadow:0 0 20px rgba(244,215,125,.09);
+  transform:translateY(-1px);
+}
+.main-nav a.active{
+  color:#171208 !important;
+  border-color:rgba(255,240,180,.70) !important;
+  background:linear-gradient(120deg,#fff0b5,#e4c25f 52%,#b58128) !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.22),0 0 24px rgba(244,215,125,.16) !important;
+  text-shadow:none !important;
+}
+
+/* Brand gets a cleaner high-fashion lockup. */
+.brand-name{
+  letter-spacing:-.025em;
+}
+.brand-role{
+  letter-spacing:.16em !important;
+  text-transform:uppercase;
+}
+
+/* Hero typography feels more contemporary and dimensional. */
+.hero h1,.page-hero h1{
+  letter-spacing:-.045em !important;
+  line-height:.94 !important;
+}
+.hero-rich{
+  border-radius:0 0 44px 44px;
+}
+.hero-art{
+  border-radius:42% 58% 48% 52% / 53% 43% 57% 47% !important;
+  overflow:hidden;
+  box-shadow:0 28px 70px rgba(0,0,0,.28),0 0 0 1px rgba(244,215,125,.18),0 0 54px rgba(244,215,125,.10) !important;
+  transition:transform .42s cubic-bezier(.22,1,.36,1),box-shadow .42s ease,border-radius .55s ease !important;
+}
+.hero-art:hover{
+  transform:translateY(-7px) scale(1.012) rotate(.35deg);
+  border-radius:48% 52% 56% 44% / 45% 58% 42% 55% !important;
+  box-shadow:0 34px 80px rgba(0,0,0,.32),0 0 0 1px rgba(255,230,147,.35),0 0 72px rgba(244,215,125,.18) !important;
+}
+
+/* A little more visual motion in the call-to-action cluster. */
+.actions{
+  align-items:center;
+}
+.button{
+  min-height:48px;
+  letter-spacing:.015em;
+}
+.button:active,.social-button:active,.lang-current:active,.lang-option:active{
+  transform:translateY(1px) scale(.96) rotate(-.4deg) !important;
+}
+
+/* More modern homepage facts. */
+.home-facts{
+  gap:13px !important;
+  padding-top:28px !important;
+  padding-bottom:34px !important;
+}
+.home-fact{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(244,215,125,.19) !important;
+  border-radius:26px !important;
+  padding:20px 22px !important;
+  background:linear-gradient(145deg,rgba(108,78,25,.18),rgba(255,255,255,.012)) !important;
+  transition:transform .32s cubic-bezier(.22,1,.36,1),border-color .3s ease,background .3s ease,box-shadow .3s ease !important;
+}
+.home-fact::after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  right:-42px;
+  top:-48px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(244,215,125,.18),transparent 68%);
+  opacity:.8;
+  transition:transform .4s ease,opacity .4s ease;
+}
+.home-fact:hover{
+  transform:translateY(-7px) scale(1.015);
+  border-color:rgba(244,215,125,.45) !important;
+  background:linear-gradient(145deg,rgba(145,103,30,.28),rgba(255,255,255,.018)) !important;
+  box-shadow:0 18px 42px rgba(0,0,0,.24),0 0 32px rgba(244,215,125,.09) !important;
+}
+.home-fact:hover::after{transform:scale(1.45);opacity:1}
+.fact-number{
+  font-size:clamp(1.6rem,2.5vw,2.45rem) !important;
+  letter-spacing:-.035em;
+}
+
+/* Feature cards: asymmetrical modern editorial grid. */
+.card-grid{
+  align-items:stretch;
+}
+.feature-card{
+  position:relative;
+  border-radius:30px !important;
+  padding:28px 26px 30px !important;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 84% 13%,rgba(255,229,144,.12),transparent 25%),
+    linear-gradient(145deg,rgba(107,76,24,.20),rgba(255,255,255,.012)) !important;
+  border:1px solid rgba(244,215,125,.20) !important;
+  transform-origin:center;
+  transition:transform .38s cubic-bezier(.22,1,.36,1),border-color .3s ease,background .3s ease,box-shadow .3s ease,opacity .3s ease !important;
+}
+.feature-card:nth-child(2n){transform:translateY(14px)}
+.feature-card::before{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  right:-76px;
+  bottom:-78px;
+  border:1px solid rgba(244,215,125,.18);
+  border-radius:58% 42% 64% 36% / 44% 59% 41% 56%;
+  transition:transform .55s cubic-bezier(.22,1,.36,1),border-color .3s ease,background .3s ease;
+}
+.feature-card:hover{
+  transform:translateY(-9px) rotate(-.35deg) scale(1.018) !important;
+  border-color:rgba(255,231,149,.52) !important;
+  background:
+    radial-gradient(circle at 84% 13%,rgba(255,232,153,.20),transparent 28%),
+    linear-gradient(145deg,rgba(137,96,28,.30),rgba(255,255,255,.018)) !important;
+  box-shadow:0 24px 54px rgba(0,0,0,.28),0 0 42px rgba(244,215,125,.12) !important;
+}
+.feature-card:hover::before{
+  transform:translate(-28px,-28px) rotate(28deg) scale(1.08);
+  border-color:rgba(255,235,171,.34);
+  background:rgba(244,215,125,.035);
+}
+.feature-card h3{
+  transition:transform .32s cubic-bezier(.22,1,.36,1),color .25s ease;
+}
+.feature-card:hover h3{transform:translateX(5px);color:#fff4d0 !important}
+.feature-card .card-link{transition:letter-spacing .3s ease,transform .3s ease,color .3s ease}
+.feature-card:hover .card-link{letter-spacing:.035em;transform:translateX(5px);color:#ffe49a !important}
+
+/* Focus the hovered object, a subtle interaction modern portfolio sites use. */
+@media (hover:hover){
+  .card-grid:has(.feature-card:hover) .feature-card:not(:hover){opacity:.62;transform:scale(.985)}
+  .timeline-list:has(.timeline-item:hover) .timeline-item:not(:hover){opacity:.48}
+  .social-links:has(.social-button:hover) .social-button:not(:hover){opacity:.58;transform:scale(.965)}
+  .about-compass-nav:has(.about-choice:hover) .about-choice:not(:hover){opacity:.55}
+  .discover-tabs:has(.discover-tab:hover) .discover-tab:not(:hover){opacity:.58}
+}
+
+/* Selected release becomes an expressive gold capsule. */
+.selected-release{
+  border-radius:32px !important;
+  background:
+    radial-gradient(circle at 12% 50%,rgba(244,215,125,.18),transparent 26%),
+    linear-gradient(130deg,rgba(121,88,28,.22),rgba(255,255,255,.012)) !important;
+}
+.selected-release:hover{
+  transform:translateY(-5px) scale(1.012) !important;
+  box-shadow:0 20px 44px rgba(0,0,0,.25),0 0 36px rgba(244,215,125,.13) !important;
+}
+.release-play{
+  box-shadow:0 0 0 1px rgba(255,235,170,.22),0 0 24px rgba(244,215,125,.16) !important;
+}
+
+/* Photo story cards feel like art-direction, not standard cards. */
+.photo-story-card{
+  border-radius:34px !important;
+  overflow:hidden;
+  transition:transform .42s cubic-bezier(.22,1,.36,1),box-shadow .35s ease,border-radius .55s ease !important;
+}
+.photo-story-card:nth-child(2){border-radius:52% 48% 32px 32px / 20% 20% 32px 32px !important}
+.photo-story-card:hover{
+  transform:translateY(-8px) scale(1.018) rotate(.25deg) !important;
+  box-shadow:0 30px 62px rgba(0,0,0,.30),0 0 42px rgba(244,215,125,.13) !important;
+}
+.photo-story-caption{
+  border-radius:20px !important;
+  margin:12px;
+  width:calc(100% - 24px) !important;
+  background:linear-gradient(135deg,rgba(26,20,10,.88),rgba(64,46,16,.66)) !important;
+  border:1px solid rgba(244,215,125,.20);
+}
+
+/* About page: stronger editorial identity and more interaction. */
+body[data-title-lt^="Apie mane"] .page-hero{
+  position:relative;
+  overflow:hidden;
+  padding-bottom:70px !important;
+}
+body[data-title-lt^="Apie mane"] .page-hero::after{
+  content:"ABOUT";
+  position:absolute;
+  right:clamp(20px,7vw,110px);
+  bottom:-.22em;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(5.5rem,15vw,14rem);
+  line-height:1;
+  letter-spacing:-.07em;
+  color:rgba(244,215,125,.045);
+  pointer-events:none;
+  user-select:none;
+}
+body[data-title-lt^="Apie mane"] .profile-layout{
+  position:relative;
+  gap:clamp(38px,7vw,90px) !important;
+  align-items:center !important;
+  padding-top:76px !important;
+  padding-bottom:86px !important;
+}
+.profile-image-wrap{
+  position:relative;
+  border-radius:44% 56% 48% 52% / 57% 43% 57% 43% !important;
+  padding:8px !important;
+  background:linear-gradient(135deg,rgba(255,239,181,.62),rgba(181,127,33,.22),rgba(255,245,209,.16)) !important;
+  box-shadow:0 28px 74px rgba(0,0,0,.30),0 0 52px rgba(244,215,125,.15) !important;
+  transition:transform .42s cubic-bezier(.22,1,.36,1),border-radius .55s ease,box-shadow .35s ease !important;
+}
+.profile-image-wrap::before{
+  content:"COMPOSER";
+  position:absolute;
+  z-index:4;
+  top:24px;
+  left:-24px;
+  padding:8px 13px;
+  border:1px solid rgba(255,231,151,.42);
+  border-radius:999px;
+  background:linear-gradient(120deg,rgba(26,20,9,.92),rgba(91,64,20,.78));
+  color:#f8dd8c;
+  font-size:.63rem;
+  font-weight:850;
+  letter-spacing:.16em;
+  box-shadow:0 12px 28px rgba(0,0,0,.26),0 0 22px rgba(244,215,125,.10);
+}
+.profile-image-wrap::after{
+  content:"VILNIUS · LT";
+  position:absolute;
+  z-index:4;
+  right:-18px;
+  bottom:28px;
+  padding:8px 13px;
+  border:1px solid rgba(255,231,151,.34);
+  border-radius:999px;
+  background:linear-gradient(120deg,rgba(26,20,9,.90),rgba(91,64,20,.72));
+  color:#ead28c;
+  font-size:.61rem;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+.profile-image-wrap:hover{
+  transform:translateY(-9px) rotate(-.6deg) scale(1.018) !important;
+  border-radius:52% 48% 57% 43% / 45% 59% 41% 55% !important;
+  box-shadow:0 36px 88px rgba(0,0,0,.34),0 0 70px rgba(244,215,125,.22) !important;
+}
+.profile-image{border-radius:inherit !important}
+.profile-prose{
+  position:relative;
+  padding:34px 34px 34px 40px !important;
+  border:1px solid rgba(244,215,125,.17);
+  border-radius:32px;
+  background:linear-gradient(145deg,rgba(101,73,23,.16),rgba(255,255,255,.008));
+  box-shadow:0 20px 56px rgba(0,0,0,.16);
+}
+.profile-prose p:first-child::first-letter{
+  float:left;
+  margin:.05em .10em 0 0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:4.3rem;
+  line-height:.78;
+  color:#f2cf69;
+  text-shadow:0 0 24px rgba(244,215,125,.18);
+}
+
+/* Number the ensemble timeline automatically and turn it into responsive interactive rows. */
+.timeline-list{counter-reset:ensemble}
+.timeline-item{
+  counter-increment:ensemble;
+  position:relative;
+  padding:22px 24px 22px 74px !important;
+  border-radius:24px !important;
+  background:linear-gradient(135deg,rgba(94,68,23,.12),rgba(255,255,255,.008)) !important;
+  transition:transform .32s cubic-bezier(.22,1,.36,1),opacity .28s ease,border-color .28s ease,background .28s ease,box-shadow .28s ease !important;
+}
+.timeline-item::before{
+  content:counter(ensemble,decimal-leading-zero);
+  position:absolute;
+  left:20px;
+  top:20px;
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:linear-gradient(135deg,#f4d77d,#b98226);
+  color:#171208;
+  font-size:.68rem;
+  font-weight:900;
+  box-shadow:0 0 20px rgba(244,215,125,.13);
+}
+.timeline-item:hover{
+  transform:translateX(10px) scale(1.012) !important;
+  border-color:rgba(244,215,125,.42) !important;
+  background:linear-gradient(135deg,rgba(140,98,28,.24),rgba(255,255,255,.012)) !important;
+  box-shadow:0 16px 38px rgba(0,0,0,.19),0 0 28px rgba(244,215,125,.08) !important;
+}
+
+/* Existing interactive biography + DNA sections become more premium and bright. */
+.discover-panel,.dna-panel,.about-compass-panel{
+  background:
+    radial-gradient(circle at 84% 16%,rgba(255,229,143,.16),transparent 29%),
+    radial-gradient(circle at 12% 88%,rgba(190,137,42,.095),transparent 30%),
+    linear-gradient(145deg,rgba(112,80,25,.23),rgba(255,255,255,.012)) !important;
+  border-color:rgba(244,215,125,.27) !important;
+  box-shadow:0 28px 70px rgba(0,0,0,.22),0 0 42px rgba(244,215,125,.075) !important;
+}
+.discover-tab,.dna-node,.about-choice{
+  border-width:1px !important;
+  box-shadow:0 8px 22px rgba(0,0,0,.14),0 0 14px rgba(244,215,125,.035);
+}
+.discover-tab:hover,.dna-node:hover,.about-choice:hover{
+  box-shadow:0 14px 32px rgba(0,0,0,.20),0 0 26px rgba(244,215,125,.13) !important;
+}
+.dna-core{
+  box-shadow:0 20px 46px rgba(0,0,0,.22),0 0 48px rgba(244,215,125,.19) !important;
+}
+
+/* Statement as a big contemporary editorial quote. */
+.statement{
+  position:relative;
+  border-radius:42px !important;
+  margin-top:70px !important;
+  margin-bottom:70px !important;
+  padding:54px clamp(30px,6vw,76px) !important;
+  overflow:hidden;
+  border:1px solid rgba(244,215,125,.20) !important;
+  background:
+    radial-gradient(circle at 88% 25%,rgba(255,231,151,.13),transparent 30%),
+    linear-gradient(135deg,rgba(117,82,24,.20),rgba(255,255,255,.008)) !important;
+}
+.statement::after{
+  content:"✦";
+  position:absolute;
+  right:clamp(24px,6vw,70px);
+  top:18px;
+  font-size:clamp(4rem,9vw,8rem);
+  color:rgba(244,215,125,.10);
+  transform:rotate(12deg);
+}
+.statement-text{
+  max-width:980px;
+  font-size:clamp(1.55rem,3.1vw,3.15rem) !important;
+  line-height:1.08 !important;
+  letter-spacing:-.035em;
+}
+
+/* Utility rename requested earlier. */
+.footer-utility a[href="press.html"]{
+  font-size:0 !important;
+}
+.footer-utility a[href="press.html"]::after{
+  content:"Press";
+  font-size:.75rem;
+}
+
+/* Slightly richer social controls. */
+.social-button{
+  background:linear-gradient(135deg,rgba(113,81,25,.17),rgba(255,255,255,.01)) !important;
+  border-color:rgba(244,215,125,.22) !important;
+}
+.social-button:hover{
+  background:linear-gradient(135deg,rgba(164,117,31,.30),rgba(255,255,255,.018)) !important;
+  border-color:rgba(255,232,151,.52) !important;
+  box-shadow:0 14px 30px rgba(0,0,0,.22),0 0 30px rgba(244,215,125,.14) !important;
+}
+
+@media(max-width:900px){
+  .feature-card:nth-child(2n){transform:none}
+  body[data-title-lt^="Apie mane"] .profile-layout{padding-top:48px !important;padding-bottom:58px !important}
+  .profile-prose{padding:28px !important}
+  .profile-image-wrap::before{left:10px}
+  .profile-image-wrap::after{right:10px}
+}
+
+@media(max-width:620px){
+  .main-nav a{border-radius:18px}
+  .home-fact{border-radius:22px !important}
+  .feature-card{border-radius:24px !important}
+  .photo-story-card,.photo-story-card:nth-child(2){border-radius:26px !important}
+  body[data-title-lt^="Apie mane"] .page-hero::after{font-size:28vw;right:10px}
+  .profile-prose{border-radius:24px}
+  .timeline-item{padding-left:66px !important}
+  .statement{border-radius:28px !important;padding:40px 24px !important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-art,.feature-card,.home-fact,.photo-story-card,.profile-image-wrap,.timeline-item,.button,.social-button,.main-nav a{
+    transition:none !important;
+  }
+}
