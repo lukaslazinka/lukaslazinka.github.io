@@ -400,3 +400,230 @@ body::before{display:none !important;}
   .work-row{grid-template-columns:48px minmax(0,1fr) 20px;gap:14px;}
   .work-main strong{font-size:1.3rem;}
 }
+
+/* Atmospheric concert-light layer: more life without returning to the old purple app look. */
+body{
+  position:relative;
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(211,188,149,.07),transparent 31rem),
+    radial-gradient(circle at 88% 10%,rgba(255,255,255,.045),transparent 28rem),
+    radial-gradient(circle at 55% 72%,rgba(184,157,116,.035),transparent 36rem),
+    #0d0d0e !important;
+}
+body::before{
+  content:"";
+  display:block !important;
+  position:fixed;
+  inset:-18vh -12vw;
+  pointer-events:none;
+  z-index:0;
+  opacity:.72;
+  background:
+    radial-gradient(ellipse at 18% 0%,rgba(244,221,180,.11),transparent 34%),
+    radial-gradient(ellipse at 78% 5%,rgba(255,255,255,.07),transparent 28%),
+    radial-gradient(ellipse at 54% 95%,rgba(175,143,96,.055),transparent 32%);
+  filter:blur(12px);
+  animation:ambient-stage-drift 16s ease-in-out infinite alternate;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.12;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.014) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.65),transparent 84%);
+}
+main,.site-footer{position:relative;z-index:1;}
+.site-header{z-index:30;}
+
+@keyframes ambient-stage-drift{
+  0%{transform:translate3d(-1.5%,0,0) scale(1);opacity:.58;}
+  50%{opacity:.78;}
+  100%{transform:translate3d(2.2%,-1.6%,0) scale(1.035);opacity:.66;}
+}
+@keyframes soft-gold-pulse{
+  0%,100%{box-shadow:0 0 0 rgba(200,177,138,0);}
+  50%{box-shadow:0 0 38px rgba(200,177,138,.09);}
+}
+@keyframes title-breathe{
+  0%,100%{text-shadow:0 0 0 rgba(225,205,170,0);}
+  50%{text-shadow:0 0 24px rgba(225,205,170,.10);}
+}
+@keyframes shine-sweep{
+  0%{transform:translateX(-155%) skewX(-18deg);opacity:0;}
+  16%{opacity:.42;}
+  38%,100%{transform:translateX(260%) skewX(-18deg);opacity:0;}
+}
+
+.page-hero,.hero{
+  position:relative;
+  isolation:isolate;
+}
+.page-hero::before,.hero::before{
+  content:"";
+  position:absolute;
+  width:min(62vw,760px);
+  height:260px;
+  left:-8%;
+  top:18%;
+  z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(ellipse,rgba(208,184,145,.105),transparent 68%);
+  filter:blur(22px);
+  animation:soft-gold-pulse 7.5s ease-in-out infinite;
+}
+.page-hero h1,.hero h1,.statement h2{
+  animation:title-breathe 8s ease-in-out infinite;
+}
+
+.site-header{
+  border-bottom-color:rgba(255,255,255,.10) !important;
+  box-shadow:0 12px 34px rgba(0,0,0,.15) !important;
+}
+.site-header.scrolled{
+  box-shadow:0 14px 42px rgba(0,0,0,.30),0 1px 0 rgba(200,177,138,.08) !important;
+}
+.main-nav a{
+  position:relative;
+  transition:color .28s ease,opacity .28s ease !important;
+}
+.main-nav a::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  right:50%;
+  bottom:-8px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  box-shadow:0 0 10px rgba(200,177,138,.35);
+  transition:left .28s ease,right .28s ease,opacity .28s ease;
+  opacity:0;
+}
+.main-nav a:hover::after,.main-nav a.active::after{left:10%;right:10%;opacity:1;}
+
+.button{
+  position:relative;
+  overflow:hidden;
+  transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease !important;
+}
+.button::before{
+  content:"";
+  position:absolute;
+  top:-40%;
+  bottom:-40%;
+  left:-30%;
+  width:28%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+  transform:translateX(-155%) skewX(-18deg);
+  pointer-events:none;
+}
+.button:hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.24),0 0 24px rgba(200,177,138,.07) !important;
+}
+.button:hover::before{animation:shine-sweep 1.25s ease both;}
+
+.eyebrow{
+  text-shadow:0 0 16px rgba(200,177,138,.13);
+}
+.section-heading{
+  position:relative;
+}
+.section-heading::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-1px;
+  width:96px;
+  height:1px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+  box-shadow:0 0 14px rgba(200,177,138,.2);
+}
+
+.profile-image-wrap,.photo-story-card,.press-photo,.media-hero-image,.score-preview,.work-score-preview{
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s ease,filter .45s ease !important;
+}
+.profile-image-wrap:hover,.photo-story-card:hover,.press-photo:hover,.media-hero-image:hover,.score-preview:hover,.work-score-preview:hover{
+  transform:translateY(-4px) scale(1.008) !important;
+  box-shadow:0 22px 55px rgba(0,0,0,.32),0 0 32px rgba(200,177,138,.08) !important;
+}
+.profile-image-wrap:hover .profile-image{
+  transform:scale(1.018) !important;
+  filter:brightness(1.035) contrast(1.01) !important;
+}
+
+.feature-card,.selected-release,.embed-card,.video-card,.score-edition,.work-row,.work-index>a,.timeline-item,.discog-row,.contact-row,.press-photo-card{
+  position:relative;
+  transition:transform .3s ease,border-color .3s ease,background .3s ease,box-shadow .3s ease !important;
+}
+.feature-card:hover,.selected-release:hover,.embed-card:hover,.video-card:hover,.score-edition:hover,.work-row:hover,.work-index>a:hover,.timeline-item:hover,.discog-row:hover,.contact-row:hover,.press-photo-card:hover{
+  transform:translateY(-2px) !important;
+  border-color:rgba(200,177,138,.26) !important;
+  background:linear-gradient(90deg,rgba(200,177,138,.028),rgba(255,255,255,.012),transparent 80%) !important;
+  box-shadow:0 16px 38px rgba(0,0,0,.16) !important;
+}
+.feature-card::after,.selected-release::after,.work-row::after,.score-edition::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-1px;
+  width:0;
+  height:1px;
+  background:linear-gradient(90deg,var(--accent),rgba(200,177,138,.12),transparent);
+  box-shadow:0 0 12px rgba(200,177,138,.18);
+  transition:width .45s ease;
+}
+.feature-card:hover::after,.selected-release:hover::after,.work-row:hover::after,.score-edition:hover::after{width:48%;}
+
+.social-button{
+  transition:transform .24s ease,border-color .24s ease,background .24s ease,box-shadow .24s ease !important;
+}
+.social-button:hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 10px 26px rgba(0,0,0,.18),0 0 20px rgba(200,177,138,.055) !important;
+}
+.social-button:hover .social-icon{transform:scale(1.08) !important;}
+
+.contact-form:focus-within{
+  box-shadow:0 24px 55px rgba(0,0,0,.18),0 0 32px rgba(200,177,138,.035) !important;
+}
+.contact-form input:focus,.contact-form textarea:focus{
+  box-shadow:0 0 0 3px rgba(200,177,138,.045),0 0 22px rgba(200,177,138,.035) !important;
+}
+
+/* Scroll entrances are visible again, but slower and more cinematic than the old app-like motion. */
+.reveal-item,
+.reveal-item.reveal-left,
+.reveal-item.reveal-right{
+  opacity:0;
+  transform:translateY(18px) !important;
+  filter:blur(3px) !important;
+  transition:
+    opacity .72s ease var(--reveal-delay,0ms),
+    transform .72s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms),
+    filter .72s ease var(--reveal-delay,0ms) !important;
+}
+.reveal-item.reveal-left{transform:translate(-16px,10px) !important;}
+.reveal-item.reveal-right{transform:translate(16px,10px) !important;}
+.reveal-item.is-visible{
+  opacity:1;
+  transform:translate(0,0) !important;
+  filter:blur(0) !important;
+}
+
+@media(prefers-reduced-motion:reduce){
+  body::before,.page-hero::before,.hero::before,.page-hero h1,.hero h1,.statement h2{animation:none !important;}
+  .reveal-item,.reveal-item.reveal-left,.reveal-item.reveal-right{opacity:1 !important;transform:none !important;filter:none !important;transition:none !important;}
+}
+
+@media(max-width:760px){
+  body::before{opacity:.48;filter:blur(18px);}
+  .page-hero::before,.hero::before{width:110vw;left:-24vw;opacity:.7;}
+  .feature-card:hover,.selected-release:hover,.embed-card:hover,.video-card:hover,.score-edition:hover,.work-row:hover,.work-index>a:hover,.timeline-item:hover,.discog-row:hover,.contact-row:hover,.press-photo-card:hover{transform:none !important;}
+}
