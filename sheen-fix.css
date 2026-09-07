@@ -1,0 +1,97 @@
+/* Fix hover sheen so the white/gold sweep travels fully across every blob control. */
+@keyframes fullBlobSheen{
+  0%{
+    transform:translateX(0) skewX(-18deg);
+    opacity:0;
+  }
+  12%{opacity:.18}
+  46%{opacity:.56}
+  78%{opacity:.24}
+  100%{
+    transform:translateX(320%) skewX(-18deg);
+    opacity:0;
+  }
+}
+
+/* Remove the older competing sheen layers that stopped before reaching the far edge. */
+.button::before,
+.social-button::before,
+.lang-current::before,
+.lang-option::before,
+.nav-toggle::before,
+.form-submit::before,
+.photo-lightbox-close::before,
+.text-action::before{
+  display:none !important;
+  animation:none !important;
+}
+
+/* One single sweep, starting fully outside the left edge and finishing fully outside the right edge. */
+.button::after,
+.social-button::after,
+.lang-current::after,
+.lang-option::after,
+.nav-toggle::after,
+.form-submit::after,
+.photo-lightbox-close::after,
+.text-action::after{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  top:-90% !important;
+  bottom:-90% !important;
+  left:-65% !important;
+  width:55% !important;
+  pointer-events:none !important;
+  z-index:0 !important;
+  opacity:0;
+  background:linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,250,226,.08) 18%,
+    rgba(255,248,214,.62) 48%,
+    rgba(255,238,184,.34) 62%,
+    transparent 100%
+  ) !important;
+  transform:translateX(0) skewX(-18deg);
+  animation:none !important;
+  will-change:transform,opacity;
+}
+
+.button:hover::after,
+.social-button:hover::after,
+.lang-current:hover::after,
+.lang-option:hover::after,
+.nav-toggle:hover::after,
+.form-submit:hover::after,
+.photo-lightbox-close:hover::after,
+.text-action:hover::after{
+  animation:fullBlobSheen 1.05s cubic-bezier(.22,.68,.25,1) both !important;
+}
+
+/* Keep the sweep clipped by the actual organic button silhouette. */
+.button,
+.social-button,
+.lang-current,
+.lang-option,
+.nav-toggle,
+.form-submit,
+.photo-lightbox-close,
+.text-action{
+  overflow:hidden !important;
+  isolation:isolate;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .button:hover::after,
+  .social-button:hover::after,
+  .lang-current:hover::after,
+  .lang-option:hover::after,
+  .nav-toggle:hover::after,
+  .form-submit:hover::after,
+  .photo-lightbox-close:hover::after,
+  .text-action:hover::after{
+    animation:none !important;
+    opacity:0 !important;
+  }
+}
