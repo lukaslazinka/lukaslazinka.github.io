@@ -23,14 +23,17 @@
   to{transform:translate3d(-48px,28px,0) rotate(8deg) scale(1.06)}
 }
 .discover-head{
-  display:grid;
-  grid-template-columns:minmax(220px,.42fr) minmax(0,1fr);
-  gap:54px;
-  align-items:end;
-  margin-bottom:42px;
+  display:block !important;
+  margin-bottom:34px;
 }
-.discover-head h2{max-width:760px}
-.discover-intro{margin:0;color:var(--muted);max-width:660px;font-size:1.02rem}
+.discover-head h2{
+  max-width:900px;
+  text-wrap:balance;
+  overflow-wrap:normal !important;
+  word-break:normal !important;
+  hyphens:none !important;
+}
+.discover-intro{display:none !important}
 .discover-stage{
   position:relative;
   display:grid;
@@ -155,6 +158,20 @@
 }
 .discover-more{margin-top:24px}
 
+/* Clean DNA heading: no explanatory paragraph, full-width heading, no awkward word splitting. */
+.dna-head{
+  display:block !important;
+  margin-bottom:42px !important;
+}
+.dna-head h2{
+  max-width:900px !important;
+  text-wrap:balance;
+  overflow-wrap:normal !important;
+  word-break:normal !important;
+  hyphens:none !important;
+}
+.dna-intro{display:none !important}
+
 /* Click feedback for buttons and interactive controls. */
 .button,.social-button,.text-action,.discover-tab,.release-play,.lang-current,.lang-option,.nav-toggle{
   -webkit-tap-highlight-color:transparent;
@@ -214,6 +231,7 @@
 }
 @media(max-width:600px){
   .home-discover{padding-block:66px}
+  .discover-head h2{font-size:clamp(3rem,12vw,4.25rem) !important;line-height:.98 !important}
   .discover-panel{padding:30px 24px 28px;border-radius:28px 10px 28px 10px}
   .discover-content h3{font-size:2.35rem}
 }
