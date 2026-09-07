@@ -1,17 +1,34 @@
-/* Keep the About scroll-story heading readable and prevent Lithuanian words from splitting mid-word. */
+/* Keep the About scroll-story heading readable and prevent Lithuanian words from splitting or being clipped. */
 .about-story-grid{
-  grid-template-columns:minmax(320px,.52fr) minmax(0,1.25fr) !important;
-  gap:48px !important;
+  grid-template-columns:minmax(390px,.62fr) minmax(0,1.38fr) !important;
+  gap:42px !important;
+}
+
+.about-story-sticky{
+  min-width:0 !important;
+  overflow:visible !important;
 }
 
 .about-story-sticky h2{
-  max-width:440px !important;
-  font-size:clamp(2.55rem,4vw,4.55rem) !important;
-  line-height:.98 !important;
+  width:100% !important;
+  max-width:520px !important;
+  font-size:clamp(2.5rem,3.25vw,3.8rem) !important;
+  line-height:1.01 !important;
+  overflow:visible !important;
   overflow-wrap:normal !important;
-  word-break:normal !important;
+  word-break:keep-all !important;
   hyphens:none !important;
   text-wrap:balance;
+}
+
+@media(max-width:1080px){
+  .about-story-grid{
+    grid-template-columns:minmax(340px,.58fr) minmax(0,1fr) !important;
+    gap:34px !important;
+  }
+  .about-story-sticky h2{
+    font-size:clamp(2.45rem,4.6vw,3.35rem) !important;
+  }
 }
 
 @media(max-width:900px){
@@ -24,13 +41,15 @@
     top:auto !important;
   }
   .about-story-sticky h2{
-    max-width:680px !important;
+    max-width:720px !important;
     font-size:clamp(2.5rem,8vw,4rem) !important;
   }
 }
 
 @media(max-width:520px){
   .about-story-sticky h2{
-    font-size:clamp(2.35rem,11vw,3.35rem) !important;
+    max-width:100% !important;
+    font-size:clamp(2.2rem,10.5vw,3.15rem) !important;
+    line-height:1.02 !important;
   }
 }
