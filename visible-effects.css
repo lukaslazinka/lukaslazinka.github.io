@@ -1,0 +1,313 @@
+:root{
+  --fx-gold:#e1c89d;
+  --fx-gold-2:#ad8d5e;
+  --fx-line:rgba(225,200,157,.42);
+  --fx-soft:rgba(225,200,157,.10);
+}
+
+/* Deliberately visible effects, but limited to small/medium elements so the page stays responsive. */
+@keyframes fx-title-sweep{
+  0%{background-position:120% 50%}
+  100%{background-position:-120% 50%}
+}
+@keyframes fx-line-pulse{
+  0%,100%{opacity:.45;transform:scaleX(.76)}
+  50%{opacity:1;transform:scaleX(1)}
+}
+@keyframes fx-play-pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(225,200,157,.20),0 0 18px rgba(225,200,157,.08)}
+  50%{box-shadow:0 0 0 7px rgba(225,200,157,0),0 0 28px rgba(225,200,157,.20)}
+}
+@keyframes fx-arrow-nudge{
+  0%,100%{transform:translateX(0)}
+  50%{transform:translateX(5px)}
+}
+
+/* Hero: visible champagne light and animated metallic title. */
+.page-hero,
+.hero{
+  border-bottom:1px solid rgba(225,200,157,.18);
+  background:
+    linear-gradient(112deg,rgba(225,200,157,.10),transparent 31%),
+    linear-gradient(286deg,rgba(255,255,255,.045),transparent 28%);
+}
+.page-hero h1,
+.hero h1{
+  color:#f4f1eb;
+  background:linear-gradient(100deg,#f4f1eb 0%,#f4f1eb 31%,#e6cda2 47%,#fff8ea 52%,#d8b97f 58%,#f4f1eb 70%,#f4f1eb 100%);
+  background-size:240% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:fx-title-sweep 7s linear infinite;
+  text-shadow:none !important;
+}
+.page-hero .page-lead,
+.hero .hero-lead{
+  text-shadow:0 2px 18px rgba(0,0,0,.42);
+}
+
+/* Eyebrows and section headings get unmistakable luminous rules. */
+.eyebrow{
+  color:var(--fx-gold) !important;
+  text-shadow:0 0 12px rgba(225,200,157,.18) !important;
+}
+.eyebrow::before{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin-right:9px;
+  border:1px solid rgba(225,200,157,.75);
+  transform:rotate(45deg) translateY(-1px);
+  box-shadow:0 0 10px rgba(225,200,157,.22);
+}
+.section-heading{
+  border-bottom-color:rgba(225,200,157,.20) !important;
+}
+.section-heading h2{
+  text-shadow:0 0 22px rgba(225,200,157,.08);
+}
+.section-heading::after{
+  width:150px !important;
+  height:2px !important;
+  background:linear-gradient(90deg,var(--fx-gold),rgba(225,200,157,.22),transparent) !important;
+  box-shadow:0 0 14px rgba(225,200,157,.30) !important;
+  animation:fx-line-pulse 3.8s ease-in-out infinite !important;
+}
+
+/* Header and navigation: stronger active state. */
+.site-header{
+  border-bottom:1px solid rgba(225,200,157,.14) !important;
+}
+.main-nav a.active{
+  color:#fff4df !important;
+  text-shadow:0 0 14px rgba(225,200,157,.26) !important;
+}
+.main-nav a.active::after,
+.main-nav a:hover::after{
+  height:2px !important;
+  box-shadow:0 0 13px rgba(225,200,157,.42) !important;
+}
+
+/* Buttons: visible gold edge, brighter hover, still cheap because only on interaction. */
+.button{
+  border-color:rgba(225,200,157,.28) !important;
+}
+.button.secondary{
+  background:linear-gradient(180deg,rgba(225,200,157,.025),rgba(225,200,157,.008)) !important;
+}
+.button:hover{
+  border-color:rgba(225,200,157,.72) !important;
+  box-shadow:0 10px 26px rgba(0,0,0,.30),0 0 24px rgba(225,200,157,.20) !important;
+}
+.button.primary{
+  box-shadow:0 0 0 1px rgba(225,200,157,.16),0 10px 28px rgba(0,0,0,.16) !important;
+}
+
+/* Homepage editorial cards: always-visible accent and much clearer hover. */
+.feature-card{
+  border-top-color:rgba(225,200,157,.24) !important;
+  background:linear-gradient(180deg,rgba(225,200,157,.025),transparent 42%) !important;
+}
+.feature-card::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute;
+  left:0;
+  top:26px;
+  width:2px;
+  height:42px;
+  background:linear-gradient(to bottom,var(--fx-gold),transparent);
+  box-shadow:0 0 12px rgba(225,200,157,.26);
+}
+.feature-card:hover{
+  background:linear-gradient(120deg,rgba(225,200,157,.10),rgba(255,255,255,.025),transparent 72%) !important;
+  box-shadow:0 16px 42px rgba(0,0,0,.24),0 0 30px rgba(225,200,157,.10) !important;
+}
+.feature-card:hover h3{
+  color:#fff4df;
+  text-shadow:0 0 18px rgba(225,200,157,.18);
+}
+.card-link{
+  font-weight:600;
+}
+
+/* Works, scores, discography and timeline rows. */
+.work-row,
+.work-index>a,
+.score-edition,
+.discog-row,
+.timeline-item,
+.contact-row{
+  border-bottom-color:rgba(255,255,255,.13) !important;
+}
+.work-row::before,
+.work-index>a::before,
+.score-edition::before,
+.discog-row::before,
+.timeline-item::before,
+.contact-row::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:16%;
+  bottom:16%;
+  width:2px;
+  background:var(--fx-gold);
+  box-shadow:0 0 12px rgba(225,200,157,.34);
+  opacity:0;
+  transform:scaleY(.35);
+  transition:opacity .22s ease,transform .22s ease;
+}
+.work-row:hover::before,
+.work-index>a:hover::before,
+.score-edition:hover::before,
+.discog-row:hover::before,
+.timeline-item:hover::before,
+.contact-row:hover::before{
+  opacity:1;
+  transform:scaleY(1);
+}
+.work-row:hover,
+.work-index>a:hover,
+.score-edition:hover,
+.discog-row:hover,
+.timeline-item:hover,
+.contact-row:hover{
+  background:linear-gradient(90deg,rgba(225,200,157,.085),rgba(225,200,157,.018) 38%,transparent 78%) !important;
+  box-shadow:inset 0 0 0 1px rgba(225,200,157,.045),0 12px 34px rgba(0,0,0,.16) !important;
+}
+.work-row:hover .work-arrow{
+  animation:fx-arrow-nudge .8s ease-in-out infinite;
+}
+.work-number,
+.discog-year,
+.timeline-item span,
+.score-edition-number{
+  color:var(--fx-gold) !important;
+  text-shadow:0 0 14px rgba(225,200,157,.14);
+}
+
+/* Selected release / media blocks. */
+.selected-release{
+  border-top:1px solid rgba(225,200,157,.22) !important;
+  border-bottom:1px solid rgba(225,200,157,.16) !important;
+  background:linear-gradient(90deg,rgba(225,200,157,.045),transparent 55%) !important;
+}
+.release-play{
+  border-color:rgba(225,200,157,.40) !important;
+  animation:fx-play-pulse 3s ease-in-out infinite;
+}
+.embed-card,
+.video-card{
+  border-color:rgba(225,200,157,.14) !important;
+  box-shadow:0 12px 34px rgba(0,0,0,.18) !important;
+}
+.embed-card:hover,
+.video-card:hover{
+  border-color:rgba(225,200,157,.42) !important;
+  box-shadow:0 18px 46px rgba(0,0,0,.28),0 0 24px rgba(225,200,157,.09) !important;
+}
+
+/* Photos: visible frame even before hover. */
+.profile-image-wrap,
+.photo-story-card,
+.press-photo,
+.media-hero-image,
+.score-preview,
+.work-score-preview{
+  outline:1px solid rgba(225,200,157,.16);
+  outline-offset:4px;
+  box-shadow:0 16px 42px rgba(0,0,0,.24) !important;
+}
+.profile-image-wrap:hover,
+.photo-story-card:hover,
+.press-photo:hover,
+.media-hero-image:hover,
+.score-preview:hover,
+.work-score-preview:hover{
+  outline-color:rgba(225,200,157,.58);
+  box-shadow:0 24px 56px rgba(0,0,0,.34),0 0 26px rgba(225,200,157,.16) !important;
+}
+.photo-story-caption{
+  background:linear-gradient(to top,rgba(7,7,8,.94),rgba(7,7,8,.10)) !important;
+}
+
+/* Contact form is intentionally more illuminated when used. */
+.contact-form{
+  border-top:1px solid rgba(225,200,157,.18) !important;
+  border-bottom:1px solid rgba(225,200,157,.12) !important;
+}
+.contact-form:focus-within{
+  border-color:rgba(225,200,157,.32) !important;
+  box-shadow:0 18px 46px rgba(0,0,0,.24),0 0 24px rgba(225,200,157,.08) !important;
+}
+.contact-form input:focus,
+.contact-form textarea:focus{
+  border-color:rgba(225,200,157,.68) !important;
+  box-shadow:0 0 0 2px rgba(225,200,157,.10) !important;
+}
+
+/* Social links: visible icon glow on hover only. */
+.social-button{
+  border-color:rgba(225,200,157,.16) !important;
+}
+.social-button:hover{
+  border-color:rgba(225,200,157,.50) !important;
+  background:rgba(225,200,157,.055) !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.20),0 0 18px rgba(225,200,157,.12) !important;
+}
+
+/* Press utility label should simply read “Press”. */
+.footer-utility a[href="press.html"]{
+  font-size:0 !important;
+}
+.footer-utility a[href="press.html"]::after{
+  content:"Press";
+  font-size:.78rem;
+}
+
+/* Stronger but lightweight scroll entrance: transform + opacity only. */
+.reveal-item,
+.reveal-item.reveal-left,
+.reveal-item.reveal-right{
+  opacity:0;
+  transform:translateY(28px) scale(.985) !important;
+  filter:none !important;
+  transition:
+    opacity .58s ease var(--reveal-delay,0ms),
+    transform .58s cubic-bezier(.2,.72,.2,1) var(--reveal-delay,0ms) !important;
+}
+.reveal-item.reveal-left{transform:translate(-24px,16px) scale(.985) !important}
+.reveal-item.reveal-right{transform:translate(24px,16px) scale(.985) !important}
+.reveal-item.is-visible{
+  opacity:1;
+  transform:none !important;
+}
+
+.site-footer{
+  border-top:1px solid rgba(225,200,157,.24) !important;
+  box-shadow:0 -18px 42px rgba(0,0,0,.16);
+}
+.site-footer::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:-1px;
+  width:180px;
+  height:1px;
+  background:linear-gradient(90deg,var(--fx-gold),transparent);
+  box-shadow:0 0 12px rgba(225,200,157,.25);
+}
+
+@media(max-width:760px){
+  .page-hero h1,.hero h1{animation-duration:10s}
+  .feature-card::before{height:28px}
+  .work-row:hover,.work-index>a:hover,.score-edition:hover,.discog-row:hover,.timeline-item:hover,.contact-row:hover{box-shadow:none !important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .page-hero h1,.hero h1,.section-heading::after,.release-play,.work-row:hover .work-arrow{animation:none !important}
+  .reveal-item,.reveal-item.reveal-left,.reveal-item.reveal-right{opacity:1 !important;transform:none !important;transition:none !important}
+}
