@@ -172,6 +172,15 @@
 }
 .dna-intro{display:none !important}
 
+/* Homepage active navigation text must stay dark on the gold pill. */
+html body .site-header .main-nav a.active[href="index.html"],
+html body .site-header .main-nav a.active[href="index.html"]:hover,
+html body .site-header .main-nav a.active[href="index.html"]:focus{
+  color:#171208 !important;
+  -webkit-text-fill-color:#171208 !important;
+  text-shadow:none !important;
+}
+
 /* Click feedback for buttons and interactive controls. */
 .button,.social-button,.text-action,.discover-tab,.release-play,.lang-current,.lang-option,.nav-toggle{
   -webkit-tap-highlight-color:transparent;
