@@ -81,8 +81,8 @@
   border-bottom:1px solid rgba(225,200,157,.14) !important;
 }
 .main-nav a.active{
-  color:#fff4df !important;
-  text-shadow:0 0 14px rgba(225,200,157,.26) !important;
+  color:#171208 !important;
+  text-shadow:none !important;
 }
 .main-nav a.active::after,
 .main-nav a:hover::after{
