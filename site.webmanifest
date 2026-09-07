@@ -1,0 +1,11 @@
+{
+  "name": "Lukas Lazinka — Composer",
+  "short_name": "Lukas Lazinka",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0d0d0e",
+  "theme_color": "#0d0d0e",
+  "icons": [
+    {"src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml"}
+  ]
+}
