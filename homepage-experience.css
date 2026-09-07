@@ -1,0 +1,222 @@
+/* Homepage biography and interaction layer. Lightweight: transform/opacity animations only. */
+.home-discover{
+  position:relative;
+  padding-block:90px;
+  border-top:1px solid rgba(240,210,125,.14);
+  border-bottom:1px solid rgba(240,210,125,.10);
+  overflow:hidden;
+}
+.home-discover::before{
+  content:"";
+  position:absolute;
+  width:460px;
+  height:330px;
+  right:-150px;
+  top:40px;
+  border-radius:54% 46% 62% 38% / 44% 58% 42% 56%;
+  background:radial-gradient(circle at 40% 42%,rgba(240,210,125,.15),rgba(240,210,125,.035) 46%,transparent 70%);
+  pointer-events:none;
+  animation:discoverBlob 12s ease-in-out infinite alternate;
+}
+@keyframes discoverBlob{
+  from{transform:translate3d(0,0,0) rotate(-4deg) scale(.96)}
+  to{transform:translate3d(-48px,28px,0) rotate(8deg) scale(1.06)}
+}
+.discover-head{
+  display:grid;
+  grid-template-columns:minmax(220px,.42fr) minmax(0,1fr);
+  gap:54px;
+  align-items:end;
+  margin-bottom:42px;
+}
+.discover-head h2{max-width:760px}
+.discover-intro{margin:0;color:var(--muted);max-width:660px;font-size:1.02rem}
+.discover-stage{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(210px,.36fr) minmax(0,1fr);
+  gap:28px;
+  align-items:stretch;
+}
+.discover-tabs{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.discover-tab{
+  position:relative;
+  width:100%;
+  min-height:54px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:11px 17px;
+  border:1px solid rgba(240,210,125,.18);
+  color:#d7c89d;
+  background:linear-gradient(135deg,rgba(240,210,125,.04),rgba(255,255,255,.008));
+  cursor:pointer;
+  text-align:left;
+  font-weight:750;
+  letter-spacing:.01em;
+  overflow:hidden;
+  transition:transform .28s ease,border-color .28s ease,background .28s ease,color .28s ease,box-shadow .28s ease,border-radius .38s ease;
+}
+.discover-tab:nth-child(1){border-radius:58% 42% 54% 46% / 48% 61% 39% 52%}
+.discover-tab:nth-child(2){border-radius:43% 57% 61% 39% / 58% 44% 56% 42%}
+.discover-tab:nth-child(3){border-radius:61% 39% 46% 54% / 42% 58% 42% 58%}
+.discover-tab:nth-child(4){border-radius:47% 53% 58% 42% / 61% 39% 61% 39%}
+.discover-tab:nth-child(5){border-radius:56% 44% 41% 59% / 45% 62% 38% 55%}
+.discover-tab::after{
+  content:"✦";
+  color:#f0d27d;
+  font-size:.72rem;
+  opacity:.45;
+  text-shadow:0 0 12px rgba(240,210,125,.35);
+  transition:transform .3s ease,opacity .3s ease;
+}
+.discover-tab:hover{
+  transform:translateX(5px);
+  border-color:rgba(240,210,125,.46);
+  color:#f4e3af;
+  background:rgba(240,210,125,.09);
+  box-shadow:0 10px 28px rgba(0,0,0,.18),0 0 22px rgba(240,210,125,.09);
+}
+.discover-tab:hover::after{opacity:1;transform:rotate(26deg) scale(1.15)}
+.discover-tab.is-active{
+  color:#171208;
+  border-color:rgba(255,239,176,.72);
+  background:linear-gradient(125deg,#fff0b4 0%,#e8c867 48%,#b98527 100%);
+  box-shadow:0 15px 34px rgba(0,0,0,.22),0 0 28px rgba(240,210,125,.18);
+  transform:translateX(8px);
+}
+.discover-tab.is-active::after{color:#241a07;opacity:.75;text-shadow:none}
+.discover-panel{
+  position:relative;
+  min-height:330px;
+  padding:38px 42px 36px;
+  border:1px solid rgba(240,210,125,.18);
+  border-radius:38px 12px 38px 12px;
+  background:
+    radial-gradient(circle at 83% 22%,rgba(240,210,125,.095),transparent 25%),
+    linear-gradient(145deg,rgba(240,210,125,.045),rgba(255,255,255,.008));
+  box-shadow:0 20px 55px rgba(0,0,0,.17);
+  overflow:hidden;
+}
+.discover-panel::before{
+  content:"";
+  position:absolute;
+  width:130px;
+  height:130px;
+  right:-48px;
+  bottom:-52px;
+  border:1px solid rgba(240,210,125,.20);
+  border-radius:60% 40% 54% 46% / 46% 61% 39% 54%;
+  transform:rotate(18deg);
+}
+.discover-content{
+  display:none;
+  position:relative;
+  z-index:1;
+  animation:discoverContentIn .5s cubic-bezier(.22,1,.36,1) both;
+}
+.discover-content.is-active{display:block}
+@keyframes discoverContentIn{
+  from{opacity:0;transform:translate3d(18px,10px,0) scale(.985)}
+  to{opacity:1;transform:none}
+}
+.discover-kicker{
+  margin:0 0 10px;
+  color:#f0d27d;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.68rem;
+  font-weight:850;
+}
+.discover-content h3{font-size:clamp(2rem,3.8vw,3.7rem);margin-bottom:20px;color:#f4eddd}
+.discover-content p:not(.discover-kicker){max-width:760px;color:#c9c4b9;font-size:1.03rem;margin:0 0 18px}
+.discover-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:28px;
+}
+.discover-chip{
+  display:inline-flex;
+  align-items:center;
+  min-height:31px;
+  padding:5px 11px;
+  border:1px solid rgba(240,210,125,.23);
+  border-radius:999px;
+  color:#dac58d;
+  background:rgba(240,210,125,.035);
+  font-size:.72rem;
+  letter-spacing:.05em;
+}
+.discover-more{margin-top:24px}
+
+/* Click feedback for buttons and interactive controls. */
+.button,.social-button,.text-action,.discover-tab,.release-play,.lang-current,.lang-option,.nav-toggle{
+  -webkit-tap-highlight-color:transparent;
+}
+.button.is-clicked,.social-button.is-clicked,.text-action.is-clicked,.discover-tab.is-clicked,.release-play.is-clicked,.lang-current.is-clicked,.lang-option.is-clicked,.nav-toggle.is-clicked{
+  animation:goldControlPress .42s cubic-bezier(.22,1,.36,1) both !important;
+}
+@keyframes goldControlPress{
+  0%{transform:scale(1)}
+  35%{transform:scale(.94) rotate(-.7deg)}
+  68%{transform:scale(1.035) rotate(.4deg)}
+  100%{transform:scale(1)}
+}
+.gold-click-burst{
+  position:absolute;
+  left:var(--click-x,50%);
+  top:var(--click-y,50%);
+  width:9px;
+  height:9px;
+  pointer-events:none;
+  z-index:12;
+  transform:translate(-50%,-50%);
+}
+.gold-click-burst::before,
+.gold-click-burst::after{
+  content:"✦";
+  position:absolute;
+  inset:0;
+  color:#fff0b0;
+  font-size:9px;
+  line-height:1;
+  text-shadow:0 0 7px rgba(240,210,125,.7);
+  animation:goldBurstA .55s ease-out forwards;
+}
+.gold-click-burst::after{
+  content:"·  ✦  ·";
+  width:42px;
+  left:-16px;
+  color:#e7c465;
+  animation-name:goldBurstB;
+}
+@keyframes goldBurstA{
+  from{opacity:1;transform:translate3d(0,0,0) scale(.75)}
+  to{opacity:0;transform:translate3d(14px,-18px,0) scale(1.35)}
+}
+@keyframes goldBurstB{
+  from{opacity:.9;transform:translate3d(0,0,0) scale(.8) rotate(0)}
+  to{opacity:0;transform:translate3d(-13px,-10px,0) scale(1.4) rotate(-12deg)}
+}
+
+@media(max-width:850px){
+  .discover-head,.discover-stage{grid-template-columns:1fr;gap:24px}
+  .discover-tabs{flex-direction:row;overflow-x:auto;padding:3px 2px 10px;scrollbar-width:thin}
+  .discover-tab{flex:0 0 auto;width:auto;min-width:155px}
+  .discover-tab.is-active,.discover-tab:hover{transform:translateY(-2px)}
+  .discover-panel{min-height:360px}
+}
+@media(max-width:600px){
+  .home-discover{padding-block:66px}
+  .discover-panel{padding:30px 24px 28px;border-radius:28px 10px 28px 10px}
+  .discover-content h3{font-size:2.35rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-discover::before,.discover-content,.button.is-clicked,.social-button.is-clicked,.text-action.is-clicked,.discover-tab.is-clicked,.release-play.is-clicked,.lang-current.is-clicked,.lang-option.is-clicked,.nav-toggle.is-clicked,.gold-click-burst::before,.gold-click-burst::after{animation:none !important}
+}
