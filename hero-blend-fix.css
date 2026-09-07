@@ -1,0 +1,93 @@
+/* Remove the hard vertical edge on the homepage hero and blend the gold atmosphere across the viewport. */
+html,
+body,
+main{
+  overflow-x:clip !important;
+}
+
+.hero.hero-rich{
+  position:relative;
+  isolation:isolate;
+  background:transparent !important;
+  border-bottom-color:rgba(240,210,125,.10) !important;
+}
+
+/* The old hero background was painted only inside the centered .shell, which created a visible vertical cut.
+   Paint one soft full-viewport atmosphere instead, so there is no rectangular edge to see. */
+.hero.hero-rich::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  left:50% !important;
+  right:auto !important;
+  top:0 !important;
+  bottom:0 !important;
+  width:100vw !important;
+  height:auto !important;
+  transform:translateX(-50%) !important;
+  animation:none !important;
+  z-index:-2 !important;
+  pointer-events:none !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  opacity:1 !important;
+  background:
+    radial-gradient(ellipse 62% 56% at 20% 34%,rgba(232,199,104,.19) 0%,rgba(190,145,52,.09) 34%,rgba(120,84,25,.025) 56%,transparent 74%),
+    radial-gradient(ellipse 46% 48% at 84% 20%,rgba(255,234,166,.075) 0%,rgba(218,178,76,.035) 42%,transparent 72%),
+    linear-gradient(180deg,rgba(255,255,255,.012),transparent 30%,rgba(226,195,111,.012) 72%,transparent 100%) !important;
+}
+
+/* Remove the decorative hero ring pseudo-element that can read as another clipped panel edge. */
+.hero.hero-rich::after{
+  content:none !important;
+  display:none !important;
+}
+
+.hero-copy,
+.hero-copy::before,
+.hero-copy::after{
+  background:transparent !important;
+  box-shadow:none !important;
+  border:0 !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+.hero-copy::before,
+.hero-copy::after{
+  content:none !important;
+  display:none !important;
+}
+
+.hero-copy,
+.hero-copy > *,
+.hero .actions,
+.selected-release,
+.social-links{
+  min-width:0 !important;
+}
+
+/* Keep the portrait shading soft on the left so it merges into the surrounding gold instead of looking cut out. */
+.hero-portrait-art .hero-image-shade{
+  background:
+    linear-gradient(180deg,rgba(10,10,12,.10),rgba(10,10,12,.12) 42%,rgba(10,10,12,.70) 100%),
+    linear-gradient(90deg,rgba(13,13,14,.22) 0%,rgba(13,13,14,.08) 18%,transparent 42%) !important;
+}
+
+@media(max-width:1000px){
+  .hero.hero-rich::before{
+    background:
+      radial-gradient(ellipse 92% 42% at 28% 24%,rgba(232,199,104,.16) 0%,rgba(190,145,52,.065) 42%,transparent 76%),
+      linear-gradient(180deg,rgba(226,195,111,.018),transparent 68%) !important;
+  }
+}
+
+@media(max-width:600px){
+  .hero.hero-rich{
+    width:min(calc(100% - 28px),var(--max)) !important;
+    margin-inline:auto !important;
+  }
+  .hero.hero-rich::before{
+    width:100vw !important;
+  }
+}
