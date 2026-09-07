@@ -1,0 +1,168 @@
+:root{
+  --accent:#e2c36f;
+  --accent-2:#b88c35;
+  --gold-soft:rgba(226,195,111,.12);
+  --gold-mid:rgba(226,195,111,.24);
+  --gold-strong:rgba(226,195,111,.42);
+}
+
+/* Visible, transform-only gold blobs: two large moving lights, no full-screen blur. */
+body::before,
+body::after{
+  content:"";
+  display:block !important;
+  position:fixed;
+  inset:auto;
+  pointer-events:none;
+  z-index:0;
+  border-radius:44% 56% 61% 39% / 42% 40% 60% 58%;
+  background:
+    radial-gradient(circle at 35% 30%,rgba(255,244,206,.48) 0 8%,rgba(232,203,122,.34) 22%,rgba(190,139,46,.20) 45%,rgba(134,91,22,.07) 66%,transparent 78%);
+  opacity:.72;
+  will-change:transform;
+}
+body::before{
+  width:430px;
+  height:390px;
+  left:-120px;
+  top:105px;
+  animation:goldBlobLeft 15s ease-in-out infinite alternate;
+}
+body::after{
+  width:500px;
+  height:445px;
+  right:-170px;
+  top:310px;
+  opacity:.58;
+  transform:rotate(22deg);
+  animation:goldBlobRight 19s ease-in-out infinite alternate;
+}
+@keyframes goldBlobLeft{
+  0%{transform:translate3d(0,0,0) scale(1) rotate(-7deg)}
+  50%{transform:translate3d(80px,52px,0) scale(1.10) rotate(8deg)}
+  100%{transform:translate3d(42px,145px,0) scale(.94) rotate(18deg)}
+}
+@keyframes goldBlobRight{
+  0%{transform:translate3d(0,0,0) scale(1) rotate(20deg)}
+  50%{transform:translate3d(-115px,80px,0) scale(.92) rotate(4deg)}
+  100%{transform:translate3d(-58px,-65px,0) scale(1.10) rotate(-12deg)}
+}
+
+/* More visible gold atmosphere in hero areas. */
+.page-hero::before,.hero::before{
+  background:radial-gradient(ellipse,rgba(226,195,111,.20),rgba(193,148,61,.075) 42%,transparent 72%) !important;
+  animation:heroGoldFloat 10s ease-in-out infinite alternate;
+  will-change:transform;
+}
+@keyframes heroGoldFloat{
+  from{transform:translate3d(0,0,0) scale(1)}
+  to{transform:translate3d(42px,12px,0) scale(1.06)}
+}
+
+/* Gold sheen on major headings. */
+.page-hero h1,.hero h1,.statement h2{
+  background:linear-gradient(110deg,#f7f2e8 0%,#f7f2e8 25%,#e2c36f 45%,#fff3c8 52%,#e2c36f 59%,#f7f2e8 76%,#f7f2e8 100%);
+  background-size:230% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent !important;
+  animation:goldTitleSweep 8s ease-in-out infinite;
+  text-shadow:none !important;
+}
+@keyframes goldTitleSweep{
+  0%,22%{background-position:100% 50%}
+  58%,100%{background-position:0% 50%}
+}
+
+/* Clearly gold navigation and section accents. */
+.main-nav a.active,.main-nav a:hover{
+  color:#ead28e !important;
+  text-shadow:0 0 14px rgba(226,195,111,.30) !important;
+}
+.main-nav a::after{
+  background:linear-gradient(90deg,transparent,#e2c36f,#fff0b5,#e2c36f,transparent) !important;
+  box-shadow:0 0 13px rgba(226,195,111,.40) !important;
+}
+.eyebrow{color:#e2c36f !important;text-shadow:0 0 15px rgba(226,195,111,.26) !important}
+.eyebrow::before{
+  content:"◆";
+  margin-right:9px;
+  font-size:.58em;
+  color:#e2c36f;
+  vertical-align:1px;
+  text-shadow:0 0 10px rgba(226,195,111,.45);
+}
+.section-heading::after{
+  width:145px !important;
+  height:2px !important;
+  background:linear-gradient(90deg,#f1dc9c,#e2c36f,rgba(226,195,111,.18),transparent) !important;
+  box-shadow:0 0 16px rgba(226,195,111,.32) !important;
+}
+
+/* Gold frames are visible even before hover. */
+.profile-image-wrap,.photo-story-card,.press-photo,.media-hero-image,.score-preview,.work-score-preview{
+  border-color:rgba(226,195,111,.30) !important;
+  box-shadow:0 0 0 1px rgba(226,195,111,.05),0 16px 38px rgba(0,0,0,.20) !important;
+}
+.profile-image-wrap:hover,.photo-story-card:hover,.press-photo:hover,.media-hero-image:hover,.score-preview:hover,.work-score-preview:hover{
+  border-color:rgba(241,220,156,.58) !important;
+  box-shadow:0 22px 52px rgba(0,0,0,.30),0 0 30px rgba(226,195,111,.16) !important;
+}
+
+/* More obvious gold interaction on catalogue rows and cards. */
+.feature-card,.selected-release,.score-edition,.work-row,.work-index>a,.timeline-item,.discog-row,.contact-row,.press-photo-card{
+  overflow:hidden;
+}
+.feature-card::before,.selected-release::before,.score-edition::before,.work-row::before,.work-index>a::before,.timeline-item::before,.discog-row::before,.contact-row::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:18%;
+  bottom:18%;
+  width:2px;
+  background:linear-gradient(180deg,transparent,#e2c36f,#f4df9c,#e2c36f,transparent);
+  box-shadow:0 0 10px rgba(226,195,111,.45);
+  opacity:.28;
+  transform:scaleY(.55);
+  transition:opacity .24s ease,transform .24s ease;
+}
+.feature-card:hover::before,.selected-release:hover::before,.score-edition:hover::before,.work-row:hover::before,.work-index>a:hover::before,.timeline-item:hover::before,.discog-row:hover::before,.contact-row:hover::before{
+  opacity:1;
+  transform:scaleY(1);
+}
+.feature-card:hover,.selected-release:hover,.score-edition:hover,.work-row:hover,.work-index>a:hover,.timeline-item:hover,.discog-row:hover,.contact-row:hover,.press-photo-card:hover{
+  background:linear-gradient(90deg,rgba(226,195,111,.075),rgba(226,195,111,.018) 45%,transparent 86%) !important;
+  border-color:rgba(226,195,111,.34) !important;
+}
+.card-link,.timeline-item span,.discog-year,.work-arrow,.score-price{
+  color:#e2c36f !important;
+  text-shadow:0 0 11px rgba(226,195,111,.18) !important;
+}
+
+.button.secondary{border-color:rgba(226,195,111,.28) !important}
+.button.secondary:hover,.social-button:hover{
+  border-color:rgba(226,195,111,.60) !important;
+  box-shadow:0 10px 26px rgba(0,0,0,.20),0 0 22px rgba(226,195,111,.14) !important;
+}
+
+/* The public label is simply Press. */
+.footer-utility a[href="press.html"]{font-size:0 !important}
+.footer-utility a[href="press.html"]::after{content:"Press";font-size:.78rem}
+body[data-title-lt^="Press kit"] .page-hero h1{font-size:0}
+body[data-title-lt^="Press kit"] .page-hero h1::after{
+  content:"Press";
+  font-size:clamp(3rem,7vw,6.6rem);
+  background:linear-gradient(110deg,#f7f2e8,#e2c36f 42%,#fff1b5 52%,#f7f2e8 76%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+@media(max-width:900px){
+  body::before,body::after{display:none !important}
+  .page-hero::before,.hero::before{animation:none !important}
+  .page-hero h1,.hero h1,.statement h2{animation:none !important;background-position:45% 50%}
+}
+@media(prefers-reduced-motion:reduce){
+  body::before,body::after,.page-hero::before,.hero::before,.page-hero h1,.hero h1,.statement h2{animation:none !important}
+}
