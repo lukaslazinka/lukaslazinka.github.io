@@ -1,20 +1,33 @@
-/* Fix hover sheen so the white/gold sweep travels visibly across the entire blob control. */
-@keyframes fullBlobSheen{
+/* Gold sparkle hover: no white sweep, no diagonal/cut-corner illusion. */
+
+@keyframes goldSparkleTwinkle{
   0%{
-    transform:translateX(0) skewX(-18deg);
     opacity:0;
+    transform:translate3d(0,3px,0) scale(.96);
+    background-position:
+      12% 64%,
+      28% 28%,
+      46% 72%,
+      62% 24%,
+      78% 62%,
+      91% 34%;
   }
-  8%{opacity:.22}
-  22%{opacity:.64}
-  76%{opacity:.64}
-  92%{opacity:.28}
+  28%{opacity:.92}
+  62%{opacity:.58}
   100%{
-    transform:translateX(560%) skewX(-18deg);
     opacity:0;
+    transform:translate3d(0,-4px,0) scale(1.025);
+    background-position:
+      16% 54%,
+      31% 22%,
+      49% 62%,
+      65% 18%,
+      81% 52%,
+      94% 26%;
   }
 }
 
-/* Remove older competing sheen layers. */
+/* Completely remove every older white/diagonal sheen layer. */
 .button::before,
 .social-button::before,
 .lang-current::before,
@@ -24,10 +37,11 @@
 .photo-lightbox-close::before,
 .text-action::before{
   display:none !important;
+  content:none !important;
   animation:none !important;
 }
 
-/* One continuous sweep: fully offscreen left -> fully offscreen right. */
+/* Replace the sweep with small warm-gold sparkles scattered over the control. */
 .button::after,
 .social-button::after,
 .lang-current::after,
@@ -39,26 +53,31 @@
   content:"" !important;
   display:block !important;
   position:absolute !important;
-  top:-100% !important;
-  bottom:-100% !important;
-  left:-72% !important;
-  width:34% !important;
+  inset:0 !important;
+  width:auto !important;
+  height:auto !important;
   pointer-events:none !important;
-  z-index:3 !important;
+  z-index:2 !important;
   opacity:0;
-  background:linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255,250,226,.10) 14%,
-    rgba(255,250,226,.42) 34%,
-    rgba(255,255,255,.86) 50%,
-    rgba(255,238,184,.50) 66%,
-    rgba(255,238,184,.12) 86%,
-    transparent 100%
-  ) !important;
-  transform:translateX(0) skewX(-18deg);
+  background:
+    radial-gradient(circle at center,rgba(255,245,192,.98) 0 1.1px,rgba(240,201,102,.78) 1.3px 2px,transparent 2.3px),
+    radial-gradient(circle at center,rgba(255,231,141,.92) 0 1px,rgba(219,169,54,.62) 1.2px 1.8px,transparent 2.1px),
+    radial-gradient(circle at center,rgba(255,248,209,.94) 0 1px,rgba(235,195,92,.66) 1.2px 1.9px,transparent 2.2px),
+    radial-gradient(circle at center,rgba(255,226,126,.90) 0 1.1px,rgba(221,166,44,.60) 1.3px 2px,transparent 2.3px),
+    radial-gradient(circle at center,rgba(255,244,188,.94) 0 1px,rgba(238,196,88,.64) 1.2px 1.8px,transparent 2.1px),
+    radial-gradient(circle at center,rgba(255,233,151,.92) 0 1.1px,rgba(218,162,42,.60) 1.3px 2px,transparent 2.3px) !important;
+  background-repeat:no-repeat !important;
+  background-size:6px 6px,5px 5px,6px 6px,5px 5px,6px 6px,5px 5px !important;
+  background-position:
+    12% 64%,
+    28% 28%,
+    46% 72%,
+    62% 24%,
+    78% 62%,
+    91% 34% !important;
+  filter:drop-shadow(0 0 4px rgba(240,201,102,.50));
+  transform:none;
   animation:none !important;
-  will-change:transform,opacity;
 }
 
 .button:hover::after,
@@ -69,10 +88,27 @@
 .form-submit:hover::after,
 .photo-lightbox-close:hover::after,
 .text-action:hover::after{
-  animation:fullBlobSheen 1.12s cubic-bezier(.18,.67,.24,1) both !important;
+  animation:goldSparkleTwinkle 1.55s ease-in-out infinite !important;
 }
 
-/* Keep the sweep clipped by each organic silhouette. */
+/* Keep blob buttons organic, but remove the pointed / sliced-looking corners. */
+.button{
+  border-radius:999px 780px 999px 840px / 62px 52px 64px 54px !important;
+}
+.button:nth-of-type(2n){
+  border-radius:780px 999px 850px 999px / 54px 64px 52px 62px !important;
+}
+.button:nth-of-type(3n){
+  border-radius:999px 860px 760px 999px / 64px 54px 62px 52px !important;
+}
+.button.primary:hover{
+  border-radius:860px 999px 999px 800px / 56px 64px 54px 62px !important;
+}
+.button.secondary:hover{
+  border-radius:999px 820px 999px 900px / 64px 54px 62px 56px !important;
+}
+
+/* The sparkle should stay inside the smooth blob silhouette. */
 .button,
 .social-button,
 .lang-current,
@@ -95,6 +131,6 @@
   .photo-lightbox-close:hover::after,
   .text-action:hover::after{
     animation:none !important;
-    opacity:0 !important;
+    opacity:.65 !important;
   }
 }
