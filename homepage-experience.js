@@ -9,6 +9,174 @@
     document.head.appendChild(lightStyles);
   }
 
+  const mountHomePlayer = () => {
+    const facts = document.querySelector('.home-facts');
+    if (!facts || document.querySelector('[data-home-listen]')) return;
+
+    if (!document.querySelector('link[data-home-player]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'home-player.css?v=20260907-1448';
+      link.dataset.homePlayer = 'true';
+      document.head.appendChild(link);
+    }
+
+    const tracks = {
+      midnight: {
+        title: 'Midnight Chase',
+        year: '2024',
+        kind: 'album',
+        src: 'https://open.spotify.com/embed/album/52zN9FwtFD4P2bCXSA3CC1?si=Yt_mwR1MRZ-Z0sNXZkACJA'
+      },
+      echostride: {
+        title: 'Echostride',
+        year: '2024',
+        kind: 'track',
+        src: 'https://open.spotify.com/embed/track/2fAB8ODlRjGhhV0mjcSfIC?si=5133f7c5cbe645d8'
+      },
+      proBono: {
+        title: 'Pro Bono',
+        year: '2024',
+        kind: 'track',
+        src: 'https://open.spotify.com/embed/track/5dJgNzfzbfEczGyzNZzI6x?si=2f16de948a074a40'
+      },
+      insomnia: {
+        title: 'Insomnia',
+        year: '2023',
+        kind: 'track',
+        src: 'https://open.spotify.com/embed/track/2KkSTYV8ERMx7l9te2SYDP?si=1fdcd91432ba4a75'
+      },
+      variations: {
+        title: 'Dvylikos garsų variacijos',
+        year: '2022',
+        kind: 'track',
+        src: 'https://open.spotify.com/embed/track/1EUmFvfmjwlCZjCgoYE6Sr?si=7a2d53769fb242c4'
+      },
+      blackWoods: {
+        title: 'Black Woods',
+        year: '2022',
+        kind: 'track',
+        src: 'https://open.spotify.com/embed/track/28bLQmNgGEexpRuEkSWSDT?si=a8c559c3c45547b4'
+      }
+    };
+
+    const template = document.createElement('template');
+    template.innerHTML = `
+      <section class="home-listen shell" data-home-listen>
+        <div class="home-listen-head">
+          <div>
+            <p class="eyebrow" data-lt="Klausyti čia" data-en="Listen here">Klausyti čia</p>
+            <h2 data-lt="Mano muzika — neišeinant iš puslapio." data-en="My music — without leaving the site.">Mano muzika — neišeinant iš puslapio.</h2>
+          </div>
+          <p class="home-listen-intro" data-lt="Pasirink kūrinį ir klausyk jo tiesiog čia. Nebereikia atidarinėti atskiro Spotify lango vien tam, kad išgirstum mano muziką." data-en="Choose a work and listen to it directly here. You no longer need to open a separate Spotify window just to hear my music.">Pasirink kūrinį ir klausyk jo tiesiog čia. Nebereikia atidarinėti atskiro Spotify lango vien tam, kad išgirstum mano muziką.</p>
+        </div>
+
+        <div class="home-listen-layout">
+          <div class="home-track-list" role="tablist" aria-label="Kūriniai klausymui">
+            <button class="home-track is-active" type="button" role="tab" aria-selected="true" data-home-track="midnight"><span class="home-track-index">01</span><span class="home-track-copy"><strong>Midnight Chase</strong><small>2024</small></span><span class="home-track-mark">▶</span></button>
+            <button class="home-track" type="button" role="tab" aria-selected="false" data-home-track="echostride"><span class="home-track-index">02</span><span class="home-track-copy"><strong>Echostride</strong><small>2024</small></span><span class="home-track-mark">▶</span></button>
+            <button class="home-track" type="button" role="tab" aria-selected="false" data-home-track="proBono"><span class="home-track-index">03</span><span class="home-track-copy"><strong>Pro Bono</strong><small>2024</small></span><span class="home-track-mark">▶</span></button>
+            <button class="home-track" type="button" role="tab" aria-selected="false" data-home-track="insomnia"><span class="home-track-index">04</span><span class="home-track-copy"><strong>Insomnia</strong><small>2023</small></span><span class="home-track-mark">▶</span></button>
+            <button class="home-track" type="button" role="tab" aria-selected="false" data-home-track="variations"><span class="home-track-index">05</span><span class="home-track-copy"><strong>Dvylikos garsų variacijos</strong><small>2022</small></span><span class="home-track-mark">▶</span></button>
+            <button class="home-track" type="button" role="tab" aria-selected="false" data-home-track="blackWoods"><span class="home-track-index">06</span><span class="home-track-copy"><strong>Black Woods</strong><small>2022</small></span><span class="home-track-mark">▶</span></button>
+          </div>
+
+          <div class="home-player-stage" data-home-player-stage>
+            <div class="home-player-top">
+              <div>
+                <p class="home-player-kicker" data-lt="Pasirinktas kūrinys" data-en="Selected work">Pasirinktas kūrinys</p>
+                <h3 class="home-player-title" data-home-player-title>Midnight Chase</h3>
+                <span class="home-player-meta" data-home-player-meta>2024 · albumas</span>
+              </div>
+              <div class="home-eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="home-player-frame">
+              <iframe data-home-player-frame src="${tracks.midnight.src}" height="352" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify: Midnight Chase"></iframe>
+            </div>
+            <div class="home-player-note" data-lt="Grotuvas veikia šiame puslapyje — paspausk Play ir klausyk." data-en="The player works inside this page — press Play and listen.">Grotuvas veikia šiame puslapyje — paspausk Play ir klausyk.</div>
+          </div>
+        </div>
+      </section>`;
+
+    const section = template.content.firstElementChild;
+    facts.insertAdjacentElement('afterend', section);
+
+    const language = document.body.dataset.currentLanguage === 'en' || document.documentElement.lang === 'en' ? 'en' : 'lt';
+    section.querySelectorAll('[data-lt][data-en]').forEach((element) => {
+      element.textContent = element.dataset[language];
+    });
+
+    const buttons = Array.from(section.querySelectorAll('[data-home-track]'));
+    const frame = section.querySelector('[data-home-player-frame]');
+    const title = section.querySelector('[data-home-player-title]');
+    const meta = section.querySelector('[data-home-player-meta]');
+    const stage = section.querySelector('[data-home-player-stage]');
+
+    const activateTrack = (key, scrollIntoView = false) => {
+      const track = tracks[key];
+      if (!track) return;
+
+      buttons.forEach((button) => {
+        const active = button.dataset.homeTrack === key;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-selected', String(active));
+      });
+
+      title.textContent = track.title;
+      const lang = document.body.dataset.currentLanguage === 'en' ? 'en' : 'lt';
+      const kind = track.kind === 'album'
+        ? (lang === 'en' ? 'album' : 'albumas')
+        : (lang === 'en' ? 'track' : 'kūrinys');
+      meta.textContent = `${track.year} · ${kind}`;
+
+      if (frame.src !== track.src) {
+        frame.src = track.src;
+        frame.title = `Spotify: ${track.title}`;
+      }
+
+      if (scrollIntoView) {
+        section.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => activateTrack(button.dataset.homeTrack));
+    });
+
+    const selectedRelease = document.querySelector('.selected-release');
+    if (selectedRelease) {
+      selectedRelease.dataset.inlineListen = 'true';
+      selectedRelease.setAttribute('aria-label', language === 'en' ? 'Listen to Midnight Chase on this page' : 'Klausyti „Midnight Chase“ šiame puslapyje');
+      selectedRelease.querySelector('.release-arrow')?.replaceChildren(document.createTextNode('↓'));
+      const detail = selectedRelease.querySelector('.release-copy > span');
+      if (detail) {
+        detail.dataset.lt = '2024 · Klausyti čia';
+        detail.dataset.en = '2024 · Listen here';
+        detail.textContent = language === 'en' ? detail.dataset.en : detail.dataset.lt;
+      }
+      selectedRelease.addEventListener('click', (event) => {
+        event.preventDefault();
+        selectedRelease.classList.remove('is-opening');
+        void selectedRelease.offsetWidth;
+        selectedRelease.classList.add('is-opening');
+        window.setTimeout(() => selectedRelease.classList.remove('is-opening'), 600);
+        activateTrack('midnight', true);
+      });
+    }
+
+    if (!prefersReducedMotion && stage) {
+      stage.addEventListener('pointermove', (event) => {
+        const rect = stage.getBoundingClientRect();
+        stage.style.setProperty('--player-x', `${((event.clientX - rect.left) / rect.width) * 100}%`);
+        stage.style.setProperty('--player-y', `${((event.clientY - rect.top) / rect.height) * 100}%`);
+      }, { passive: true });
+      stage.addEventListener('pointerleave', () => {
+        stage.style.setProperty('--player-x', '75%');
+        stage.style.setProperty('--player-y', '18%');
+      }, { passive: true });
+    }
+  };
+
   const mountCreativeDNA = () => {
     const discover = document.querySelector('[data-discover-section]');
     if (!discover || document.querySelector('[data-dna-section]')) return;
@@ -140,7 +308,7 @@
   };
 
   const addClickFeedback = () => {
-    const selector = '.button, .social-button, .text-action, .discover-tab, .release-play, .lang-current, .lang-option, .nav-toggle';
+    const selector = '.button, .social-button, .text-action, .discover-tab, .home-track, .selected-release[data-inline-listen], .release-play, .lang-current, .lang-option, .nav-toggle';
     document.addEventListener('pointerdown', (event) => {
       const control = event.target.closest(selector);
       if (!control) return;
@@ -163,6 +331,7 @@
     }, { passive: true });
   };
 
+  mountHomePlayer();
   mountCreativeDNA();
   initDiscover();
   addClickFeedback();
