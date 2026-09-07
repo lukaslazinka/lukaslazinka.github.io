@@ -1,0 +1,229 @@
+/* Interactive creative-DNA section for the homepage. */
+.home-dna{
+  position:relative;
+  padding-block:96px;
+  border-top:1px solid rgba(240,210,125,.12);
+  overflow:hidden;
+}
+.home-dna::before{
+  content:"";
+  position:absolute;
+  width:520px;
+  height:420px;
+  left:-210px;
+  bottom:-120px;
+  border-radius:58% 42% 62% 38% / 48% 58% 42% 52%;
+  background:radial-gradient(circle at 58% 44%,rgba(240,210,125,.12),rgba(240,210,125,.025) 48%,transparent 72%);
+  pointer-events:none;
+}
+.dna-head{
+  display:grid;
+  grid-template-columns:minmax(230px,.42fr) minmax(0,1fr);
+  gap:54px;
+  align-items:end;
+  margin-bottom:52px;
+}
+.dna-head h2{max-width:720px}
+.dna-intro{margin:0;color:var(--muted);max-width:680px;font-size:1.02rem}
+.dna-layout{
+  display:grid;
+  grid-template-columns:minmax(420px,.9fr) minmax(0,1.1fr);
+  gap:54px;
+  align-items:center;
+}
+.dna-orbit{
+  --mx:50%;
+  --my:50%;
+  position:relative;
+  width:min(100%,470px);
+  aspect-ratio:1;
+  margin-inline:auto;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at var(--mx) var(--my),rgba(255,238,171,.12),transparent 26%),
+    radial-gradient(circle at 50% 50%,rgba(240,210,125,.07),rgba(240,210,125,.018) 42%,transparent 70%);
+  isolation:isolate;
+}
+.dna-orbit::before,
+.dna-orbit::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  border-radius:50%;
+  z-index:-1;
+}
+.dna-orbit::before{
+  inset:8%;
+  border:1px dashed rgba(240,210,125,.25);
+  box-shadow:0 0 34px rgba(240,210,125,.06),inset 0 0 34px rgba(240,210,125,.035);
+  animation:dnaRingSpin 34s linear infinite;
+}
+.dna-orbit::after{
+  inset:23%;
+  border:1px solid rgba(240,210,125,.13);
+  box-shadow:0 0 28px rgba(240,210,125,.04);
+}
+@keyframes dnaRingSpin{to{transform:rotate(360deg)}}
+.dna-core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:156px;
+  height:156px;
+  transform:translate(-50%,-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  border:1px solid rgba(255,230,148,.42);
+  border-radius:58% 42% 55% 45% / 45% 60% 40% 55%;
+  background:
+    radial-gradient(circle at 35% 28%,rgba(255,244,197,.18),transparent 36%),
+    linear-gradient(145deg,rgba(240,210,125,.13),rgba(240,210,125,.035));
+  box-shadow:0 18px 40px rgba(0,0,0,.23),0 0 36px rgba(240,210,125,.14);
+  animation:dnaCoreBreathe 5.6s ease-in-out infinite;
+}
+@keyframes dnaCoreBreathe{
+  0%,100%{transform:translate(-50%,-50%) scale(1);box-shadow:0 18px 40px rgba(0,0,0,.23),0 0 26px rgba(240,210,125,.10)}
+  50%{transform:translate(-50%,-50%) scale(1.035);box-shadow:0 22px 46px rgba(0,0,0,.25),0 0 42px rgba(240,210,125,.20)}
+}
+.dna-core-mark{
+  display:block;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:2.05rem;
+  line-height:1;
+  color:#f4d980;
+  text-shadow:0 0 18px rgba(240,210,125,.26);
+}
+.dna-core strong{
+  display:block;
+  margin-top:8px;
+  color:#eee2bf;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:.63rem;
+}
+.dna-node{
+  position:absolute;
+  z-index:3;
+  min-width:118px;
+  min-height:44px;
+  padding:9px 14px;
+  border:1px solid rgba(240,210,125,.25);
+  color:#d9c794;
+  background:linear-gradient(135deg,rgba(240,210,125,.07),rgba(255,255,255,.012));
+  box-shadow:0 10px 25px rgba(0,0,0,.19),0 0 16px rgba(240,210,125,.06);
+  cursor:pointer;
+  font-weight:800;
+  font-size:.78rem;
+  letter-spacing:.02em;
+  transition:transform .28s ease,border-color .28s ease,background .28s ease,color .28s ease,box-shadow .28s ease,border-radius .4s ease;
+  animation:dnaNodeFloat 5s ease-in-out infinite;
+}
+.dna-node:nth-of-type(1){left:50%;top:1%;transform:translateX(-50%);border-radius:60% 40% 54% 46% / 46% 62% 38% 54%}
+.dna-node:nth-of-type(2){right:-1%;top:24%;border-radius:43% 57% 61% 39% / 58% 42% 58% 42%;animation-delay:-.8s}
+.dna-node:nth-of-type(3){right:2%;bottom:18%;border-radius:57% 43% 42% 58% / 44% 60% 40% 56%;animation-delay:-1.6s}
+.dna-node:nth-of-type(4){left:50%;bottom:1%;transform:translateX(-50%);border-radius:42% 58% 59% 41% / 61% 39% 61% 39%;animation-delay:-2.4s}
+.dna-node:nth-of-type(5){left:2%;bottom:18%;border-radius:61% 39% 48% 52% / 42% 57% 43% 58%;animation-delay:-3.2s}
+.dna-node:nth-of-type(6){left:-1%;top:24%;border-radius:46% 54% 62% 38% / 60% 41% 59% 40%;animation-delay:-4s}
+@keyframes dnaNodeFloat{
+  0%,100%{margin-top:0}
+  50%{margin-top:-4px}
+}
+.dna-node:hover{
+  border-color:rgba(255,231,150,.62);
+  color:#f7e7b6;
+  background:rgba(240,210,125,.12);
+  box-shadow:0 14px 30px rgba(0,0,0,.23),0 0 28px rgba(240,210,125,.15);
+}
+.dna-node:nth-of-type(1):hover,.dna-node:nth-of-type(4):hover{transform:translateX(-50%) scale(1.055)}
+.dna-node:nth-of-type(2):hover,.dna-node:nth-of-type(3):hover,.dna-node:nth-of-type(5):hover,.dna-node:nth-of-type(6):hover{transform:scale(1.055)}
+.dna-node.is-active{
+  color:#171208;
+  border-color:rgba(255,242,188,.80);
+  background:linear-gradient(125deg,#fff1b7,#eacb69 50%,#b98628);
+  box-shadow:0 16px 34px rgba(0,0,0,.24),0 0 32px rgba(240,210,125,.22);
+}
+.dna-panel{
+  position:relative;
+  min-height:390px;
+  padding:42px 44px 38px;
+  border:1px solid rgba(240,210,125,.18);
+  border-radius:34px;
+  background:
+    radial-gradient(circle at 86% 16%,rgba(240,210,125,.10),transparent 26%),
+    linear-gradient(145deg,rgba(240,210,125,.045),rgba(255,255,255,.008));
+  box-shadow:0 22px 58px rgba(0,0,0,.18),0 0 30px rgba(240,210,125,.035);
+  overflow:hidden;
+}
+.dna-panel::after{
+  content:"✦";
+  position:absolute;
+  right:28px;
+  bottom:20px;
+  color:rgba(240,210,125,.25);
+  font-size:3.4rem;
+  text-shadow:0 0 24px rgba(240,210,125,.15);
+  transform:rotate(14deg);
+}
+.dna-content{display:none;position:relative;z-index:1;animation:dnaContentIn .48s cubic-bezier(.22,1,.36,1) both}
+.dna-content.is-active{display:block}
+@keyframes dnaContentIn{
+  from{opacity:0;transform:translate3d(18px,12px,0) scale(.985)}
+  to{opacity:1;transform:none}
+}
+.dna-kicker{
+  margin:0 0 11px;
+  color:#f0d27d;
+  text-transform:uppercase;
+  letter-spacing:.17em;
+  font-weight:850;
+  font-size:.68rem;
+}
+.dna-content h3{font-size:clamp(2.1rem,3.7vw,3.55rem);color:#f2ead8;margin-bottom:20px}
+.dna-content p:not(.dna-kicker){margin:0 0 18px;color:#c9c4b9;font-size:1.03rem;max-width:720px}
+.dna-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;position:relative;z-index:2}
+.dna-random{margin-top:26px;position:relative;z-index:2}
+.dna-random .button{font-size:.78rem}
+.dna-node.is-pressed,.dna-random .button.is-pressed{animation:dnaPress .4s cubic-bezier(.22,1,.36,1) both !important}
+@keyframes dnaPress{0%{scale:1}35%{scale:.93}70%{scale:1.04}100%{scale:1}}
+.dna-spark{
+  position:absolute;
+  left:var(--sx,50%);
+  top:var(--sy,50%);
+  width:8px;
+  height:8px;
+  pointer-events:none;
+  z-index:20;
+}
+.dna-spark::before,.dna-spark::after{
+  content:"✦";
+  position:absolute;
+  color:#fff1b6;
+  text-shadow:0 0 8px rgba(240,210,125,.75);
+  animation:dnaSparkOut .6s ease-out forwards;
+}
+.dna-spark::after{content:"· ✦ ·";left:-18px;color:#e5bf5c;animation-delay:.04s}
+@keyframes dnaSparkOut{
+  from{opacity:1;transform:translate3d(0,0,0) scale(.75)}
+  to{opacity:0;transform:translate3d(12px,-22px,0) scale(1.45) rotate(13deg)}
+}
+@media(max-width:950px){
+  .dna-head,.dna-layout{grid-template-columns:1fr;gap:30px}
+  .dna-layout{gap:42px}
+  .dna-panel{min-height:350px}
+}
+@media(max-width:600px){
+  .home-dna{padding-block:70px}
+  .dna-orbit{width:min(100%,340px)}
+  .dna-core{width:126px;height:126px}
+  .dna-core-mark{font-size:1.7rem}
+  .dna-node{min-width:92px;min-height:40px;padding:7px 10px;font-size:.68rem}
+  .dna-node:nth-of-type(2){right:-2%}.dna-node:nth-of-type(6){left:-2%}
+  .dna-panel{padding:32px 24px 30px;border-radius:28px}
+  .dna-content h3{font-size:2.35rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .dna-orbit::before,.dna-core,.dna-node,.dna-content,.dna-node.is-pressed,.dna-random .button.is-pressed,.dna-spark::before,.dna-spark::after{animation:none !important}
+}
