@@ -1,6 +1,14 @@
 (() => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  if (!document.querySelector('link[data-gold-light-expansion]')) {
+    const lightStyles = document.createElement('link');
+    lightStyles.rel = 'stylesheet';
+    lightStyles.href = 'gold-light-expansion.css?v=20260907-1350';
+    lightStyles.dataset.goldLightExpansion = 'true';
+    document.head.appendChild(lightStyles);
+  }
+
   const mountCreativeDNA = () => {
     const discover = document.querySelector('[data-discover-section]');
     if (!discover || document.querySelector('[data-dna-section]')) return;
