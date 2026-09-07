@@ -1,0 +1,256 @@
+/* Modern gold shapes: visible, interactive, and intentionally lightweight. */
+:root{
+  --modern-gold:#e6c86f;
+  --modern-gold-light:#fff0b3;
+  --modern-gold-deep:#a97722;
+  --modern-gold-glow:rgba(230,200,111,.24);
+}
+
+@keyframes blobButtonBreathe{
+  0%,100%{transform:translateY(0) scale(1);box-shadow:0 12px 28px rgba(0,0,0,.22),0 0 0 rgba(230,200,111,0)}
+  50%{transform:translateY(-2px) scale(1.018);box-shadow:0 16px 34px rgba(0,0,0,.24),0 0 26px rgba(230,200,111,.20)}
+}
+@keyframes organicRotate{
+  to{transform:rotate(360deg)}
+}
+@keyframes goldShimmer{
+  0%{transform:translateX(-180%) rotate(12deg)}
+  100%{transform:translateX(420%) rotate(12deg)}
+}
+@keyframes chipFloat{
+  0%,100%{transform:translateY(0) rotate(0)}
+  50%{transform:translateY(-5px) rotate(2deg)}
+}
+@keyframes goldPulse{
+  0%,100%{opacity:.55;transform:scale(.92)}
+  50%{opacity:1;transform:scale(1.08)}
+}
+
+/* Hero CTA buttons become organic gold shapes. */
+.hero .actions{
+  position:relative;
+  gap:14px;
+  align-items:center;
+}
+.hero .actions::after{
+  content:"";
+  width:18px;
+  height:18px;
+  margin-left:3px;
+  border:1px solid rgba(230,200,111,.48);
+  border-radius:63% 37% 58% 42% / 41% 63% 37% 59%;
+  background:rgba(230,200,111,.08);
+  box-shadow:0 0 15px rgba(230,200,111,.20);
+  animation:chipFloat 4.4s ease-in-out infinite;
+}
+.hero .actions .button{
+  min-height:48px;
+  padding:13px 23px !important;
+  border-width:1px !important;
+  font-weight:650;
+  letter-spacing:.01em;
+  transition:transform .26s ease,border-radius .38s ease,box-shadow .26s ease,background .26s ease !important;
+}
+.hero .actions .button.primary{
+  color:#17130a !important;
+  background:linear-gradient(125deg,#fff2bd 0%,#e6c86f 42%,#c99c38 100%) !important;
+  border-color:rgba(255,241,181,.72) !important;
+  border-radius:52% 48% 44% 56% / 58% 43% 57% 42% !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.22),0 0 20px rgba(230,200,111,.13) !important;
+  animation:blobButtonBreathe 5.4s ease-in-out infinite;
+}
+.hero .actions .button.primary:hover{
+  border-radius:42% 58% 55% 45% / 45% 60% 40% 55% !important;
+  transform:translateY(-4px) scale(1.035) rotate(-1deg) !important;
+  box-shadow:0 18px 38px rgba(0,0,0,.30),0 0 34px rgba(230,200,111,.34) !important;
+}
+.hero .actions .button.secondary{
+  color:#f5e5b1 !important;
+  background:linear-gradient(135deg,rgba(230,200,111,.12),rgba(230,200,111,.025)) !important;
+  border-color:rgba(230,200,111,.46) !important;
+  border-radius:38% 62% 57% 43% / 45% 38% 62% 55% !important;
+}
+.hero .actions .button.secondary:hover{
+  border-radius:57% 43% 42% 58% / 58% 47% 53% 42% !important;
+  transform:translateY(-4px) scale(1.03) rotate(1deg) !important;
+  background:linear-gradient(135deg,rgba(230,200,111,.21),rgba(230,200,111,.05)) !important;
+  box-shadow:0 16px 34px rgba(0,0,0,.25),0 0 28px rgba(230,200,111,.22) !important;
+}
+
+/* Button shimmer is deliberately strong and only runs on hover. */
+.button::after{
+  content:"" !important;
+  display:block !important;
+  position:absolute;
+  top:-55%;
+  bottom:-55%;
+  left:-34%;
+  width:22%;
+  pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.52),transparent);
+  transform:translateX(-180%) rotate(12deg);
+}
+.button:hover::after{animation:goldShimmer .9s ease both}
+
+/* Hero image gets two transform-only organic orbit outlines. */
+.hero-art{
+  isolation:isolate;
+  overflow:visible !important;
+}
+.hero-art::before,
+.hero-art::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  z-index:-1;
+  inset:-18px;
+  border:1px solid rgba(230,200,111,.30);
+  border-radius:43% 57% 62% 38% / 48% 39% 61% 52%;
+  box-shadow:0 0 24px rgba(230,200,111,.08);
+  animation:organicRotate 26s linear infinite;
+}
+.hero-art::after{
+  inset:-34px 8px 12px -26px;
+  border-color:rgba(255,240,179,.14);
+  border-radius:61% 39% 44% 56% / 37% 59% 41% 63%;
+  animation-duration:36s;
+  animation-direction:reverse;
+}
+
+/* Four homepage portfolio cards each get a different contemporary shape. */
+.card-grid .feature-card{
+  padding:34px 24px 30px !important;
+  border:1px solid rgba(230,200,111,.13) !important;
+  min-height:285px !important;
+  overflow:hidden;
+  background:linear-gradient(145deg,rgba(230,200,111,.055),rgba(255,255,255,.008) 44%,rgba(0,0,0,.03)) !important;
+  box-shadow:0 16px 40px rgba(0,0,0,.15) !important;
+}
+.card-grid .feature-card:nth-child(1){border-radius:38px 9px 38px 9px !important}
+.card-grid .feature-card:nth-child(2){border-radius:9px 42px 9px 42px !important}
+.card-grid .feature-card:nth-child(3){border-radius:42px 42px 10px 10px !important}
+.card-grid .feature-card:nth-child(4){border-radius:10px 10px 42px 42px !important}
+.card-grid .feature-card:hover{
+  transform:translateY(-7px) scale(1.018) !important;
+  border-color:rgba(230,200,111,.48) !important;
+  background:linear-gradient(135deg,rgba(230,200,111,.15),rgba(230,200,111,.035) 48%,transparent 86%) !important;
+  box-shadow:0 22px 52px rgba(0,0,0,.27),0 0 32px rgba(230,200,111,.14) !important;
+}
+.card-grid .feature-card .card-index{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:42px;
+  height:42px;
+  color:#17130a !important;
+  background:linear-gradient(135deg,#f9e5a7,#c99632);
+  border-radius:63% 37% 54% 46% / 44% 63% 37% 56%;
+  box-shadow:0 0 20px rgba(230,200,111,.16);
+  animation:chipFloat 5.5s ease-in-out infinite;
+}
+.card-grid .feature-card:nth-child(2) .card-index{animation-delay:-1.4s}
+.card-grid .feature-card:nth-child(3) .card-index{animation-delay:-2.8s}
+.card-grid .feature-card:nth-child(4) .card-index{animation-delay:-4.1s}
+.card-grid .feature-card h3{margin-top:24px}
+
+/* Selected release becomes an asymmetric modern panel. */
+.selected-release{
+  border:1px solid rgba(230,200,111,.17) !important;
+  border-radius:30px 8px 30px 8px !important;
+  padding:18px 20px !important;
+  background:linear-gradient(120deg,rgba(230,200,111,.085),rgba(255,255,255,.012),transparent 75%) !important;
+}
+.selected-release:hover{
+  border-radius:10px 34px 10px 34px !important;
+  transform:translateY(-4px) scale(1.01) !important;
+}
+.release-play{
+  border-radius:60% 40% 54% 46% / 42% 58% 42% 58% !important;
+  background:linear-gradient(135deg,rgba(255,240,179,.16),rgba(230,200,111,.04));
+}
+
+/* Social buttons: alternating blob pills. */
+.social-links .social-button{
+  border-color:rgba(230,200,111,.22) !important;
+  background:rgba(230,200,111,.018) !important;
+  padding-inline:15px;
+}
+.social-links .social-button:nth-child(1){border-radius:24px 12px 24px 12px !important}
+.social-links .social-button:nth-child(2){border-radius:12px 24px 12px 24px !important}
+.social-links .social-button:nth-child(3){border-radius:24px 24px 10px 24px !important}
+.social-links .social-button:nth-child(4){border-radius:10px 24px 24px 24px !important}
+.social-links .social-button:hover{
+  transform:translateY(-4px) scale(1.04) !important;
+  color:#f8e9b9 !important;
+  background:rgba(230,200,111,.10) !important;
+  border-color:rgba(230,200,111,.58) !important;
+}
+
+/* Facts become cleaner gold chips rather than plain text columns. */
+.home-facts{
+  gap:16px;
+}
+.home-fact{
+  position:relative;
+  padding:18px 20px !important;
+  border:1px solid rgba(230,200,111,.13);
+  background:linear-gradient(140deg,rgba(230,200,111,.05),rgba(255,255,255,.006));
+}
+.home-fact:nth-child(1){border-radius:28px 8px 28px 8px}
+.home-fact:nth-child(2){border-radius:8px 28px 8px 28px}
+.home-fact:nth-child(3){border-radius:28px 28px 8px 8px}
+.home-fact:hover{
+  transform:translateY(-5px) !important;
+  border-color:rgba(230,200,111,.38);
+  box-shadow:0 16px 34px rgba(0,0,0,.18),0 0 20px rgba(230,200,111,.08);
+}
+.home-fact .fact-number{
+  color:var(--modern-gold) !important;
+  text-shadow:0 0 18px rgba(230,200,111,.22);
+}
+
+/* Photo story cards get editorial cut-corner shapes. */
+.home-visual-story .photo-story-card:first-child{border-radius:42px 8px 8px 8px !important}
+.home-visual-story .photo-story-card:last-child{border-radius:8px 42px 8px 8px !important}
+.home-visual-story .photo-story-card:hover{transform:translateY(-7px) scale(1.012) !important}
+
+/* Stronger gold across utility details. */
+.card-link,.work-arrow,.discog-year,.timeline-item span,.score-price,.fact-number,.release-copy small,.hero-year-chip{
+  color:var(--modern-gold) !important;
+}
+.brand-role,.content-label,.contact-key,.score-edition-meta,.work-main small{
+  color:#cdbb86 !important;
+}
+
+/* Tiny decorative gold dots on major sections, static except for opacity pulse. */
+.section-heading::before{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:20px;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#e6c86f;
+  box-shadow:0 0 16px rgba(230,200,111,.38);
+  animation:goldPulse 3.6s ease-in-out infinite;
+}
+
+@media(max-width:900px){
+  .hero-art::before,.hero-art::after{display:none}
+  .hero .actions .button.primary{animation:none}
+  .card-grid .feature-card .card-index{animation:none}
+}
+@media(max-width:760px){
+  .hero .actions::after{display:none}
+  .hero .actions .button{border-radius:22px !important}
+  .card-grid .feature-card,
+  .card-grid .feature-card:nth-child(1),
+  .card-grid .feature-card:nth-child(2),
+  .card-grid .feature-card:nth-child(3),
+  .card-grid .feature-card:nth-child(4){border-radius:24px 8px 24px 8px !important}
+  .home-fact,.home-fact:nth-child(1),.home-fact:nth-child(2),.home-fact:nth-child(3){border-radius:20px 8px 20px 8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero .actions .button.primary,.hero-art::before,.hero-art::after,.card-grid .feature-card .card-index,.section-heading::before{animation:none !important}
+}
