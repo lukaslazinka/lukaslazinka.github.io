@@ -1,0 +1,36 @@
+/* Keep the About scroll-story heading readable and prevent Lithuanian words from splitting mid-word. */
+.about-story-grid{
+  grid-template-columns:minmax(320px,.52fr) minmax(0,1.25fr) !important;
+  gap:48px !important;
+}
+
+.about-story-sticky h2{
+  max-width:440px !important;
+  font-size:clamp(2.55rem,4vw,4.55rem) !important;
+  line-height:.98 !important;
+  overflow-wrap:normal !important;
+  word-break:normal !important;
+  hyphens:none !important;
+  text-wrap:balance;
+}
+
+@media(max-width:900px){
+  .about-story-grid{
+    grid-template-columns:1fr !important;
+    gap:30px !important;
+  }
+  .about-story-sticky{
+    position:relative !important;
+    top:auto !important;
+  }
+  .about-story-sticky h2{
+    max-width:680px !important;
+    font-size:clamp(2.5rem,8vw,4rem) !important;
+  }
+}
+
+@media(max-width:520px){
+  .about-story-sticky h2{
+    font-size:clamp(2.35rem,11vw,3.35rem) !important;
+  }
+}
