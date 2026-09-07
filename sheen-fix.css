@@ -1,19 +1,20 @@
-/* Fix hover sheen so the white/gold sweep travels fully across every blob control. */
+/* Fix hover sheen so the white/gold sweep travels visibly across the entire blob control. */
 @keyframes fullBlobSheen{
   0%{
     transform:translateX(0) skewX(-18deg);
     opacity:0;
   }
-  12%{opacity:.18}
-  46%{opacity:.56}
-  78%{opacity:.24}
+  8%{opacity:.22}
+  22%{opacity:.64}
+  76%{opacity:.64}
+  92%{opacity:.28}
   100%{
-    transform:translateX(320%) skewX(-18deg);
+    transform:translateX(560%) skewX(-18deg);
     opacity:0;
   }
 }
 
-/* Remove the older competing sheen layers that stopped before reaching the far edge. */
+/* Remove older competing sheen layers. */
 .button::before,
 .social-button::before,
 .lang-current::before,
@@ -26,7 +27,7 @@
   animation:none !important;
 }
 
-/* One single sweep, starting fully outside the left edge and finishing fully outside the right edge. */
+/* One continuous sweep: fully offscreen left -> fully offscreen right. */
 .button::after,
 .social-button::after,
 .lang-current::after,
@@ -38,19 +39,21 @@
   content:"" !important;
   display:block !important;
   position:absolute !important;
-  top:-90% !important;
-  bottom:-90% !important;
-  left:-65% !important;
-  width:55% !important;
+  top:-100% !important;
+  bottom:-100% !important;
+  left:-72% !important;
+  width:34% !important;
   pointer-events:none !important;
-  z-index:0 !important;
+  z-index:3 !important;
   opacity:0;
   background:linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255,250,226,.08) 18%,
-    rgba(255,248,214,.62) 48%,
-    rgba(255,238,184,.34) 62%,
+    rgba(255,250,226,.10) 14%,
+    rgba(255,250,226,.42) 34%,
+    rgba(255,255,255,.86) 50%,
+    rgba(255,238,184,.50) 66%,
+    rgba(255,238,184,.12) 86%,
     transparent 100%
   ) !important;
   transform:translateX(0) skewX(-18deg);
@@ -66,10 +69,10 @@
 .form-submit:hover::after,
 .photo-lightbox-close:hover::after,
 .text-action:hover::after{
-  animation:fullBlobSheen 1.05s cubic-bezier(.22,.68,.25,1) both !important;
+  animation:fullBlobSheen 1.12s cubic-bezier(.18,.67,.24,1) both !important;
 }
 
-/* Keep the sweep clipped by the actual organic button silhouette. */
+/* Keep the sweep clipped by each organic silhouette. */
 .button,
 .social-button,
 .lang-current,
