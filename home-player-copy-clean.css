@@ -1,0 +1,15 @@
+/* Cleaner homepage player copy: keep only the compact section label. */
+.home-listen-head{
+  display:block !important;
+  margin-bottom:24px !important;
+}
+.home-listen-head h2,
+.home-listen-intro,
+.home-player-note{
+  display:none !important;
+}
+.home-listen-head .eyebrow{
+  margin:0 !important;
+  font-size:.78rem;
+  letter-spacing:.18em;
+}
