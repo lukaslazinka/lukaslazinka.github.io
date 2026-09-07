@@ -1,4 +1,4 @@
-const SITE_ASSET_VERSION = '20260906-2255';
+const SITE_ASSET_VERSION = '20260907-1015';
 
 const enhancementStyles = document.createElement('link');
 enhancementStyles.rel = 'stylesheet';
@@ -9,6 +9,147 @@ const paletteStyles = document.createElement('link');
 paletteStyles.rel = 'stylesheet';
 paletteStyles.href = `palette.css?v=${SITE_ASSET_VERSION}`;
 document.head.appendChild(paletteStyles);
+
+function ensureLink(rel, href, extra = {}) {
+  let link = document.head.querySelector(`link[rel="${rel}"]`);
+  if (!link) {
+    link = document.createElement('link');
+    link.rel = rel;
+    document.head.appendChild(link);
+  }
+  link.href = href;
+  Object.entries(extra).forEach(([key, value]) => link.setAttribute(key, value));
+  return link;
+}
+
+function ensureMeta(selector, attributes) {
+  let meta = document.head.querySelector(selector);
+  if (!meta) {
+    meta = document.createElement('meta');
+    document.head.appendChild(meta);
+  }
+  Object.entries(attributes).forEach(([key, value]) => meta.setAttribute(key, value));
+  return meta;
+}
+
+function currentPageName() {
+  return location.pathname.split('/').pop() || 'index.html';
+}
+
+function enhanceGlobalNavigation() {
+  const page = currentPageName();
+  document.querySelectorAll('.main-nav').forEach((navigation) => {
+    if (!navigation.querySelector('a[href="compositions.html"]')) {
+      const link = document.createElement('a');
+      link.href = 'compositions.html';
+      link.dataset.lt = 'Kūriniai';
+      link.dataset.en = 'Works';
+      link.textContent = 'Kūriniai';
+      const aboutLink = navigation.querySelector('a[href="about.html"]');
+      if (aboutLink) aboutLink.insertAdjacentElement('afterend', link);
+      else navigation.appendChild(link);
+    }
+
+    navigation.querySelectorAll('a').forEach((link) => link.classList.remove('active'));
+    let activeHref = page;
+    if (page.startsWith('composition-')) activeHref = 'compositions.html';
+    const active = navigation.querySelector(`a[href="${activeHref}"]`);
+    if (active) active.classList.add('active');
+  });
+
+  document.querySelectorAll('.footer-right').forEach((footerRight) => {
+    if (footerRight.querySelector('.footer-utility')) return;
+    const utility = document.createElement('div');
+    utility.className = 'footer-utility';
+    utility.innerHTML = `
+      <a href="press.html" data-lt="Media / Press kit" data-en="Media / Press kit">Media / Press kit</a>
+      <a href="privacy.html" data-lt="Privatumas" data-en="Privacy">Privatumas</a>
+      <a href="terms.html" data-lt="Sąlygos" data-en="Terms">Sąlygos</a>
+      <a href="refunds.html" data-lt="Grąžinimai" data-en="Refunds">Grąžinimai</a>`;
+    footerRight.prepend(utility);
+  });
+
+  if (page === 'index.html') {
+    const grid = document.querySelector('.card-grid');
+    if (grid && !grid.querySelector('a[href="compositions.html"]')) {
+      const card = document.createElement('a');
+      card.className = 'feature-card';
+      card.href = 'compositions.html';
+      card.innerHTML = `<span class="card-index">01</span><h3 data-lt="Kūriniai" data-en="Works">Kūriniai</h3><p data-lt="Autorinių kūrinių katalogas — partitūriniai kūriniai ir publikuoti įrašai." data-en="Catalogue of original works — notated music and released recordings.">Autorinių kūrinių katalogas — partitūriniai kūriniai ir publikuoti įrašai.</p><span class="card-link" data-lt="Peržiūrėti kūrinius →" data-en="Explore works →">Peržiūrėti kūrinius →</span>`;
+      grid.prepend(card);
+      grid.querySelectorAll('.card-index').forEach((index, i) => {
+        index.textContent = String(i + 1).padStart(2, '0');
+      });
+    }
+  }
+}
+
+enhanceGlobalNavigation();
+
+function ensureSeoMetadata() {
+  const canonicalUrl = `https://lukaslazinka.github.io/${currentPageName() === 'index.html' ? '' : currentPageName()}`;
+  ensureLink('icon', 'favicon.svg', { type: 'image/svg+xml' });
+  ensureLink('manifest', 'site.webmanifest');
+  ensureLink('canonical', canonicalUrl);
+  ensureMeta('meta[name="theme-color"]', { name: 'theme-color', content: '#0d0d0e' });
+  ensureMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: 'Lukas Lazinka' });
+  ensureMeta('meta[property="og:type"]', { property: 'og:type', content: document.body.dataset.workName ? 'article' : 'website' });
+  ensureMeta('meta[property="og:url"]', { property: 'og:url', content: canonicalUrl });
+  ensureMeta('meta[property="og:title"]', { property: 'og:title', content: document.title });
+  ensureMeta('meta[property="og:description"]', { property: 'og:description', content: document.body.dataset.descriptionLt || '' });
+  if (!document.head.querySelector('meta[property="og:image"]')) {
+    ensureMeta('meta[property="og:image"]', { property: 'og:image', content: 'https://lukaslazinka.wordpress.com/wp-content/uploads/2024/11/p6160545.jpg' });
+  }
+  ensureMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' });
+
+  if (!document.getElementById('person-schema')) {
+    const schema = document.createElement('script');
+    schema.id = 'person-schema';
+    schema.type = 'application/ld+json';
+    schema.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Lukas Lazinka',
+      url: 'https://lukaslazinka.github.io/',
+      jobTitle: 'Composer',
+      nationality: 'Lithuanian',
+      sameAs: [
+        'https://open.spotify.com/artist/0OLJuP7L1mKxVhFV4AkyDA',
+        'https://www.youtube.com/@LukasLazinka',
+        'https://www.facebook.com/llazinka',
+        'https://www.instagram.com/lukaslazinka'
+      ]
+    });
+    document.head.appendChild(schema);
+  }
+
+  if (document.body.dataset.workName && !document.getElementById('work-schema')) {
+    const schema = document.createElement('script');
+    schema.id = 'work-schema';
+    schema.type = 'application/ld+json';
+    const workData = {
+      '@context': 'https://schema.org',
+      '@type': 'MusicComposition',
+      name: document.body.dataset.workName,
+      composer: { '@type': 'Person', name: 'Lukas Lazinka' },
+      url: canonicalUrl
+    };
+    if (document.body.dataset.workYear) workData.datePublished = document.body.dataset.workYear;
+    schema.textContent = JSON.stringify(workData);
+    document.head.appendChild(schema);
+  }
+}
+
+function refreshSeo(lang) {
+  const title = lang === 'lt' ? document.body.dataset.titleLt : document.body.dataset.titleEn;
+  const description = lang === 'lt' ? document.body.dataset.descriptionLt : document.body.dataset.descriptionEn;
+  const ogTitle = document.head.querySelector('meta[property="og:title"]');
+  const ogDescription = document.head.querySelector('meta[property="og:description"]');
+  if (ogTitle && title) ogTitle.content = title;
+  if (ogDescription && description) ogDescription.content = description;
+}
+
+ensureSeoMetadata();
 
 async function loadSitePhotos() {
   const definitions = [
@@ -54,6 +195,7 @@ async function loadSitePhotos() {
     if (result.status === 'rejected') console.error('[site photos]', result.reason);
   });
   document.documentElement.classList.add('site-photos-loaded');
+  window.dispatchEvent(new CustomEvent('lukas-photos-loaded'));
 }
 
 loadSitePhotos();
@@ -115,6 +257,7 @@ function applyLanguage(lang) {
   const description = lang === 'lt' ? document.body.dataset.descriptionLt : document.body.dataset.descriptionEn;
   const metaDescription = document.querySelector('meta[name="description"]');
   if (description && metaDescription) metaDescription.setAttribute('content', description);
+  refreshSeo(lang);
 
   document.querySelectorAll('[data-lang-current]').forEach((button) => {
     button.textContent = lang.toUpperCase();
@@ -198,6 +341,30 @@ document.querySelectorAll('[data-contact-form]').forEach((form) => {
   });
 });
 
+function refreshPhotoDownloadButtons() {
+  document.querySelectorAll('[data-photo-download]').forEach((button) => {
+    const target = document.querySelector(button.dataset.photoDownload);
+    button.disabled = !target?.dataset.photoSource;
+  });
+}
+
+document.querySelectorAll('[data-photo-download]').forEach((button) => {
+  button.disabled = true;
+  button.addEventListener('click', () => {
+    const target = document.querySelector(button.dataset.photoDownload);
+    const source = target?.dataset.photoSource;
+    if (!source) return;
+    const link = document.createElement('a');
+    link.href = source;
+    link.download = button.dataset.downloadName || 'Lukas-Lazinka-photo.webp';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  });
+});
+window.addEventListener('lukas-photos-loaded', refreshPhotoDownloadButtons);
+refreshPhotoDownloadButtons();
+
 function initPhotoLightbox() {
   const triggers = Array.from(document.querySelectorAll('[data-lightbox-photo]'));
   if (!triggers.length) return;
@@ -278,7 +445,8 @@ function initMotion() {
     '.page-hero > *', '.hero-copy > *', '.hero-art', '.section-heading > *',
     '.feature-card', '.photo-story-card', '.profile-image-wrap', '.profile-prose',
     '.timeline-item', '.discog-row', '.embed-card', '.video-card', '.score-feature',
-    '.contact-row', '.contact-form', '.social-button', '.statement > *'
+    '.contact-row', '.contact-form', '.social-button', '.statement > *', '.work-row',
+    '.work-index > a', '.press-photo-card', '.legal-prose > *'
   ];
   const items = Array.from(document.querySelectorAll(selectors.join(',')));
   items.forEach((item, index) => {
