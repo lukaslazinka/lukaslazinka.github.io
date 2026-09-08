@@ -1,5 +1,5 @@
 (() => {
-  const V = '20260908-0816';
+  const V = '20260908-0830';
   const core = document.createElement('script');
   core.src = `script-core.js?v=${V}`;
   core.async = false;
@@ -23,6 +23,11 @@
     experience.rel = 'stylesheet';
     experience.href = `site-wide-experience.css?v=${V}`;
     document.head.appendChild(experience);
+
+    const hero = document.createElement('link');
+    hero.rel = 'stylesheet';
+    hero.href = `site-wide-hero.css?v=${V}`;
+    document.head.appendChild(hero);
 
     const script = document.createElement('script');
     script.src = `site-wide-experience.js?v=${V}`;
