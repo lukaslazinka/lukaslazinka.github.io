@@ -46,6 +46,38 @@
     }
   }
 
+  function mountCursor(){
+    if(!fine||reduced||document.querySelector('.gold-cursor-dot'))return;
+    const dot=document.createElement('span'),ring=document.createElement('span');dot.className='gold-cursor-dot';ring.className='gold-cursor-ring';document.body.append(dot,ring);
+    let tx=-100,ty=-100,rx=-100,ry=-100,raf=0;
+    const tick=()=>{rx+=(tx-rx)*.18;ry+=(ty-ry)*.18;dot.style.transform=`translate3d(${tx-3}px,${ty-3}px,0)`;ring.style.transform=`translate3d(${rx}px,${ry}px,0)`;raf=requestAnimationFrame(tick)};
+    document.addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY;doc.classList.add('gold-cursor-live')},{passive:true});
+    document.addEventListener('pointerover',e=>doc.classList.toggle('gold-cursor-hover',!!e.target.closest('a,button,[role="button"]')));
+    document.addEventListener('pointerleave',()=>doc.classList.remove('gold-cursor-live'));
+    raf=requestAnimationFrame(tick);addEventListener('pagehide',()=>cancelAnimationFrame(raf),{once:true});
+  }
+
+  function mountPageTransitions(){
+    if('startViewTransition' in document)return;
+    document.addEventListener('click',e=>{
+      if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+      const a=e.target.closest('a[href]');if(!a||a.target==='_blank'||a.hasAttribute('download'))return;
+      const h=a.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('mailto:')||h.startsWith('tel:'))return;
+      const u=new URL(a.href,location.href);if(u.origin!==location.origin)return;
+      e.preventDefault();document.body.classList.add('page-leaving');setTimeout(()=>location.href=u.href,170);
+    });
+  }
+
+  function mountPageHeroLight(){
+    if(reduced||!fine)return;
+    document.querySelectorAll('.page-hero').forEach(hero=>{
+      if(hero.querySelector('.sx-hero-light'))return;
+      const light=document.createElement('span');light.className='sx-hero-light';light.setAttribute('aria-hidden','true');hero.appendChild(light);
+      hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();hero.style.setProperty('--sx-hero-x',`${(e.clientX-r.left)/r.width*100}%`);hero.style.setProperty('--sx-hero-y',`${(e.clientY-r.top)/r.height*100}%`);const nx=(e.clientX-r.left)/r.width-.5;const ny=(e.clientY-r.top)/r.height-.5;light.style.transform=`translate3d(${nx*14}px,${ny*9}px,0) scale(1.02)`},{passive:true});
+      hero.addEventListener('pointerleave',()=>{hero.style.setProperty('--sx-hero-x','50%');hero.style.setProperty('--sx-hero-y','35%');light.style.transform=''},{passive:true});
+    });
+  }
+
   function collectFlow(){
     const selectors=[
       'main > section > *', '.section-heading > *', '.feature-card', '.photo-story-card', '.home-fact',
@@ -107,7 +139,6 @@
       flowItems.forEach((el,index)=>{
         const r=el.getBoundingClientRect();if(r.bottom<-120||r.top>vh+120)return;
         const p=Math.max(0,Math.min(1,(vh-r.top)/(vh+r.height)));
-        /* entering: down, center: neutral, leaving: up */
         const yMove=(.5-p)*30;
         const side=(index%2?1:-1)*Math.sin(p*Math.PI)*3.5;
         const scale=1+Math.sin(p*Math.PI)*.005;
@@ -158,9 +189,9 @@
   }
 
   function init(){
-    mountDecor();collectFlow();collectSections();mountConstellation();mountWorkPreview();bindGlobalClicks();cycleWord(true);update();
+    mountDecor();mountCursor();mountPageTransitions();mountPageHeroLight();collectFlow();collectSections();mountConstellation();mountWorkPreview();bindGlobalClicks();cycleWord(true);update();
     addEventListener('scroll',requestUpdate,{passive:true});addEventListener('resize',()=>{collectFlow();requestUpdate()},{passive:true});
-    if('MutationObserver'in window){let timeout;const obs=new MutationObserver(()=>{clearTimeout(timeout);timeout=setTimeout(()=>{collectFlow();collectSections();mountWorkPreview();requestUpdate()},120)});obs.observe(document.body,{childList:true,subtree:true})}
+    if('MutationObserver'in window){let timeout;const obs=new MutationObserver(()=>{clearTimeout(timeout);timeout=setTimeout(()=>{mountPageHeroLight();collectFlow();collectSections();mountWorkPreview();requestUpdate()},120)});obs.observe(document.body,{childList:true,subtree:true})}
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
