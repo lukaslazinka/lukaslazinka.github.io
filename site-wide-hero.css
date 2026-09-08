@@ -1,0 +1,23 @@
+/* Pointer-responsive gold light for inner page heroes. */
+.page-hero{
+  --sx-hero-x:50%;
+  --sx-hero-y:35%;
+  isolation:isolate;
+  overflow:hidden;
+}
+.page-hero > *:not(.sx-hero-light){position:relative;z-index:1}
+.sx-hero-light{
+  position:absolute!important;
+  z-index:0!important;
+  inset:-22% -10%;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at var(--sx-hero-x) var(--sx-hero-y),rgba(255,235,159,.19) 0%,rgba(236,193,75,.08) 18%,transparent 42%),
+    radial-gradient(circle at 78% 18%,rgba(207,151,42,.08),transparent 32%);
+  opacity:.92;
+  transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .28s ease;
+  will-change:transform;
+}
+.page-hero:hover .sx-hero-light{opacity:1}
+@media(max-width:900px){.sx-hero-light{opacity:.65}}
+@media(prefers-reduced-motion:reduce){.sx-hero-light{display:none!important}}
