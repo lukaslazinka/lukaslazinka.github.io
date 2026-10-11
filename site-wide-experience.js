@@ -22,6 +22,8 @@
     'inquiries.html':['CREATE','PROJECT','MUSIC','COLLABORATE','IDEA'],
     'contact.html':['CONTACT','VILNIUS','MUSIC','HELLO','LUKAS'],
     'press.html':['PRESS','BIOGRAPHY','PHOTOS','MUSIC','LUKAS'],
+    'articles.html':['ARTICLES','WRITING','MUSIC','THOUGHTS','SOUND'],
+    'article.html':['ARTICLE','WRITING','MUSIC','THOUGHTS','SOUND'],
     'privacy.html':['PRIVACY','LUKAS','MUSIC'],
     'terms.html':['TERMS','LUKAS','MUSIC'],
     'refunds.html':['REFUNDS','LUKAS','MUSIC']
@@ -84,7 +86,7 @@
       '.discover-panel', '.dna-panel', '.spotlight-stage', '.home-player-stage', '.timeline-item', '.work-row',
       '.work-index > a', '.discog-row', '.embed-card', '.video-card', '.score-feature > *', '.score-edition',
       '.contact-row', '.contact-form', '.press-photo-card', '.legal-prose > *', '.about-story-item', '.about-compass-grid > *',
-      '.catalogue-stage', '.catalogue-choice'
+      '.catalogue-stage', '.catalogue-choice', '.article-card', '.article-detail-head > *', '.article-hero-image', '.article-content > *'
     ];
     const seen=new Set();
     flowItems=Array.from(document.querySelectorAll(selectors.join(','))).filter(el=>{if(seen.has(el)||el.closest('.site-header')||el.closest('.site-footer'))return false;seen.add(el);return true});
