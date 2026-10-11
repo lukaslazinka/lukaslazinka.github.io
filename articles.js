@@ -1,7 +1,9 @@
 (() => {
-  const SITE = 'https://lukaslazinka.wordpress.com';
-  const API = SITE + '/wp-json/wp/v2/posts';
-  const LAUNCH = '2026-10-11T00:00:00';
+  const SITE_ID = '238730654';
+  const API_V2 = 'https://public-api.wordpress.com/wp/v2/sites/' + SITE_ID + '/posts';
+  const API_V1 = 'https://public-api.wordpress.com/rest/v1.1/sites/' + SITE_ID + '/posts/';
+  const LAUNCH = new Date('2026-10-11T00:00:00+03:00');
+
   const isEnglish = () => document.body.dataset.currentLanguage === 'en' || document.documentElement.lang === 'en';
 
   function decode(value){
@@ -46,7 +48,19 @@
   function imageFor(post){
     const media=post._embedded && post._embedded['wp:featuredmedia'];
     const first=media && media[0];
-    return first && (first.source_url || (first.media_details && first.media_details.sizes && first.media_details.sizes.large && first.media_details.sizes.large.source_url)) || '';
+    return first && (first.source_url || (first.media_details && first.media_details.sizes && first.media_details.sizes.large && first.media_details.sizes.large.source_url)) || post.featured_image || '';
+  }
+
+  function normalizeV1(post){
+    return {
+      slug: post.slug || String(post.ID || ''),
+      date: post.date,
+      title: { rendered: post.title || '' },
+      excerpt: { rendered: post.excerpt || '' },
+      content: { rendered: post.content || '' },
+      featured_image: post.featured_image || '',
+      _embedded: post.featured_image ? {'wp:featuredmedia':[ { source_url: post.featured_image } ]} : {}
+    };
   }
 
   function jsonp(url){
@@ -55,22 +69,47 @@
       const script=document.createElement('script');
       const sep=url.includes('?')?'&':'?';
       const timer=setTimeout(()=>{cleanup();reject(new Error('JSONP timeout'))},12000);
-      function cleanup(){clearTimeout(timer);delete window[callback];script.remove()}
+      function cleanup(){clearTimeout(timer);try{delete window[callback]}catch{}script.remove()}
       window[callback]=(data)=>{cleanup();resolve(data)};
       script.onerror=()=>{cleanup();reject(new Error('JSONP failed'))};
-      script.src=url + sep + '_jsonp=' + encodeURIComponent(callback);
+      script.src=url + sep + 'callback=' + encodeURIComponent(callback);
       document.head.appendChild(script);
     });
   }
 
-  async function getJson(url){
+  async function fetchV2(){
+    const url=API_V2 + '?per_page=100&orderby=date&order=desc&_embed=1';
+    const response=await fetch(url,{mode:'cors',cache:'no-store',headers:{Accept:'application/json'}});
+    if(!response.ok)throw new Error('WordPress v2 HTTP '+response.status);
+    const data=await response.json();
+    if(!Array.isArray(data))throw new Error('Unexpected WordPress v2 response');
+    return data;
+  }
+
+  async function fetchV1(){
+    const url=API_V1 + '?number=100&order_by=date&order=DESC';
     try{
-      const response=await fetch(url,{headers:{Accept:'application/json'}});
-      if(!response.ok) throw new Error('HTTP ' + response.status);
-      return await response.json();
-    }catch(error){
-      return await jsonp(url);
-    }
+      const response=await fetch(url,{mode:'cors',cache:'no-store',headers:{Accept:'application/json'}});
+      if(response.ok){
+        const data=await response.json();
+        if(Array.isArray(data?.posts))return data.posts.map(normalizeV1);
+      }
+    }catch(e){}
+    const data=await jsonp(url);
+    if(!Array.isArray(data?.posts))throw new Error('Unexpected WordPress v1 response');
+    return data.posts.map(normalizeV1);
+  }
+
+  async function getPosts(){
+    let lastError;
+    try{return await fetchV2()}catch(e){lastError=e;console.warn('[articles] v2 failed, trying v1',e)}
+    try{return await fetchV1()}catch(e){lastError=e;console.warn('[articles] v1 failed',e)}
+    throw lastError || new Error('WordPress unavailable');
+  }
+
+  function isNewEnough(post){
+    const d=new Date(post.date);
+    return !Number.isNaN(d.getTime()) && d >= LAUNCH;
   }
 
   function localize(root=document){
@@ -83,14 +122,14 @@
     a.className='article-card';
     a.href='article.html?slug=' + encodeURIComponent(post.slug);
     const image=imageFor(post);
-    const excerpt=stripHtml(post.excerpt && post.excerpt.rendered || post.content && post.content.rendered || '').slice(0,index===0?260:175);
-    const title=decode(post.title && post.title.rendered || '');
+    const excerpt=stripHtml(post.excerpt?.rendered || post.content?.rendered || '').slice(0,index===0?260:175);
+    const title=decode(post.title?.rendered || '');
     const media=image
       ? '<div class="article-card-media"><img src="' + image.replace(/"/g,'&quot;') + '" alt="" loading="lazy"></div>'
       : '<div class="article-card-media is-placeholder" aria-hidden="true"></div>';
     a.innerHTML=media +
       '<div class="article-card-copy">' +
-      '<div class="article-card-meta"><time>' + formatDate(post.date) + '</time><span>·</span><span>' + readingTime(post.content && post.content.rendered || '') + '</span></div>' +
+      '<div class="article-card-meta"><time>' + formatDate(post.date) + '</time><span>·</span><span>' + readingTime(post.content?.rendered || '') + '</span></div>' +
       '<h2>' + title + '</h2>' +
       (excerpt?'<p>' + excerpt + (excerpt.length >= (index===0?260:175) ? '…' : '') + '</p>':'') +
       '<span class="article-card-link">' + (isEnglish()?'Read article':'Skaityti straipsnį') + '</span>' +
@@ -103,17 +142,16 @@
     const grid=document.querySelector('[data-articles-grid]');
     const empty=document.querySelector('[data-articles-empty]');
     const errorBox=document.querySelector('[data-articles-error]');
-    if(!grid) return;
+    if(!grid)return;
     loading.hidden=false;grid.hidden=true;empty.hidden=true;errorBox.hidden=true;
     try{
-      const url=API + '?per_page=100&orderby=date&order=desc&_embed=wp:featuredmedia&after=' + encodeURIComponent(LAUNCH);
-      const posts=await getJson(url);
+      const posts=(await getPosts()).filter(isNewEnough);
       loading.hidden=true;
-      if(!Array.isArray(posts) || !posts.length){empty.hidden=false;localize(empty);return}
+      if(!posts.length){empty.hidden=false;localize(empty);return}
       grid.innerHTML='';
       posts.forEach((post,index)=>grid.appendChild(card(post,index)));
       grid.hidden=false;
-      if(window.__lukasSiteWideExperience) window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event('resize'));
     }catch(err){
       console.error('[articles]',err);
       loading.hidden=true;errorBox.hidden=false;localize(errorBox);
@@ -121,8 +159,8 @@
   }
 
   function updateSeo(post,image){
-    const title=decode(post.title && post.title.rendered || '');
-    const description=stripHtml(post.excerpt && post.excerpt.rendered || post.content && post.content.rendered || '').slice(0,180);
+    const title=decode(post.title?.rendered || '');
+    const description=stripHtml(post.excerpt?.rendered || post.content?.rendered || '').slice(0,180);
     const canonical='https://lukaslazinka.github.io/article.html?slug=' + encodeURIComponent(post.slug);
     document.title=title + ' — Lukas Lazinka';
     const set=(selector,attr,value)=>{const el=document.querySelector(selector);if(el)el.setAttribute(attr,value)};
@@ -142,23 +180,22 @@
     const slug=new URLSearchParams(location.search).get('slug');
     if(!slug){loading.hidden=true;errorBox.hidden=false;localize(errorBox);return}
     try{
-      const url=API + '?slug=' + encodeURIComponent(slug) + '&_embed=wp:featuredmedia';
-      const posts=await getJson(url);
-      const post=Array.isArray(posts)&&posts[0];
-      if(!post || new Date(post.date) < new Date(LAUNCH)) throw new Error('not found');
-      const title=decode(post.title && post.title.rendered || '');
+      const posts=await getPosts();
+      const post=posts.find(p=>p.slug===slug && isNewEnough(p));
+      if(!post)throw new Error('not found');
+      const title=decode(post.title?.rendered || '');
       const image=imageFor(post);
       detail.querySelector('[data-article-title]').textContent=title;
       detail.querySelector('[data-article-date]').textContent=formatDate(post.date);
       detail.querySelector('[data-article-date]').dateTime=post.date;
-      detail.querySelector('[data-article-reading]').textContent=readingTime(post.content && post.content.rendered || '');
-      detail.querySelector('[data-article-content]').innerHTML=sanitizeHtml(post.content && post.content.rendered || '');
+      detail.querySelector('[data-article-reading]').textContent=readingTime(post.content?.rendered || '');
+      detail.querySelector('[data-article-content]').innerHTML=sanitizeHtml(post.content?.rendered || '');
       const wrap=detail.querySelector('[data-article-image-wrap]');
       const img=detail.querySelector('[data-article-image]');
       if(image){img.src=image;img.alt=title;wrap.hidden=false}
       updateSeo(post,image);
       loading.hidden=true;detail.hidden=false;
-      if(window.__lukasSiteWideExperience) window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event('resize'));
     }catch(err){
       console.error('[article]',err);
       loading.hidden=true;errorBox.hidden=false;localize(errorBox);
@@ -166,7 +203,7 @@
   }
 
   document.addEventListener('click',e=>{
-    if(e.target.closest('[data-articles-retry]')) loadList();
+    if(e.target.closest('[data-articles-retry]'))loadList();
   });
 
   const observer=new MutationObserver(()=>localize());
