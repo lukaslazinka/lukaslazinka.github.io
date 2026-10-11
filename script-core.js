@@ -1,4 +1,4 @@
-const SITE_ASSET_VERSION = '20260907-1015';
+const SITE_ASSET_VERSION = '20261011-1530';
 
 const enhancementStyles = document.createElement('link');
 enhancementStyles.rel = 'stylesheet';
@@ -50,9 +50,21 @@ function enhanceGlobalNavigation() {
       else navigation.appendChild(link);
     }
 
+    if (!navigation.querySelector('a[href="articles.html"]')) {
+      const articlesLink = document.createElement('a');
+      articlesLink.href = 'articles.html';
+      articlesLink.dataset.lt = 'Straipsniai';
+      articlesLink.dataset.en = 'Articles';
+      articlesLink.textContent = 'Straipsniai';
+      const worksLink = navigation.querySelector('a[href="compositions.html"]');
+      if (worksLink) worksLink.insertAdjacentElement('afterend', articlesLink);
+      else navigation.appendChild(articlesLink);
+    }
+
     navigation.querySelectorAll('a').forEach((link) => link.classList.remove('active'));
     let activeHref = page;
     if (page.startsWith('composition-')) activeHref = 'compositions.html';
+    if (page === 'article.html') activeHref = 'articles.html';
     const active = navigation.querySelector(`a[href="${activeHref}"]`);
     if (active) active.classList.add('active');
   });
@@ -62,7 +74,7 @@ function enhanceGlobalNavigation() {
     const utility = document.createElement('div');
     utility.className = 'footer-utility';
     utility.innerHTML = `
-      <a href="press.html" data-lt="Media / Press kit" data-en="Media / Press kit">Media / Press kit</a>
+      <a href="press.html" data-lt="Press" data-en="Press">Press</a>
       <a href="privacy.html" data-lt="Privatumas" data-en="Privacy">Privatumas</a>
       <a href="terms.html" data-lt="Sąlygos" data-en="Terms">Sąlygos</a>
       <a href="refunds.html" data-lt="Grąžinimai" data-en="Refunds">Grąžinimai</a>`;
