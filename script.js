@@ -1,5 +1,5 @@
 (() => {
-  const V = '20261011-1530';
+  const V = '20261011-1540';
   const core = document.createElement('script');
   core.src = `script-core.js?v=${V}`;
   core.async = false;
