@@ -48,7 +48,19 @@
   function imageFor(post){
     const media=post._embedded && post._embedded['wp:featuredmedia'];
     const first=media && media[0];
-    return first && (first.source_url || (first.media_details && first.media_details.sizes && first.media_details.sizes.large && first.media_details.sizes.large.source_url)) || post.featured_image || '';
+    const featured=first && (first.source_url || (first.media_details && first.media_details.sizes && first.media_details.sizes.large && first.media_details.sizes.large.source_url));
+    if(featured) return featured;
+    if(post.featured_image) return post.featured_image;
+
+    const html=post.content?.rendered || post.content || '';
+    if(html){
+      const doc=new DOMParser().parseFromString(html,'text/html');
+      const img=doc.querySelector('img');
+      if(img){
+        return img.getAttribute('src') || img.getAttribute('data-src') || '';
+      }
+    }
+    return '';
   }
 
   function normalizeV1(post){
