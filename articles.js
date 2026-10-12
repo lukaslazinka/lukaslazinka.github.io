@@ -170,6 +170,39 @@
     }
   }
 
+  function prepareArticleContent(html,title,heroImage){
+    const doc=new DOMParser().parseFromString(html||'','text/html');
+
+    if(heroImage){
+      const normalize=(url)=>{
+        try{
+          const u=new URL(url,location.href);
+          u.hash='';
+          return u.href;
+        }catch{return url||''}
+      };
+      const hero=normalize(heroImage);
+      const firstMatching=[...doc.querySelectorAll('img')].find(img=>{
+        const src=img.getAttribute('src')||img.getAttribute('data-src')||'';
+        return normalize(src)===hero;
+      });
+      if(firstMatching){
+        const block=firstMatching.closest('figure,.wp-block-image,.wp-block-cover,p')||firstMatching;
+        block.remove();
+      }
+    }
+
+    const wanted=(title||'').replace(/\s+/g,' ').trim().toLocaleLowerCase('lt');
+    if(wanted){
+      const duplicate=[...doc.querySelectorAll('h1,h2,h3')].find(el=>
+        (el.textContent||'').replace(/\s+/g,' ').trim().toLocaleLowerCase('lt')===wanted
+      );
+      if(duplicate) duplicate.remove();
+    }
+
+    return sanitizeHtml(doc.body.innerHTML);
+  }
+
   function updateSeo(post,image){
     const title=decode(post.title?.rendered || '');
     const description=stripHtml(post.excerpt?.rendered || post.content?.rendered || '').slice(0,180);
@@ -201,7 +234,7 @@
       detail.querySelector('[data-article-date]').textContent=formatDate(post.date);
       detail.querySelector('[data-article-date]').dateTime=post.date;
       detail.querySelector('[data-article-reading]').textContent=readingTime(post.content?.rendered || '');
-      detail.querySelector('[data-article-content]').innerHTML=sanitizeHtml(post.content?.rendered || '');
+      detail.querySelector('[data-article-content]').innerHTML=prepareArticleContent(post.content?.rendered || '',title,image);
       const wrap=detail.querySelector('[data-article-image-wrap]');
       const img=detail.querySelector('[data-article-image]');
       if(image){img.src=image;img.alt=title;wrap.hidden=false}
