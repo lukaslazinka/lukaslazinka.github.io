@@ -592,3 +592,77 @@ body[data-article-page] .article-detail-footer{
     font-size:1rem;
   }
 }
+
+
+/* 2026-10-12 — integrated article image and reading surface */
+body[data-article-page] .article-detail-head{
+  max-width:900px;
+}
+
+body[data-article-page] .article-hero-image{
+  width:min(100%,900px);
+  margin:0 auto;
+  border-radius:12px 12px 0 0;
+  border-bottom:0;
+  box-shadow:0 16px 36px rgba(0,0,0,.18);
+}
+
+body[data-article-page] .article-content{
+  width:min(100%,900px);
+  max-width:900px;
+  margin:0 auto;
+  padding:42px 54px 50px;
+  border-radius:0 0 12px 12px;
+  border-top:0;
+  background:
+    radial-gradient(circle at 88% 8%,rgba(176,128,38,.055),transparent 26%),
+    linear-gradient(180deg,#e9e1d2 0%,#dfd4c1 100%);
+  box-shadow:0 24px 54px rgba(0,0,0,.20);
+}
+
+body[data-article-page] .article-content > *{
+  max-width:760px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+body[data-article-page] .article-content p{
+  color:#322d25;
+}
+
+body[data-article-page] .article-content h2,
+body[data-article-page] .article-content h3,
+body[data-article-page] .article-content h4{
+  color:#1b1813;
+}
+
+body[data-article-page] .article-content blockquote{
+  max-width:760px;
+}
+
+body[data-article-page] .article-content figure,
+body[data-article-page] .article-content .wp-block-gallery,
+body[data-article-page] .article-content iframe{
+  max-width:760px;
+}
+
+body[data-article-page] .article-detail-footer{
+  max-width:900px;
+}
+
+body[data-article-page] .sx-bg-word.is-visible{
+  opacity:.22 !important;
+}
+
+@media(max-width:700px){
+  body[data-article-page] .article-hero-image{
+    border-radius:8px 8px 0 0;
+    margin-bottom:0;
+  }
+
+  body[data-article-page] .article-content{
+    width:100%;
+    padding:28px 22px 32px;
+    border-radius:0 0 8px 8px;
+  }
+}
