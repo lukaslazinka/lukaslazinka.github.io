@@ -134,7 +134,6 @@
     a.className='article-card';
     a.href='article.html?slug=' + encodeURIComponent(post.slug);
     const image=imageFor(post);
-    const excerpt=stripHtml(post.excerpt?.rendered || post.content?.rendered || '').slice(0,index===0?260:175);
     const title=decode(post.title?.rendered || '');
     const media=image
       ? '<div class="article-card-media"><img src="' + image.replace(/"/g,'&quot;') + '" alt="" loading="lazy"></div>'
@@ -143,8 +142,6 @@
       '<div class="article-card-copy">' +
       '<div class="article-card-meta"><time>' + formatDate(post.date) + '</time><span>·</span><span>' + readingTime(post.content?.rendered || '') + '</span></div>' +
       '<h2>' + title + '</h2>' +
-      (excerpt?'<p>' + excerpt + (excerpt.length >= (index===0?260:175) ? '…' : '') + '</p>':'') +
-      '<span class="article-card-link">' + (isEnglish()?'Read article':'Skaityti straipsnį') + '</span>' +
       '</div>';
     return a;
   }
@@ -161,6 +158,7 @@
       loading.hidden=true;
       if(!posts.length){empty.hidden=false;localize(empty);return}
       grid.innerHTML='';
+      grid.dataset.count=String(posts.length);
       posts.forEach((post,index)=>grid.appendChild(card(post,index)));
       grid.hidden=false;
       window.dispatchEvent(new Event('resize'));
