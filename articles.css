@@ -267,3 +267,42 @@
     border-radius:22px 8px 22px 8px;
   }
 }
+
+
+/* 2026-10-12 — stronger news-card contrast */
+.article-card{
+  border-radius:14px !important;
+}
+
+.article-card:hover,
+.article-card:focus-visible{
+  border-radius:14px !important;
+}
+
+.article-card h2,
+.article-card:first-child h2{
+  color:#1d1914 !important;
+  background:none !important;
+  -webkit-background-clip:border-box !important;
+  background-clip:border-box !important;
+  -webkit-text-fill-color:#1d1914 !important;
+  text-shadow:none !important;
+  font-weight:700;
+  letter-spacing:-.025em !important;
+}
+
+.article-card p{
+  color:#514a40 !important;
+}
+
+.article-card-meta{
+  color:#8a6118 !important;
+}
+
+.article-card-link{
+  color:#8a6118 !important;
+}
+
+.article-card-copy{
+  background:rgba(255,255,255,.10);
+}
