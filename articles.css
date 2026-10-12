@@ -99,3 +99,14 @@
   .articles-loading-orbit{animation:none}
   .article-card,.article-card-media img,.article-back{transition:none!important}
 }
+
+/* Respect the HTML hidden state after articles finish loading. */
+.articles-loading[hidden],
+.article-loading[hidden],
+.articles-grid[hidden],
+.articles-empty[hidden],
+.articles-error[hidden],
+.article-detail[hidden],
+[data-article-error][hidden]{
+  display:none !important;
+}
