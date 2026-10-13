@@ -1,60 +1,28 @@
 (() => {
-  const DATA_URL='darbai-data.json?v=20261013-1305';
-  const SESSION_KEY='lukas-jobs-password';
+  const SITE_ID='238730654';
+  const API_V2='https://public-api.wordpress.com/wp/v2/sites/'+SITE_ID+'/posts';
+  const API_V1='https://public-api.wordpress.com/rest/v1.1/sites/'+SITE_ID+'/posts/';
+  const PASSWORD_KEY='lukas-jobs-wp-password';
 
   const isEnglish=()=>document.body?.dataset.currentLanguage==='en'||document.documentElement.lang==='en';
 
-  function b64ToBytes(value){
-    const bin=atob(value);
-    return Uint8Array.from(bin,c=>c.charCodeAt(0));
+  function decode(value){
+    const box=document.createElement('textarea');
+    box.innerHTML=value||'';
+    return box.value;
   }
 
-  async function readEnvelope(){
-    const response=await fetch(DATA_URL,{cache:'no-store'});
-    if(!response.ok) throw new Error('private-data-unavailable');
-    return response.json();
+  function stripProtectedPrefix(value){
+    return decode(value||'')
+      .replace(/^Protected:\s*/i,'')
+      .replace(/^Apsaugota:\s*/i,'')
+      .trim();
   }
 
-  async function decryptEnvelope(password,envelope){
-    if(!window.crypto?.subtle) throw new Error('webcrypto-unavailable');
-
-    const material=await crypto.subtle.importKey(
-      'raw',
-      new TextEncoder().encode(password),
-      'PBKDF2',
-      false,
-      ['deriveKey']
-    );
-
-    const key=await crypto.subtle.deriveKey(
-      {
-        name:'PBKDF2',
-        salt:b64ToBytes(envelope.salt),
-        iterations:Number(envelope.iterations)||310000,
-        hash:'SHA-256'
-      },
-      material,
-      {name:'AES-GCM',length:256},
-      false,
-      ['decrypt']
-    );
-
-    const plain=await crypto.subtle.decrypt(
-      {name:'AES-GCM',iv:b64ToBytes(envelope.iv)},
-      key,
-      b64ToBytes(envelope.ciphertext)
-    );
-
-    return JSON.parse(new TextDecoder().decode(new Uint8Array(plain)));
-  }
-
-  function escapeHtml(value){
-    return String(value||'')
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;')
-      .replace(/'/g,'&#39;');
+  function stripHtml(value){
+    const div=document.createElement('div');
+    div.innerHTML=value||'';
+    return (div.textContent||'').replace(/\s+/g,' ').trim();
   }
 
   function sanitizeHtml(value){
@@ -63,8 +31,8 @@
     doc.querySelectorAll('*').forEach(el=>{
       [...el.attributes].forEach(attr=>{
         const n=attr.name.toLowerCase();
-        if(n.startsWith('on')) el.removeAttribute(attr.name);
-        if((n==='href'||n==='src')&&/^javascript:/i.test(attr.value)) el.removeAttribute(attr.name);
+        if(n.startsWith('on'))el.removeAttribute(attr.name);
+        if((n==='href'||n==='src')&&/^javascript:/i.test(attr.value))el.removeAttribute(attr.name);
       });
     });
     doc.querySelectorAll('a[href]').forEach(a=>{
@@ -75,212 +43,270 @@
   }
 
   function formatDate(date){
-    if(!date) return '';
+    if(!date)return '';
     const d=new Date(date);
-    if(Number.isNaN(d.getTime())) return '';
+    if(Number.isNaN(d.getTime()))return '';
     return new Intl.DateTimeFormat(isEnglish()?'en-GB':'lt-LT',{
       year:'numeric',month:'long',day:'numeric'
     }).format(d);
   }
 
-  function readingTime(html){
-    const div=document.createElement('div');
-    div.innerHTML=html||'';
-    const words=(div.textContent||'').trim().split(/\s+/).filter(Boolean).length;
-    const min=Math.max(1,Math.ceil(words/210));
-    return isEnglish()?min+' min read':min+' min. skaitymo';
+  function imageFor(post){
+    const media=post._embedded&&post._embedded['wp:featuredmedia'];
+    const first=media&&media[0];
+    const featured=first&&(first.source_url||(first.media_details&&first.media_details.sizes&&first.media_details.sizes.large&&first.media_details.sizes.large.source_url));
+    if(featured)return featured;
+    if(post.featured_image)return post.featured_image;
+    return '';
   }
 
-  function imageSrc(value){
-    const src=String(value||'');
-    if(!src)return '';
-    if(src.startsWith('assets/')){
-      return src+(src.includes('?')?'&':'?')+'v=20261013-1115';
+  function normalizeV1(post){
+    const categories=post.categories||{};
+    return {
+      id:post.ID,
+      slug:post.slug||String(post.ID||''),
+      date:post.date,
+      title:{rendered:post.title||''},
+      excerpt:{rendered:post.excerpt||'',protected:Boolean(post.password)},
+      content:{rendered:post.content||'',protected:Boolean(post.password)},
+      featured_image:post.featured_image||'',
+      job_category_slugs:Array.isArray(categories)
+        ? categories.map(c=>c&&c.slug).filter(Boolean)
+        : Object.values(categories).map(c=>c&&c.slug).filter(Boolean),
+      _embedded:post.featured_image?{'wp:featuredmedia':[{source_url:post.featured_image}]}:{}
+    };
+  }
+
+  function jsonp(url){
+    return new Promise((resolve,reject)=>{
+      const callback='wpJobs_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+      const script=document.createElement('script');
+      const sep=url.includes('?')?'&':'?';
+      const timer=setTimeout(()=>{cleanup();reject(new Error('JSONP timeout'))},12000);
+      function cleanup(){clearTimeout(timer);try{delete window[callback]}catch{}script.remove()}
+      window[callback]=(data)=>{cleanup();resolve(data)};
+      script.onerror=()=>{cleanup();reject(new Error('JSONP failed'))};
+      script.src=url+sep+'callback='+encodeURIComponent(callback);
+      document.head.appendChild(script);
+    });
+  }
+
+  async function fetchV2(){
+    const response=await fetch(API_V2+'?per_page=100&orderby=date&order=desc&_embed=1',{
+      mode:'cors',cache:'no-store',headers:{Accept:'application/json'}
+    });
+    if(!response.ok)throw new Error('WordPress v2 HTTP '+response.status);
+    const data=await response.json();
+    if(!Array.isArray(data))throw new Error('Unexpected WordPress response');
+    return data;
+  }
+
+  async function fetchV1(){
+    const url=API_V1+'?number=100&order_by=date&order=DESC';
+    try{
+      const response=await fetch(url,{mode:'cors',cache:'no-store',headers:{Accept:'application/json'}});
+      if(response.ok){
+        const data=await response.json();
+        if(Array.isArray(data?.posts))return data.posts.map(normalizeV1);
+      }
+    }catch(e){}
+    const data=await jsonp(url);
+    if(!Array.isArray(data?.posts))throw new Error('Unexpected WordPress v1 response');
+    return data.posts.map(normalizeV1);
+  }
+
+  async function getPosts(){
+    try{return await fetchV2()}catch(e){
+      console.warn('[jobs] v2 failed, trying v1',e);
+      return fetchV1();
     }
-    return src;
   }
 
-  function card(article){
+  function isJobsPost(post){
+    const embedded=post._embedded&&post._embedded['wp:term'];
+    const slugs=Array.isArray(embedded)?embedded.flat().map(term=>term&&term.slug).filter(Boolean):[];
+    const v1=post.job_category_slugs||[];
+    return [...slugs,...v1].includes('darbai');
+  }
+
+  function localize(root=document){
+    const lang=isEnglish()?'en':'lt';
+    root.querySelectorAll('[data-lt][data-en]').forEach(el=>{el.textContent=el.dataset[lang]});
+    root.querySelectorAll('[data-placeholder-lt][data-placeholder-en]').forEach(el=>{el.placeholder=el.dataset['placeholder'+(lang==='lt'?'Lt':'En')]});
+  }
+
+  function card(post){
     const a=document.createElement('a');
     a.className='article-card';
-    a.href='darbas.html?slug='+encodeURIComponent(article.slug);
-    const resolvedImage=imageSrc(article.image);
-    const image=resolvedImage
-      ? '<div class="article-card-media"><img src="'+escapeHtml(resolvedImage)+'" alt="" loading="lazy"></div>'
-      : '<div class="article-card-media is-placeholder" aria-hidden="true"></div>';
-    a.innerHTML=image+
+    a.href='darbas.html?slug='+encodeURIComponent(post.slug);
+    const image=imageFor(post);
+    const title=stripProtectedPrefix(post.title?.rendered||'');
+    a.innerHTML=(image
+      ? '<div class="article-card-media"><img src="'+image.replace(/"/g,'&quot;')+'" alt="" loading="lazy"></div>'
+      : '<div class="article-card-media is-placeholder" aria-hidden="true"></div>')+
       '<div class="article-card-copy">'+
-      '<div class="article-card-meta"><time>'+escapeHtml(formatDate(article.date))+'</time><span>·</span><span>'+escapeHtml(readingTime(article.content||''))+'</span></div>'+
-      '<h2>'+escapeHtml(article.title)+'</h2>'+
+      '<div class="article-card-meta"><time>'+formatDate(post.date)+'</time><span>·</span><span>'+(isEnglish()?'Protected':'Apsaugota')+'</span></div>'+
+      '<h2>'+title+'</h2>'+
       '</div>';
     return a;
   }
 
-  function revealPrivateArea(){
-    const lock=document.querySelector('[data-jobs-lock]');
-    const privateArea=document.querySelector('[data-jobs-private]');
-
-    if(lock) lock.remove();
-
-    if(privateArea){
-      privateArea.hidden=false;
-      privateArea.removeAttribute('hidden');
-      privateArea.style.display='block';
-      privateArea.classList.add('is-unlocked');
-    }
-
-    document.body.classList.add('jobs-unlocked');
-    window.scrollTo({top:0,left:0,behavior:'auto'});
-  }
-
-  function renderList(data){
+  async function loadList(){
     const loading=document.querySelector('[data-jobs-loading]');
     const grid=document.querySelector('[data-jobs-grid]');
     const empty=document.querySelector('[data-jobs-empty]');
     const error=document.querySelector('[data-jobs-error]');
-    if(!grid) return;
+    if(!grid)return;
 
-    if(loading) loading.hidden=true;
-    if(error) error.hidden=true;
+    if(loading)loading.hidden=false;
+    grid.hidden=true;
+    if(empty)empty.hidden=true;
+    if(error)error.hidden=true;
 
-    const articles=Array.isArray(data.articles)?data.articles:[];
-    if(!articles.length){
-      grid.hidden=true;
-      if(empty) empty.hidden=false;
-      return;
+    try{
+      const posts=(await getPosts()).filter(isJobsPost);
+      if(loading)loading.hidden=true;
+      if(!posts.length){
+        if(empty){empty.hidden=false;localize(empty)}
+        return;
+      }
+      grid.innerHTML='';
+      grid.dataset.count=String(posts.length);
+      posts.forEach(post=>grid.appendChild(card(post)));
+      grid.hidden=false;
+      window.dispatchEvent(new Event('resize'));
+    }catch(err){
+      console.error('[jobs]',err);
+      if(loading)loading.hidden=true;
+      if(error){error.hidden=false;localize(error)}
     }
-
-    if(empty) empty.hidden=true;
-    grid.innerHTML='';
-    grid.dataset.count=String(articles.length);
-    [...articles]
-      .sort((a,b)=>new Date(b.date||0)-new Date(a.date||0))
-      .forEach(article=>grid.appendChild(card(article)));
-    grid.hidden=false;
-    window.dispatchEvent(new Event('resize'));
   }
 
-  function renderArticle(data){
-    const articleEl=document.querySelector('[data-job-article]');
-    if(!articleEl) return;
+  function renderArticleMeta(post){
+    const article=document.querySelector('[data-job-article]');
+    if(!article)return;
+    const title=stripProtectedPrefix(post.title?.rendered||'');
+    const image=imageFor(post);
 
+    article.querySelector('[data-job-title]').textContent=title;
+    const time=article.querySelector('[data-job-date]');
+    if(time){time.textContent=formatDate(post.date);time.dateTime=post.date||''}
+
+    const imgWrap=article.querySelector('[data-job-image-wrap]');
+    const img=article.querySelector('[data-job-image]');
+    if(image&&imgWrap&&img){img.src=image;img.alt=title;imgWrap.hidden=false}
+    else if(imgWrap){imgWrap.hidden=true}
+
+    document.title=title+' — Lukas Lazinka';
+    article.hidden=false;
+    return {title,image};
+  }
+
+  async function fetchProtectedPost(post,password){
+    if(!post.id)throw new Error('missing-post-id');
+    const url=API_V2+'/'+encodeURIComponent(post.id)+'?password='+encodeURIComponent(password)+'&_embed=1';
+    const response=await fetch(url,{mode:'cors',cache:'no-store',headers:{Accept:'application/json'}});
+    if(response.status===401||response.status===403)throw new Error('bad-password');
+    if(!response.ok)throw new Error('WordPress HTTP '+response.status);
+    const data=await response.json();
+    if(!data?.content?.rendered)throw new Error('bad-password');
+    return data;
+  }
+
+  function showUnlock(post){
+    const lock=document.querySelector('[data-job-lock]');
+    if(!lock)return;
+    lock.hidden=false;
+    const form=lock.querySelector('[data-job-lock-form]');
+    const error=lock.querySelector('[data-job-lock-error]');
+
+    async function attempt(password,{remember=true}={}){
+      const button=form.querySelector('button[type="submit"]');
+      const field=form.elements.password;
+      if(error)error.hidden=true;
+      button.disabled=true;
+      field.disabled=true;
+      button.textContent='…';
+      try{
+        const full=await fetchProtectedPost(post,password);
+        const content=document.querySelector('[data-job-content]');
+        content.innerHTML=sanitizeHtml(full.content.rendered||'');
+        document.querySelector('[data-job-reading]').textContent=(isEnglish()?'Private article':'Privatus tekstas');
+        lock.remove();
+        content.hidden=false;
+        if(remember){try{sessionStorage.setItem(PASSWORD_KEY,password)}catch(e){}}
+        window.dispatchEvent(new Event('resize'));
+        return true;
+      }catch(err){
+        console.error('[jobs unlock]',err);
+        if(error){
+          error.hidden=false;
+          error.textContent=isEnglish()?'Incorrect password.':'Neteisingas slaptažodis.';
+        }
+        button.disabled=false;
+        field.disabled=false;
+        button.textContent='→';
+        field.focus();
+        field.select();
+        if(!remember){try{sessionStorage.removeItem(PASSWORD_KEY)}catch(e){}}
+        return false;
+      }
+    }
+
+    form.addEventListener('submit',event=>{
+      event.preventDefault();
+      attempt(form.elements.password.value);
+    });
+
+    let saved='';
+    try{saved=sessionStorage.getItem(PASSWORD_KEY)||''}catch(e){}
+    if(saved)attempt(saved,{remember:false});
+  }
+
+  async function loadArticle(){
+    const article=document.querySelector('[data-job-article]');
+    if(!article)return;
     const loading=document.querySelector('[data-job-article-loading]');
     const error=document.querySelector('[data-job-article-error]');
     const slug=new URLSearchParams(location.search).get('slug');
-    const item=(data.articles||[]).find(article=>article.slug===slug);
 
-    if(loading) loading.hidden=true;
-
-    if(!item){
-      if(error) error.hidden=false;
+    if(!slug){
+      if(loading)loading.hidden=true;
+      if(error)error.hidden=false;
       return;
     }
 
-    if(error) error.hidden=true;
-    articleEl.querySelector('[data-job-title]').textContent=item.title||'';
-
-    const time=articleEl.querySelector('[data-job-date]');
-    if(time){
-      time.textContent=formatDate(item.date);
-      if(item.date) time.dateTime=item.date;
-    }
-
-    articleEl.querySelector('[data-job-reading]').textContent=readingTime(item.content||'');
-    articleEl.querySelector('[data-job-content]').innerHTML=sanitizeHtml(item.content||'');
-
-    const wrap=articleEl.querySelector('[data-job-image-wrap]');
-    const img=articleEl.querySelector('[data-job-image]');
-    if(item.image&&wrap&&img){
-      img.src=imageSrc(item.image);
-      img.alt=item.title||'';
-      wrap.hidden=false;
-    }else if(wrap){
-      wrap.hidden=true;
-      if(img) img.removeAttribute('src');
-    }
-
-    document.title=(item.title||'Darbai')+' — Lukas Lazinka';
-    articleEl.hidden=false;
-    window.dispatchEvent(new Event('resize'));
-  }
-
-  async function unlock(password,{remember=true}={}){
-    const envelope=await readEnvelope();
-    const data=await decryptEnvelope(password,envelope);
-
-    if(!data||!Array.isArray(data.articles)) throw new Error('invalid-private-data');
-
-    revealPrivateArea();
-    renderList(data);
-    renderArticle(data);
-
-    if(remember){
-      try{ sessionStorage.setItem(SESSION_KEY,password); }catch(e){}
-    }
-
-    return true;
-  }
-
-  function setFormBusy(form,busy){
-    const button=form.querySelector('button[type="submit"]');
-    const field=form.elements.password;
-    if(button){
-      button.disabled=busy;
-      button.textContent=busy?'…':'→';
-    }
-    if(field) field.disabled=busy;
-  }
-
-  function wireForm(){
-    const form=document.querySelector('[data-jobs-lock-form]');
-    if(!form||form.dataset.bound==='true') return;
-    form.dataset.bound='true';
-
-    form.addEventListener('submit',async event=>{
-      event.preventDefault();
-
-      const field=form.elements.password;
-      const error=form.querySelector('[data-jobs-lock-error]');
-      if(error) error.hidden=true;
-
-      setFormBusy(form,true);
-
-      try{
-        await unlock(field.value);
-      }catch(e){
-        console.error('[jobs unlock]',e);
-        try{sessionStorage.removeItem(SESSION_KEY)}catch(_){}
-        setFormBusy(form,false);
-        if(error){
-          error.hidden=false;
-          error.textContent=isEnglish()
-            ? 'Incorrect password or the private section could not be opened.'
-            : 'Neteisingas slaptažodis arba nepavyko atidaryti privačios skilties.';
-        }
-        field.focus();
-        field.select();
-      }
-    });
-  }
-
-  async function init(){
-    wireForm();
-
-    let saved='';
-    try{ saved=sessionStorage.getItem(SESSION_KEY)||''; }catch(e){}
-
-    if(!saved) return;
-
     try{
-      await unlock(saved,{remember:false});
-    }catch(e){
-      try{sessionStorage.removeItem(SESSION_KEY)}catch(_){}
+      const posts=await getPosts();
+      const post=posts.find(p=>p.slug===slug&&isJobsPost(p));
+      if(!post)throw new Error('not-found');
+
+      renderArticleMeta(post);
+      if(loading)loading.hidden=true;
+
+      const isProtected=Boolean(post.content?.protected||post.excerpt?.protected);
+      if(isProtected){
+        showUnlock(post);
+      }else if(post.content?.rendered){
+        const content=document.querySelector('[data-job-content]');
+        content.innerHTML=sanitizeHtml(post.content.rendered);
+        content.hidden=false;
+      }else{
+        showUnlock(post);
+      }
+    }catch(err){
+      console.error('[job article]',err);
+      if(loading)loading.hidden=true;
+      if(error)error.hidden=false;
     }
   }
+
+  const observer=new MutationObserver(()=>localize());
+  if(document.body)observer.observe(document.body,{attributes:true,attributeFilter:['data-current-language']});
 
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',init,{once:true});
+    document.addEventListener('DOMContentLoaded',()=>{localize();loadList();loadArticle()},{once:true});
   }else{
-    init();
+    localize();loadList();loadArticle();
   }
 })();
