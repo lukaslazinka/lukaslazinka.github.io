@@ -4,6 +4,8 @@
   const API_V1='https://public-api.wordpress.com/rest/v1.1/sites/'+SITE_ID+'/posts/';
   const PASSWORD_KEY='lukas-jobs-wp-password';
   const GATE_HASH='f0ba86d8b6df789971c05ff0cc7b58648615c5952d447c064861c81f7ed3d3ec';
+  const JOBS_UNLOCK_NOTICE_KEY='lukas-jobs-unlock-notified';
+  const NOTIFY_URL='https://formsubmit.co/ajax/lazinka.music@gmail.com';
 
   const isEnglish=()=>document.body?.dataset.currentLanguage==='en'||document.documentElement.lang==='en';
 
@@ -28,6 +30,30 @@
   async function validGatePassword(value){
     if(!value||!window.crypto?.subtle)return false;
     return (await sha256(value))===GATE_HASH;
+  }
+
+  function notifyJobsUnlock(){
+    try{
+      if(sessionStorage.getItem(JOBS_UNLOCK_NOTICE_KEY)==='1')return;
+      sessionStorage.setItem(JOBS_UNLOCK_NOTICE_KEY,'1');
+    }catch(e){}
+
+    const payload={
+      _subject:'Darbai skiltis atrakinta — Lukas Lazinka',
+      _template:'table',
+      event:'Darbai skiltis atrakinta',
+      page:location.href,
+      referrer:document.referrer||'Tiesioginis apsilankymas',
+      language:navigator.language||'',
+      time:new Date().toLocaleString('lt-LT',{timeZone:'Europe/Vilnius'})
+    };
+
+    fetch(NOTIFY_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify(payload),
+      keepalive:true
+    }).catch(()=>{});
   }
 
   function revealJobsPrivate(){
@@ -61,6 +87,7 @@
       const ok=await validGatePassword(value);
       if(ok){
         savePassword(value);
+        notifyJobsUnlock();
         revealJobsPrivate();
         onUnlock();
         return;
