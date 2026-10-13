@@ -3,8 +3,100 @@
   const API_V2='https://public-api.wordpress.com/wp/v2/sites/'+SITE_ID+'/posts';
   const API_V1='https://public-api.wordpress.com/rest/v1.1/sites/'+SITE_ID+'/posts/';
   const PASSWORD_KEY='lukas-jobs-wp-password';
+  const GATE_HASH='f0ba86d8b6df789971c05ff0cc7b58648615c5952d447c064861c81f7ed3d3ec';
 
   const isEnglish=()=>document.body?.dataset.currentLanguage==='en'||document.documentElement.lang==='en';
+
+  async function sha256(value){
+    const data=new TextEncoder().encode(String(value||''));
+    const digest=await crypto.subtle.digest('SHA-256',data);
+    return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+
+  function savedPassword(){
+    try{return sessionStorage.getItem(PASSWORD_KEY)||''}catch(e){return ''}
+  }
+
+  function savePassword(value){
+    try{sessionStorage.setItem(PASSWORD_KEY,value)}catch(e){}
+  }
+
+  function clearPassword(){
+    try{sessionStorage.removeItem(PASSWORD_KEY)}catch(e){}
+  }
+
+  async function validGatePassword(value){
+    if(!value||!window.crypto?.subtle)return false;
+    return (await sha256(value))===GATE_HASH;
+  }
+
+  function revealJobsPrivate(){
+    const lock=document.querySelector('[data-jobs-lock]');
+    const privateArea=document.querySelector('[data-jobs-private]');
+    if(lock)lock.hidden=true;
+    if(privateArea){
+      privateArea.hidden=false;
+      privateArea.classList.add('is-unlocked');
+    }
+    document.body.classList.add('jobs-unlocked');
+  }
+
+  function wireGlobalGate(onUnlock){
+    const lock=document.querySelector('[data-jobs-lock]');
+    const form=document.querySelector('[data-jobs-lock-form]');
+    if(!lock||!form){
+      onUnlock();
+      return;
+    }
+
+    const error=form.querySelector('[data-jobs-lock-error]');
+    const field=form.elements.password;
+    const button=form.querySelector('button[type="submit"]');
+
+    async function attempt(value){
+      if(error)error.hidden=true;
+      button.disabled=true;
+      field.disabled=true;
+      button.textContent='…';
+      const ok=await validGatePassword(value);
+      if(ok){
+        savePassword(value);
+        revealJobsPrivate();
+        onUnlock();
+        return;
+      }
+      clearPassword();
+      if(error){
+        error.hidden=false;
+        error.textContent=isEnglish()?'Incorrect password.':'Neteisingas slaptažodis.';
+      }
+      button.disabled=false;
+      field.disabled=false;
+      button.textContent='→';
+      field.focus();
+      field.select();
+    }
+
+    form.addEventListener('submit',event=>{
+      event.preventDefault();
+      attempt(field.value);
+    });
+
+    const saved=savedPassword();
+    if(saved){
+      validGatePassword(saved).then(ok=>{
+        if(ok){
+          revealJobsPrivate();
+          onUnlock();
+        }else{
+          clearPassword();
+          lock.hidden=false;
+        }
+      });
+    }else{
+      lock.hidden=false;
+    }
+  }
 
   function decode(value){
     const box=document.createElement('textarea');
@@ -304,9 +396,23 @@
   const observer=new MutationObserver(()=>localize());
   if(document.body)observer.observe(document.body,{attributes:true,attributeFilter:['data-current-language']});
 
+  function init(){
+    localize();
+    if(document.body?.hasAttribute('data-jobs-page')){
+      wireGlobalGate(()=>loadList());
+      return;
+    }
+    if(document.body?.hasAttribute('data-job-article-page')){
+      wireGlobalGate(()=>loadArticle());
+      return;
+    }
+    loadList();
+    loadArticle();
+  }
+
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>{localize();loadList();loadArticle()},{once:true});
+    document.addEventListener('DOMContentLoaded',init,{once:true});
   }else{
-    localize();loadList();loadArticle();
+    init();
   }
 })();
