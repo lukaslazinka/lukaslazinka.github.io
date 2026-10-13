@@ -1,4 +1,4 @@
-const SITE_ASSET_VERSION = '20261011-1530';
+const SITE_ASSET_VERSION = '20261013-0815';
 
 const enhancementStyles = document.createElement('link');
 enhancementStyles.rel = 'stylesheet';
@@ -61,10 +61,21 @@ function enhanceGlobalNavigation() {
       else navigation.appendChild(articlesLink);
     }
 
+    if (!navigation.querySelector('a[href="darbai.html"]')) {
+      const jobsLink = document.createElement('a');
+      jobsLink.href = 'darbai.html';
+      jobsLink.className = 'nav-work-link';
+      jobsLink.dataset.lt = 'Darbai';
+      jobsLink.dataset.en = 'Work';
+      jobsLink.textContent = 'Darbai';
+      navigation.appendChild(jobsLink);
+    }
+
     navigation.querySelectorAll('a').forEach((link) => link.classList.remove('active'));
     let activeHref = page;
     if (page.startsWith('composition-')) activeHref = 'compositions.html';
     if (page === 'article.html') activeHref = 'articles.html';
+    if (page === 'darbas.html') activeHref = 'darbai.html';
     const active = navigation.querySelector(`a[href="${activeHref}"]`);
     if (active) active.classList.add('active');
   });
