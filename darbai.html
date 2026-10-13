@@ -13,9 +13,9 @@
   <title>Darbai — Lukas Lazinka</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="articles.css?v=20261013-0815">
-  <link rel="stylesheet" href="darbai.css?v=20261013-1335">
+  <link rel="stylesheet" href="darbai.css?v=20261013-1405">
   <script src="script.js?v=20261013-0815" defer></script>
-  <script src="darbai.js?v=20261013-1335" defer></script>
+  <script src="darbai.js?v=20261013-1405" defer></script>
 </head>
 <body data-title-lt="Darbai — Lukas Lazinka" data-title-en="Work — Lukas Lazinka" data-description-lt="Profesinė Luko Lazinkos erdvė." data-description-en="Lukas Lazinka's professional space." data-jobs-page>
 <header class="site-header">
@@ -38,6 +38,18 @@
 </header>
 
 <main>
+  <section class="jobs-lock shell" data-jobs-lock hidden>
+    <form class="jobs-lock-form" data-jobs-lock-form autocomplete="off">
+      <div class="jobs-lock-title" data-lt="Darbai" data-en="Work">Darbai</div>
+      <div class="jobs-password-wrap">
+        <input type="password" name="password" autocomplete="current-password" placeholder="Slaptažodis" data-placeholder-lt="Slaptažodis" data-placeholder-en="Password" aria-label="Slaptažodis" required>
+        <button type="submit" aria-label="Atrakinti">→</button>
+      </div>
+      <p class="jobs-lock-error" data-jobs-lock-error hidden data-lt="Neteisingas slaptažodis." data-en="Incorrect password.">Neteisingas slaptažodis.</p>
+    </form>
+  </section>
+
+  <div class="jobs-private" data-jobs-private hidden>
   <section class="page-hero shell jobs-hero">
     <h1 data-lt="DARBAI" data-en="WORK">DARBAI</h1>
   </section>
@@ -56,6 +68,7 @@
       <h2 data-lt="Turinio nepavyko užkrauti." data-en="The content could not be loaded.">Turinio nepavyko užkrauti.</h2>
     </div>
   </section>
+  </div>
 </main>
 
 <footer class="site-footer shell">
