@@ -1,5 +1,5 @@
 (() => {
-  const DATA_URL='darbai-data.json?v=20261013-0915';
+  const DATA_URL='darbai-data.json?v=20261013-0930';
   const SESSION_KEY='lukas-jobs-password';
 
   const isEnglish=()=>document.body.dataset.currentLanguage==='en'||document.documentElement.lang==='en';
@@ -113,6 +113,7 @@
     const privateArea=document.querySelector('[data-jobs-private]');
     if(lock) lock.hidden=true;
     if(privateArea) privateArea.hidden=false;
+    window.scrollTo({top:0,left:0,behavior:'smooth'});
   }
 
   function renderList(data){
