@@ -24,6 +24,8 @@
     'press.html':['PRESS','BIOGRAPHY','PHOTOS','MUSIC','LUKAS'],
     'articles.html':['ARTICLES','WRITING','MUSIC','THOUGHTS','SOUND'],
     'article.html':['ARTICLE','WRITING','MUSIC','THOUGHTS','SOUND'],
+    'darbai.html':['WORK','CAREER','ABOUT','FUTURE','LUKAS'],
+    'darbas.html':['WORK','CAREER','THOUGHTS','FUTURE','LUKAS'],
     'privacy.html':['PRIVACY','LUKAS','MUSIC'],
     'terms.html':['TERMS','LUKAS','MUSIC'],
     'refunds.html':['REFUNDS','LUKAS','MUSIC']
