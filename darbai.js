@@ -1,5 +1,5 @@
 (() => {
-  const DATA_URL='darbai-data.json?v=20261013-1115';
+  const DATA_URL='darbai-data.json?v=20261013-1240';
   const SESSION_KEY='lukas-jobs-password';
 
   const isEnglish=()=>document.body?.dataset.currentLanguage==='en'||document.documentElement.lang==='en';
