@@ -91,12 +91,22 @@
     return isEnglish()?min+' min read':min+' min. skaitymo';
   }
 
+  function imageSrc(value){
+    const src=String(value||'');
+    if(!src)return '';
+    if(src.startsWith('assets/')){
+      return src+(src.includes('?')?'&':'?')+'v=20261013-1055';
+    }
+    return src;
+  }
+
   function card(article){
     const a=document.createElement('a');
     a.className='article-card';
     a.href='darbas.html?slug='+encodeURIComponent(article.slug);
-    const image=article.image
-      ? '<div class="article-card-media"><img src="'+escapeHtml(article.image)+'" alt="" loading="lazy"></div>'
+    const resolvedImage=imageSrc(article.image);
+    const image=resolvedImage
+      ? '<div class="article-card-media"><img src="'+escapeHtml(resolvedImage)+'" alt="" loading="lazy"></div>'
       : '<div class="article-card-media is-placeholder" aria-hidden="true"></div>';
     a.innerHTML=image+
       '<div class="article-card-copy">'+
@@ -181,7 +191,7 @@
     const wrap=articleEl.querySelector('[data-job-image-wrap]');
     const img=articleEl.querySelector('[data-job-image]');
     if(item.image&&wrap&&img){
-      img.src=item.image;
+      img.src=imageSrc(item.image);
       img.alt=item.title||'';
       wrap.hidden=false;
     }else if(wrap){
