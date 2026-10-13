@@ -124,6 +124,13 @@
     return !Number.isNaN(d.getTime()) && d >= LAUNCH;
   }
 
+  function isJobsPost(post){
+    const embedded=post._embedded&&post._embedded['wp:term'];
+    const slugs=Array.isArray(embedded)?embedded.flat().map(term=>term&&term.slug).filter(Boolean):[];
+    const v1=post.job_category_slugs||[];
+    return [...slugs,...v1].includes('darbai');
+  }
+
   function localize(root=document){
     const lang=isEnglish()?'en':'lt';
     root.querySelectorAll('[data-lt][data-en]').forEach(el=>{el.textContent=el.dataset[lang]});
@@ -154,7 +161,7 @@
     if(!grid)return;
     loading.hidden=false;grid.hidden=true;empty.hidden=true;errorBox.hidden=true;
     try{
-      const posts=(await getPosts()).filter(isNewEnough);
+      const posts=(await getPosts()).filter(post=>isNewEnough(post)&&!isJobsPost(post));
       loading.hidden=true;
       if(!posts.length){empty.hidden=false;localize(empty);return}
       grid.innerHTML='';
@@ -224,7 +231,7 @@
     if(!slug){loading.hidden=true;errorBox.hidden=false;localize(errorBox);return}
     try{
       const posts=await getPosts();
-      const post=posts.find(p=>p.slug===slug && isNewEnough(p));
+      const post=posts.find(p=>p.slug===slug && isNewEnough(p) && !isJobsPost(p));
       if(!post)throw new Error('not found');
       const title=decode(post.title?.rendered || '');
       const image=imageFor(post);
