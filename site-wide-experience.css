@@ -71,3 +71,25 @@ main>section::before,.section::before,.home-listen::before,.home-dna::before,.ho
 @media(max-width:980px){.sx-score-ghost{display:none}.sx-bg-word{font-size:22vw}.sx-work-preview{display:none}.sx-sky{min-height:430px}.sx-star{font-size:.68rem;max-width:135px}.sx-comet{right:7px;opacity:.62}}
 @media(max-width:650px){.sx-ll{width:42px;height:38px;left:10px;bottom:10px;font-size:.8rem}.sx-sky{min-height:520px;border-radius:34px 12px 34px 12px}.sx-constellation-head{display:block}.sx-star{max-width:118px;padding:7px 9px}.sx-constellation-readout{max-width:230px}.sx-bg-word{font-size:27vw}}
 @media(prefers-reduced-motion:reduce){.sx-flow{translate:none !important;scale:1 !important;transition:none !important;will-change:auto}.sx-comet,.sx-score-ghost{display:none!important}.sx-bg-word{transform:none!important}.sx-ll,.sx-star{transition:none!important}.sx-ll.is-burst,.sx-burst,.sx-comet::before{animation:none!important}}
+
+
+/* Employer-facing Work link */
+.main-nav a.nav-work-link{
+  margin-left:7px;
+  border-color:rgba(243,212,113,.24);
+  color:#d9c58c;
+  background:linear-gradient(135deg,rgba(243,212,113,.075),rgba(255,255,255,.01));
+}
+.main-nav a.nav-work-link:hover{
+  border-color:rgba(243,212,113,.48);
+  color:#fff0b6;
+  box-shadow:0 0 20px rgba(243,212,113,.09);
+}
+.main-nav a.nav-work-link.active{
+  color:#171208!important;
+  border-color:rgba(255,240,180,.7)!important;
+  background:linear-gradient(120deg,#fff0b5,#e4c25f 52%,#b58128)!important;
+}
+@media(max-width:930px){
+  .main-nav a.nav-work-link{margin-left:0;margin-top:5px}
+}
