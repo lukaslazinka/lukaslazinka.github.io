@@ -1,5 +1,5 @@
 (() => {
-  const DATA_URL='darbai-data.json?v=20261013-0945';
+  const DATA_URL='darbai-data.json?v=20261013-1115';
   const SESSION_KEY='lukas-jobs-password';
 
   const isEnglish=()=>document.body?.dataset.currentLanguage==='en'||document.documentElement.lang==='en';
@@ -95,7 +95,7 @@
     const src=String(value||'');
     if(!src)return '';
     if(src.startsWith('assets/')){
-      return src+(src.includes('?')?'&':'?')+'v=20261013-1055';
+      return src+(src.includes('?')?'&':'?')+'v=20261013-1115';
     }
     return src;
   }
