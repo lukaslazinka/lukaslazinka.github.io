@@ -206,3 +206,32 @@ body[data-job-article-page] .sx-bg-word.is-visible{opacity:.14!important}
 body.jobs-unlocked .jobs-lock{display:none!important}
 body.jobs-unlocked .jobs-private{display:block!important}
 .jobs-private.is-unlocked{display:block!important}
+
+
+/* WordPress protected article */
+.jobs-article-lock{
+  max-width:820px;
+  margin:0 auto;
+  padding:clamp(28px,4vw,42px);
+  border:1px solid rgba(212,174,78,.2);
+  border-radius:24px 8px 24px 8px;
+  background:linear-gradient(180deg,rgba(54,42,20,.34),rgba(24,20,14,.7));
+  box-shadow:0 20px 54px rgba(0,0,0,.18);
+}
+.jobs-article-lock[hidden],
+[data-job-content][hidden]{display:none!important}
+.jobs-lock-form--article{
+  width:min(100%,520px);
+  margin-inline:auto;
+}
+.jobs-article-lock-title{
+  margin:0 0 6px;
+  text-align:center;
+  color:#f0dfab;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(1.25rem,2vw,1.7rem);
+  line-height:1.15;
+}
+.jobs-grid .article-card-meta span:last-child{
+  text-transform:uppercase;
+}
