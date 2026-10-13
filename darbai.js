@@ -6,8 +6,64 @@
   const GATE_HASH='f0ba86d8b6df789971c05ff0cc7b58648615c5952d447c064861c81f7ed3d3ec';
   const JOBS_UNLOCK_NOTICE_KEY='lukas-jobs-unlock-notified';
   const NOTIFY_URL='https://formsubmit.co/ajax/lazinka.music@gmail.com';
+  const WORK_LANG_KEY='lukas-jobs-language';
 
-  const isEnglish=()=>document.body?.dataset.currentLanguage==='en'||document.documentElement.lang==='en';
+  function jobsLanguage(){
+    const query=new URLSearchParams(location.search).get('lang');
+    if(query==='lt'||query==='en')return query;
+    try{
+      const saved=sessionStorage.getItem(WORK_LANG_KEY);
+      if(saved==='lt'||saved==='en')return saved;
+    }catch(e){}
+    return '';
+  }
+
+  const isEnglish=()=>jobsLanguage()==='en'||document.body?.dataset.currentLanguage==='en'||document.documentElement.lang==='en';
+
+  function saveJobsLanguage(lang){
+    if(lang!=='lt'&&lang!=='en')return;
+    try{sessionStorage.setItem(WORK_LANG_KEY,lang)}catch(e){}
+    try{localStorage.setItem('lukas-site-language',lang)}catch(e){}
+  }
+
+  function currentJobsCategory(){
+    return jobsLanguage()==='en'?'darbai-en':'darbai';
+  }
+
+  function syncJobsLanguage(){
+    const lang=jobsLanguage();
+    if(!lang)return;
+    saveJobsLanguage(lang);
+    document.documentElement.lang=lang;
+    if(document.body)document.body.dataset.currentLanguage=lang;
+  }
+
+  function showLanguageChoice(){
+    const chooser=document.querySelector('[data-jobs-language]');
+    const lock=document.querySelector('[data-jobs-lock]');
+    const privateArea=document.querySelector('[data-jobs-private]');
+    if(!chooser)return false;
+    chooser.hidden=false;
+    if(lock)lock.hidden=true;
+    if(privateArea)privateArea.hidden=true;
+
+    chooser.querySelectorAll('[data-jobs-language-choice]').forEach(button=>{
+      button.addEventListener('click',()=>{
+        const lang=button.dataset.jobsLanguageChoice;
+        if(lang!=='lt'&&lang!=='en')return;
+        saveJobsLanguage(lang);
+        const url=new URL(location.href);
+        url.searchParams.set('lang',lang);
+        location.href=url.pathname+url.search;
+      },{once:true});
+    });
+    return true;
+  }
+
+  function hideLanguageChoice(){
+    const chooser=document.querySelector('[data-jobs-language]');
+    if(chooser)chooser.hidden=true;
+  }
 
   async function sha256(value){
     const data=new TextEncoder().encode(String(value||''));
@@ -45,6 +101,7 @@
       page:location.href,
       referrer:document.referrer||'Tiesioginis apsilankymas',
       language:navigator.language||'',
+      work_language:jobsLanguage()||'lt',
       time:new Date().toLocaleString('lt-LT',{timeZone:'Europe/Vilnius'})
     };
 
@@ -245,7 +302,7 @@
     const embedded=post._embedded&&post._embedded['wp:term'];
     const slugs=Array.isArray(embedded)?embedded.flat().map(term=>term&&term.slug).filter(Boolean):[];
     const v1=post.job_category_slugs||[];
-    return [...slugs,...v1].includes('darbai');
+    return [...slugs,...v1].includes(currentJobsCategory());
   }
 
   function localize(root=document){
@@ -257,7 +314,7 @@
   function card(post){
     const a=document.createElement('a');
     a.className='article-card';
-    a.href='darbas.html?slug='+encodeURIComponent(post.slug);
+    a.href='darbas.html?slug='+encodeURIComponent(post.slug)+'&lang='+encodeURIComponent(jobsLanguage()||'lt');
     const image=imageFor(post);
     const title=stripProtectedPrefix(post.title?.rendered||'');
     a.innerHTML=(image
@@ -384,6 +441,9 @@
 
   async function loadArticle(){
     const article=document.querySelector('[data-job-article]');
+    document.querySelectorAll('a[href="darbai.html"]').forEach(link=>{
+      link.href='darbai.html?lang='+encodeURIComponent(jobsLanguage()||'lt');
+    });
     if(!article)return;
     const loading=document.querySelector('[data-job-article-loading]');
     const error=document.querySelector('[data-job-article-error]');
@@ -424,12 +484,26 @@
   if(document.body)observer.observe(document.body,{attributes:true,attributeFilter:['data-current-language']});
 
   function init(){
+    const pageIsList=document.body?.hasAttribute('data-jobs-page');
+    const pageIsArticle=document.body?.hasAttribute('data-job-article-page');
+    const explicitLang=new URLSearchParams(location.search).get('lang');
+
+    if((pageIsList||pageIsArticle)&&explicitLang!=='lt'&&explicitLang!=='en'){
+      if(showLanguageChoice()){
+        localize();
+        return;
+      }
+    }
+
+    syncJobsLanguage();
+    hideLanguageChoice();
     localize();
-    if(document.body?.hasAttribute('data-jobs-page')){
+
+    if(pageIsList){
       wireGlobalGate(()=>loadList());
       return;
     }
-    if(document.body?.hasAttribute('data-job-article-page')){
+    if(pageIsArticle){
       wireGlobalGate(()=>loadArticle());
       return;
     }
