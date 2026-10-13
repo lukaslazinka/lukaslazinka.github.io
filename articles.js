@@ -64,6 +64,10 @@
   }
 
   function normalizeV1(post){
+    const categories=post.categories||{};
+    const job_category_slugs=Array.isArray(categories)
+      ? categories.map(c=>c&&c.slug).filter(Boolean)
+      : Object.values(categories).map(c=>c&&c.slug).filter(Boolean);
     return {
       slug: post.slug || String(post.ID || ''),
       date: post.date,
@@ -71,6 +75,7 @@
       excerpt: { rendered: post.excerpt || '' },
       content: { rendered: post.content || '' },
       featured_image: post.featured_image || '',
+      job_category_slugs,
       _embedded: post.featured_image ? {'wp:featuredmedia':[ { source_url: post.featured_image } ]} : {}
     };
   }
