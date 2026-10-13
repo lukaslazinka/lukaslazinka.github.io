@@ -13,9 +13,9 @@
   <title>Darbai — Lukas Lazinka</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="articles.css?v=20261013-0815">
-  <link rel="stylesheet" href="darbai.css?v=20261013-1335">
+  <link rel="stylesheet" href="darbai.css?v=20261013-1405">
   <script src="script.js?v=20261013-0815" defer></script>
-  <script src="darbai.js?v=20261013-1335" defer></script>
+  <script src="darbai.js?v=20261013-1405" defer></script>
 </head>
 <body data-title-lt="Darbai — Lukas Lazinka" data-title-en="Work — Lukas Lazinka" data-description-lt="Profesinis Luko Lazinkos tekstas." data-description-en="A professional article by Lukas Lazinka." data-article-page data-job-article-page>
 <header class="site-header">
@@ -38,6 +38,18 @@
 </header>
 
 <main class="article-page-shell">
+  <section class="jobs-lock shell" data-jobs-lock hidden>
+    <form class="jobs-lock-form" data-jobs-lock-form autocomplete="off">
+      <div class="jobs-lock-title" data-lt="Darbai" data-en="Work">Darbai</div>
+      <div class="jobs-password-wrap">
+        <input type="password" name="password" autocomplete="current-password" placeholder="Slaptažodis" data-placeholder-lt="Slaptažodis" data-placeholder-en="Password" aria-label="Slaptažodis" required>
+        <button type="submit" aria-label="Atrakinti">→</button>
+      </div>
+      <p class="jobs-lock-error" data-jobs-lock-error hidden data-lt="Neteisingas slaptažodis." data-en="Incorrect password.">Neteisingas slaptažodis.</p>
+    </form>
+  </section>
+
+  <div class="jobs-private" data-jobs-private hidden>
   <section class="article-loading shell" data-job-article-loading>
     <span class="articles-loading-orbit" aria-hidden="true"></span>
     <span data-lt="Kraunama…" data-en="Loading…">Kraunama…</span>
@@ -77,6 +89,7 @@
     <a class="button secondary" href="darbai.html" data-lt="Grįžti" data-en="Back">Grįžti</a>
   </section>
 
+  </div>
 
 <footer class="site-footer shell">
   <div><strong>Lukas Lazinka</strong><span data-lt="Kompozitorius · Lietuva" data-en="Composer · Lithuania">Kompozitorius · Lietuva</span></div>
