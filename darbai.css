@@ -200,3 +200,9 @@ body[data-job-article-page] .sx-bg-word.is-visible{opacity:.14!important}
 @media(prefers-reduced-motion:reduce){
   .jobs-private{animation:none}
 }
+
+
+/* Hard unlock state */
+body.jobs-unlocked .jobs-lock{display:none!important}
+body.jobs-unlocked .jobs-private{display:block!important}
+.jobs-private.is-unlocked{display:block!important}
