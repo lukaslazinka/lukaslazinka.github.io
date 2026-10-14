@@ -47,3 +47,19 @@
 .score-cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 0}
 @media(max-width:720px){.score-index-card{grid-template-columns:112px minmax(0,1fr);gap:14px}.score-index-cover{padding:10px;min-height:160px}.score-index-cover img{height:144px}.score-index-body{padding:16px 14px 16px 0;gap:6px}.score-index-body h2{font-size:1.18rem}.score-index-description{display:none}.score-detail-layout{grid-template-columns:1fr}.score-detail-cover{min-height:260px}.score-detail-cover img{max-height:300px;width:auto}.score-detail-meta{grid-template-columns:1fr 1fr}.score-pdf-frame{height:520px;min-height:400px}}
 @media(prefers-reduced-motion:reduce){.score-index-card{transition:none}}
+
+/* Single, icon-only playback control above purchase */
+.score-listening{margin:24px 0 0;padding:0;border:0;background:none;border-radius:0;display:flex;align-items:center;justify-content:flex-start;}
+.score-play-button{height:66px;width:66px;min-height:66px;min-width:66px;display:inline-flex;align-items:center;justify-content:center;position:relative;border:1px solid rgba(200,168,255,.55);border-radius:50%;background:rgba(200,168,255,.12);color:var(--text);cursor:pointer;transition:background .2s ease,transform .2s ease,border-color .2s ease;}
+.score-play-button:hover{background:rgba(200,168,255,.27);border-color:var(--accent);transform:scale(1.04);}
+.score-play-button:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}
+.score-play-button:disabled{opacity:.72;cursor:progress;transform:none;}
+.score-play-glyph{display:block;width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:19px solid currentColor;transform:translateX(3px);}
+.score-play-button.is-playing .score-play-glyph{width:20px;height:24px;transform:none;border:0;border-left:6px solid currentColor;border-right:6px solid currentColor;}
+.score-play-button.is-loading .score-play-glyph{width:23px;height:23px;border:3px solid currentColor;border-right-color:transparent;border-radius:50%;transform:none;animation:score-spin .8s linear infinite;}
+.score-play-button.is-error{border-color:#e78989;}
+.score-play-button.is-error .score-play-glyph{color:#e78989;}
+.score-listening audio,.score-listening audio[hidden],.score-listen-status{display:none!important;}
+.score-buy-zone{margin-top:16px;}
+@keyframes score-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.score-play-button{transition:none}.score-play-button.is-loading .score-play-glyph{animation:none}}
