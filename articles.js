@@ -3,6 +3,7 @@
   const API_V2 = 'https://public-api.wordpress.com/wp/v2/sites/' + SITE_ID + '/posts';
   const API_V1 = 'https://public-api.wordpress.com/rest/v1.1/sites/' + SITE_ID + '/posts/';
   const LAUNCH = new Date('2026-10-11T00:00:00+03:00');
+  const JOB_CATEGORY_SLUGS = new Set(['darbai', 'darbai-en']);
 
   const isEnglish = () => document.body.dataset.currentLanguage === 'en' || document.documentElement.lang === 'en';
 
@@ -133,7 +134,7 @@
     const embedded=post._embedded&&post._embedded['wp:term'];
     const slugs=Array.isArray(embedded)?embedded.flat().map(term=>term&&term.slug).filter(Boolean):[];
     const v1=post.job_category_slugs||[];
-    return [...slugs,...v1].includes('darbai');
+    return [...slugs,...v1].some(slug => JOB_CATEGORY_SLUGS.has(String(slug).toLowerCase().trim()));
   }
 
   function localize(root=document){
