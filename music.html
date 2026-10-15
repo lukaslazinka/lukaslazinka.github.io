@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       const res=await fetch('https://open.spotify.com/oembed?url='+encodeURIComponent('https://open.spotify.com/track/'+id),{mode:'cors'});
       if(!res.ok)return;
       const item=await res.json();
-      const name=String(item.title||'').replace(/\\s*[|–-]\\s*Spotify\\s*$/i,'').trim();
+      const name=String(item.title||'').replace(/\s*[|–-]\s*Spotify\s*$/i,'').trim();
       if(name){title.textContent=name;card.querySelector('iframe')?.setAttribute('title','Spotify: '+name)}
     }catch(e){/* The Spotify player itself displays its track title. */}
   });
