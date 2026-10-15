@@ -26,3 +26,16 @@
 @media(max-width:860px){.discog-recordings-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.discog-recording-card{gap:11px;padding:12px}.discog-recording-art{width:78px;height:96px;flex-basis:78px}.discog-recording-play{width:37px;height:37px;flex-basis:37px}.discog-recording-info{gap:3px}.discog-recording-bottom{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){.discog-recording-card,.discog-recording-play{transition:none}}
+
+/* New 2025 Spotify releases while individual embed URIs are being verified. */
+.spotify-2025-release .spotify-search-release{height:152px;min-width:0;width:100%;display:flex;align-items:center;gap:13px;position:relative;overflow:hidden;border-radius:12px;padding:13px;background:linear-gradient(110deg,var(--release-a),color-mix(in srgb,var(--release-a) 70%,#151515));color:#fff;text-decoration:none;transition:filter .2s ease,border-color .2s ease}
+.spotify-2025-release .spotify-search-release:hover{filter:brightness(1.16)}
+.spotify-search-cover{height:112px;width:112px;min-width:112px;border-radius:7px;background:linear-gradient(145deg,var(--release-b),var(--release-a));display:grid;place-items:center;box-shadow:0 8px 25px rgba(0,0,0,.19)}
+.spotify-search-cover span{font-family:Georgia,serif;font-size:14px;line-height:1.18;text-align:center;padding:9px;overflow-wrap:anywhere}
+.spotify-search-copy{display:flex;flex-direction:column;gap:4px;min-width:0;align-self:center;padding-right:40px}
+.spotify-search-copy strong{font-size:.94rem;line-height:1.3;overflow-wrap:anywhere}
+.spotify-search-copy small{opacity:.8;font-size:.78rem}
+.spotify-search-open{font-size:.75rem;font-weight:700;margin-top:13px;text-decoration:underline;text-underline-offset:3px}
+.spotify-search-brand{position:absolute;right:12px;top:8px;font-size:.75rem;font-weight:800}
+.spotify-search-arrow{position:absolute;right:12px;bottom:10px;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#151515;font-weight:800;font-size:19px}
+@media(max-width:450px){.spotify-search-cover{height:95px;width:95px;min-width:95px}.spotify-search-copy{padding-right:25px}.spotify-search-brand{font-size:.68rem}}
