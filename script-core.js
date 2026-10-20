@@ -61,15 +61,9 @@ function enhanceGlobalNavigation() {
       else navigation.appendChild(articlesLink);
     }
 
-    if (!navigation.querySelector('a[href="darbai.html"]')) {
-      const jobsLink = document.createElement('a');
-      jobsLink.href = 'darbai.html';
-      jobsLink.className = 'nav-work-link';
-      jobsLink.dataset.lt = 'Darbai';
-      jobsLink.dataset.en = 'Work';
-      jobsLink.textContent = 'Darbai';
-      navigation.appendChild(jobsLink);
-    }
+    // The professional portfolio is temporarily offline.
+    // Remove any legacy hard-coded link and do not reinsert it.
+    navigation.querySelectorAll('a[href="darbai.html"]').forEach(link => link.remove());
 
     navigation.querySelectorAll('a').forEach((link) => link.classList.remove('active'));
     let activeHref = page;
