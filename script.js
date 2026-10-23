@@ -1,5 +1,5 @@
 (() => {
-  const V = '20261020-portfolio-offline';
+  const V = '20261023-portfolio-v2';
   const core = document.createElement('script');
   core.src = `script-core.js?v=${V}`;
   core.async = false;
