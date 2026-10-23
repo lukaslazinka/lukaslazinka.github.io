@@ -2,8 +2,9 @@
   const SITE_ID='238730654';
   const API_V2='https://public-api.wordpress.com/wp/v2/sites/'+SITE_ID+'/posts';
   const API_V1='https://public-api.wordpress.com/rest/v1.1/sites/'+SITE_ID+'/posts/';
-  const PASSWORD_KEY='lukas-jobs-wp-password';
-  const GATE_HASH='f0ba86d8b6df789971c05ff0cc7b58648615c5952d447c064861c81f7ed3d3ec';
+  const PASSWORD_KEY='lukas-jobs-portfolio-gate-v2';
+  const POST_PASSWORD_KEY='lukas-jobs-wp-password';
+  const GATE_HASH='48de1cf2f0d28a9321f3eb0390455650e3ceda8da885e477a9b547c9e6dafe31';
   const JOBS_UNLOCK_NOTICE_KEY='lukas-jobs-unlock-notified';
   const NOTIFY_URL='https://formsubmit.co/ajax/lazinka.music@gmail.com';
   const WORK_LANG_KEY='lukas-jobs-language';
@@ -410,7 +411,7 @@
         document.querySelector('[data-job-reading]').textContent=(isEnglish()?'Private article':'Privatus tekstas');
         lock.remove();
         content.hidden=false;
-        if(remember){try{sessionStorage.setItem(PASSWORD_KEY,password)}catch(e){}}
+        if(remember){try{sessionStorage.setItem(POST_PASSWORD_KEY,password)}catch(e){}}
         window.dispatchEvent(new Event('resize'));
         return true;
       }catch(err){
@@ -424,7 +425,7 @@
         button.textContent='→';
         field.focus();
         field.select();
-        if(!remember){try{sessionStorage.removeItem(PASSWORD_KEY)}catch(e){}}
+        if(!remember){try{sessionStorage.removeItem(POST_PASSWORD_KEY)}catch(e){}}
         return false;
       }
     }
@@ -435,7 +436,7 @@
     });
 
     let saved='';
-    try{saved=sessionStorage.getItem(PASSWORD_KEY)||''}catch(e){}
+    try{saved=sessionStorage.getItem(POST_PASSWORD_KEY)||''}catch(e){}
     if(saved)attempt(saved,{remember:false});
   }
 
