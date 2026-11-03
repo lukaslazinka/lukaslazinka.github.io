@@ -214,3 +214,32 @@
   .jq-content { animation: none; }
   .jq-btn, .jq-progress-bar { transition: none; }
 }
+
+/* Center the opening screen without changing the headline's typography. */
+.jq-content.jq-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.jq-content.jq-intro .jq-title,
+.jq-content.jq-intro .jq-desc {
+  margin-left: auto;
+  margin-right: auto;
+}
+.jq-content.jq-intro .jq-actions,
+.jq-content.jq-intro .jq-intro-lines {
+  justify-content: center;
+}
+.jq-content.jq-intro .jq-bottom-rule {
+  width: 100%;
+  max-width: 560px;
+  justify-content: center;
+}
+.jq-content.jq-intro .jq-bottom-rule::before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(235, 206, 148, .2);
+}
