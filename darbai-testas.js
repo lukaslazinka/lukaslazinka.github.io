@@ -8,8 +8,8 @@
     lt: {
       eyebrow: 'INTERAKTYVUS TESTAS DARBDAVIUI',
       introTitle: 'Jūs ieškote darbuotojo. O gal – manęs?',
-      introText: 'Dešimt trumpų klausimų apie Jūsų poreikius ir mano patirtį. Atsakymai nesukurs darbo sutarties, bet gali tapti visai nebloga pokalbio pradžia.',
-      tagOne: '10 klausimų', tagTwo: 'Taip / Ne', tagThree: 'Apie 2 minutes',
+      introText: 'Dvidešimt trumpų klausimų apie Jūsų poreikius ir mano patirtį. Atsakymai nesukurs darbo sutarties, bet gali tapti visai nebloga pokalbio pradžia.',
+      tagOne: '20 klausimų', tagTwo: 'Taip / Ne', tagThree: 'Apie 3–4 minutes',
       start: 'Pradėti testą', footer: 'Susipažinkime ne vien per CV',
       progress: 'Klausimas', from: 'iš', back: 'Grįžti', yes: 'Taip', no: 'Ne',
       labelRoles: 'KO IEŠKOTE?', labelSkills: 'KAS JUMS SVARBU?', labelClose: 'PASKUTINIS KLAUSIMAS',
@@ -22,7 +22,7 @@
       noneTitle: 'Panašu, šiandien ieškome skirtingų dalykų.',
       noneDesc: 'Tinkamos darbo krypties šiame teste neradome. Bet bent jau atrankos procesas buvo trumpesnis nei dar vienas trijų etapų pokalbis.',
       rolesHeading: 'Jus dominančios sritys', skillsHeading: 'Kiek privalumų Jums aktualu?',
-      noRoles: 'Šįkart nė viena iš pateiktų sričių.', countSkills: 'iš 5',
+      noRoles: 'Šįkart nė viena iš pateiktų sričių.', countSkills: 'iš',
       contact: 'Parašyti dėl pokalbio', retry: 'Atlikti testą dar kartą',
       note: 'Testas pramoginis ir informacinis. Atsakymai neišsaugomi ir niekur nesiunčiami.',
       yesNotice: 'Puiku. Dar viena detalė apie mane:',
@@ -32,8 +32,8 @@
     en: {
       eyebrow: 'AN INTERACTIVE QUIZ FOR EMPLOYERS',
       introTitle: 'You are hiring. Could I be the one?',
-      introText: 'Ten quick questions about what you need and what I can offer. The answers will not sign a contract, but they might start a worthwhile conversation.',
-      tagOne: '10 questions', tagTwo: 'Yes / No', tagThree: 'About 2 minutes',
+      introText: 'Twenty quick questions about what you need and what I can offer. The answers will not sign a contract, but they might start a worthwhile conversation.',
+      tagOne: '20 questions', tagTwo: 'Yes / No', tagThree: 'About 3–4 minutes',
       start: 'Start the quiz', footer: 'There is more to me than a CV',
       progress: 'Question', from: 'of', back: 'Go back', yes: 'Yes', no: 'No',
       labelRoles: 'WHAT ARE YOU LOOKING FOR?', labelSkills: 'WHAT MATTERS TO YOU?', labelClose: 'ONE LAST QUESTION',
@@ -46,7 +46,7 @@
       noneTitle: 'It looks like we are after different things today.',
       noneDesc: 'We did not find a matching role this time. On the bright side, this was shorter than yet another three-stage hiring process.',
       rolesHeading: 'Areas you are hiring for', skillsHeading: 'Experience factors that matter to you',
-      noRoles: 'None of these areas this time.', countSkills: 'out of 5',
+      noRoles: 'None of these areas this time.', countSkills: 'out of',
       contact: 'Get in touch about an opportunity', retry: 'Take the quiz again',
       note: 'This quiz is for information and a little fun. Your answers are not saved or sent anywhere.',
       yesNotice: 'Great. One more thing about me:',
@@ -84,6 +84,9 @@
       fact: {lt:'Dirbu progimnazijos administracijoje: tvarkau dokumentus, korespondenciją ir organizacines užduotis.', en:'I work in school administration, handling documents, correspondence, and organisational tasks.'},
       roleName: {lt:'Administravimas ir koordinavimas', en:'Administration and coordination'}
     },
+    {"section":"roles","role":"coordination","title":{"lt":"Ar ieškote klientų aptarnavimo veiklos koordinatoriaus?","en":"Are you looking for a customer support operations coordinator?"},"no":{"lt":"Vadinasi, šį kartą procesai koordinuosis be mano pagalbos. Gal turite kitą kryptį?","en":"Looks like the processes will coordinate themselves without me this time. Another role, perhaps?"},"fact":{"lt":"Esu dirbęs tiek vyresniuoju klientų aptarnavimo specialistu, tiek vadovaujamose pareigose.","en":"I have worked both as a senior customer support specialist and in leadership roles."},"roleName":{"lt":"Aptarnavimo koordinavimas","en":"Support coordination"}},
+    {"section":"roles","role":"communications","title":{"lt":"Ar ieškote darbuotojo dalykinei komunikacijai ir informacijos valdymui?","en":"Are you hiring for business communication and information management?"},"no":{"lt":"Gerai, šiandien tekstams ir korespondencijai skelbiama laisva diena.","en":"All right, written communication and correspondence can take the day off."},"fact":{"lt":"Kasdien dirbu su korespondencija ir dokumentais, taip pat studijuoju komunikacijos magistrantūroje.","en":"I work with correspondence and documents daily, and I am pursuing a master’s degree in communication."},"roleName":{"lt":"Dalykinė komunikacija","en":"Business communication"}},
+    {"section":"roles","role":"education","title":{"lt":"Ar Jūsų organizacijai praverstų žmogus mokymų ar edukacinių veiklų organizavimui?","en":"Could your organisation use someone to coordinate training or educational activities?"},"no":{"lt":"Supratau. Mokymų kalendorių šįkart užverčiame, bet klausimų dar liko.","en":"Understood. We can close the training calendar for now, but there are more questions."},"fact":{"lt":"Dirbu muzikos mokytoju ir mokyklos administracijoje, todėl turiu patirties ugdymo bei organizacinėje aplinkoje.","en":"I work as a music teacher and in school administration, giving me experience in educational and organisational settings."},"roleName":{"lt":"Mokymai ir edukacija","en":"Training and education"}},
     {
       section: 'skills',
       title: {lt:'Ar Jūsų komandai būtų vertinga daugiau kaip 3 metų klientų aptarnavimo patirtis?', en:'Would over three years of customer support experience be valuable to your team?'},
@@ -114,10 +117,17 @@
       no: {lt:'Gana originalus personalo atrankos kriterijus. Bet komunikacijos magistrantūra man vis tiek pravers.', en:'That is quite an original hiring criterion. My master’s studies in communication may still come in handy.'},
       fact: {lt:'Studijuoju komunikacijos magistrantūroje ir nuolat derinu profesinę praktiką su studijomis.', en:'I am pursuing a master’s degree in communication while combining my studies with professional work.'}
     },
+    {"section":"skills","title":{"lt":"Ar Jums svarbu, kad darbuotojas suprastų ir specialisto, ir vadovo požiūrį?","en":"Is it important that an employee understands both the specialist’s and the manager’s perspective?"},"no":{"lt":"Teisinga, požiūrių kartais ir vieno pakanka. Aš tiesiog turiu abu.","en":"Fair enough, one perspective can be enough. I just happen to have both."},"fact":{"lt":"Mano darbo patirtis apima klientų aptarnavimo specialisto, vyresniojo specialisto ir vadovo pareigas.","en":"My work background includes customer support, senior specialist, and leadership roles."}},
+    {"section":"skills","title":{"lt":"Ar vertinate gebėjimą spręsti klientų problemas, o ne tik perduoti jų klausimus kitiems?","en":"Do you value someone who can solve customer problems rather than simply forward them?"},"no":{"lt":"Na, persiųsti laišką irgi menas. Bet kartais norisi problemą išspręsti.","en":"Well, forwarding an email is an art of its own. Sometimes solving the issue is even better."},"fact":{"lt":"Klientų aptarnavimo srityje daugiau kaip 3 metus teko nagrinėti įvairius klientų klausimus ir ieškoti sprendimų.","en":"For over three years in customer support, I have handled customer enquiries and worked towards solutions."}},
+    {"section":"skills","title":{"lt":"Ar Jūsų darbe svarbi aiški, taisyklinga rašytinė komunikacija?","en":"Does your team need clear, professional written communication?"},"no":{"lt":"Tada mano redaktoriaus akis galės trumpam pailsėti. Tik trumpam.","en":"Then my inner editor can take a brief break. A very brief one."},"fact":{"lt":"Administracinės užduotys ir komunikacijos studijos reikalauja dėmesio tekstams bei jų tikslumui.","en":"Administrative work and communication studies call for attention to written detail and accuracy."}},
+    {"section":"skills","title":{"lt":"Ar vertinate patirtį skirtingose darbo aplinkose?","en":"Do you value experience across different working environments?"},"no":{"lt":"Suprantama. Viena aplinka – mažiau slaptažodžių, kuriuos reikia prisiminti.","en":"Understandable. One workplace environment means fewer passwords to remember."},"fact":{"lt":"Mano patirtis jungia klientų aptarnavimą, vadovavimą, administravimą ir pedagoginį darbą.","en":"My experience spans customer support, leadership, administration, and teaching."}},
+    {"section":"skills","title":{"lt":"Ar Jums praverstų kūrybiškas darbuotojo požiūris į užduotis?","en":"Would a creative approach to work be useful to your team?"},"no":{"lt":"Jokių staigmenų – supratau. Mano kūrybiškumą kol kas paliksime užkulisiuose.","en":"No surprises, understood. I will keep my creativity backstage for now."},"fact":{"lt":"Be pagrindinio darbo kuriu muziką ir mokomąją medžiagą, tad kūrybinis mąstymas yra svarbi mano veiklos dalis.","en":"Alongside my main job, I compose music and create educational materials, so creative thinking is an important part of my work."}},
+    {"section":"skills","title":{"lt":"Ar vertinate dėmesį klientų aptarnavimo kokybei ir darbo standartams?","en":"Do you value attention to customer service quality and working standards?"},"no":{"lt":"Drąsus sprendimas. Kokybės kriterijai šiandien lieka už posėdžių salės durų.","en":"A bold choice. Quality standards can wait outside the meeting room today."},"fact":{"lt":"Mane domina paslaugų kokybė ir aiškūs aptarnavimo standartai; turiu praktinės patirties klientų aptarnavime.","en":"Service quality and clear support standards interest me, and I have practical customer support experience."}},
+    {"section":"skills","title":{"lt":"Ar Jums svarbu, kad darbuotojas nuolat mokytųsi ir tobulėtų?","en":"Is continuous learning and professional development important to you?"},"no":{"lt":"Supratau. Tobulėjimo planą padėsime į stalčių – bent jau iki kito klausimo.","en":"Noted. We will put the development plan in a drawer — at least until the next question."},"fact":{"lt":"Dirbu ir studijuoju komunikacijos magistrantūroje, todėl naujų žinių nuolat įgyju ir akademinėje, ir darbo aplinkoje.","en":"I work while pursuing a master’s degree in communication, developing my knowledge in both academic and professional settings."}},
     {
       section: 'close',
       title: {lt:'Ar norėtumėte apie galimą bendradarbiavimą pasikalbėti gyvai?', en:'Would you like to discuss a possible opportunity in person?'},
-      no: {lt:'Gerai, pokalbio rezervacijos kol kas nedarome. Užtat dešimties klausimų atranką jau įveikėte.', en:'Fair enough, no interview invitation just yet. But you have made it through all ten questions.'},
+      no: {lt:'Gerai, pokalbio rezervacijos kol kas nedarome. Užtat visą klausimyną jau įveikėte.', en:'Fair enough, no interview invitation just yet. But you have made it through the whole quiz.'},
       fact: {lt:'Esu atviras galimybėms klientų aptarnavimo, komandos valdymo, kokybės ir administravimo srityse.', en:'I am open to opportunities in customer support, team leadership, quality, and administration.'}
     }
   ];
@@ -137,7 +147,7 @@
 
   function frame(body) {
     root.setAttribute('aria-label', language() === 'en' ? 'Interactive employer quiz' : 'Interaktyvus testas darbdaviui');
-    root.innerHTML = '<div class="jq-frame"><div class="jq-content">' + body + '</div></div>';
+    root.innerHTML = '<div class="jq-frame"><div class="jq-content' + (mode === 'intro' ? ' jq-intro' : '') + '">' + body + '</div></div>';
   }
 
   function scrollIntoViewOnStart() {
@@ -195,14 +205,15 @@
   function resultCopy(roleCount, skillCount) {
     const l = t();
     if (roleCount === 0) return {title:l.noneTitle, desc:l.noneDesc};
-    if (skillCount >= 3) return {title:l.perfectTitle, desc:l.perfectDesc};
+    if (skillCount >= Math.ceil(questions.filter(q => q.section === 'skills').length / 2)) return {title:l.perfectTitle, desc:l.perfectDesc};
     return {title:l.maybeTitle, desc:l.maybeDesc};
   }
 
   function renderResult() {
     const l = t();
     const roles = questions.filter((q, i) => q.role && answers[i] === 'yes');
-    const skillCount = answers.slice(4, 9).filter(a => a === 'yes').length;
+    const skillCount = questions.reduce((total, q, index) => total + (q.section === 'skills' && answers[index] === 'yes' ? 1 : 0), 0);
+    const skillTotal = questions.filter(q => q.section === 'skills').length;
     const copy = resultCopy(roles.length, skillCount);
     const pills = roles.length
       ? '<div class="jq-pills">' + roles.map(q => '<span>' + tr(q.roleName) + '</span>').join('') + '</div>'
@@ -213,7 +224,7 @@
       '<h2 class="jq-title jq-result-heading">' + copy.title + '</h2>' +
       '<p class="jq-desc">' + copy.desc + '</p>' +
       '<div class="jq-results-grid"><div class="jq-result-panel"><h3>' + l.rolesHeading + '</h3>' + pills + '</div>' +
-      '<div class="jq-result-panel"><h3>' + l.skillsHeading + '</h3><p><strong>' + skillCount + ' ' + l.countSkills + '</strong></p></div></div>' +
+      '<div class="jq-result-panel"><h3>' + l.skillsHeading + '</h3><p><strong>' + skillCount + ' ' + l.countSkills + ' ' + skillTotal + '</strong></p></div></div>' +
       '<div class="jq-actions"><a class="jq-btn jq-btn-primary" href="' + mail + '">' +
       l.contact + ' <span aria-hidden="true">→</span></a>' +
       '<button type="button" class="jq-btn" data-jq-action="restart">' + l.retry + '</button></div>' +
