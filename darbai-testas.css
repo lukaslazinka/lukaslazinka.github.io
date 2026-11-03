@@ -49,8 +49,8 @@
   line-height: 1.08;
   color: #f6e8bd;
 }
-.jq-title { font-size: clamp(2.1rem, 5vw, 4.5rem); }
-.jq-question { font-size: clamp(1.8rem, 3.9vw, 3.15rem); }
+.jq-title { font-size: clamp(2.02rem, 4.85vw, 4.32rem); }
+.jq-question { font-size: clamp(1.74rem, 3.75vw, 3.04rem); }
 .jq-desc {
   max-width: 670px;
   margin: 22px 0 0;
