@@ -2,9 +2,9 @@
   const SITE_ID='238730654';
   const API_V2='https://public-api.wordpress.com/wp/v2/sites/'+SITE_ID+'/posts';
   const API_V1='https://public-api.wordpress.com/rest/v1.1/sites/'+SITE_ID+'/posts/';
-  const PASSWORD_KEY='lukas-jobs-portfolio-gate-v2';
-  const POST_PASSWORD_KEY='lukas-jobs-wp-password';
-  const GATE_HASH='48de1cf2f0d28a9321f3eb0390455650e3ceda8da885e477a9b547c9e6dafe31';
+  const PASSWORD_KEY='lukas-jobs-portfolio-gate-v3';
+  const POST_PASSWORD_KEY='lukas-jobs-wp-password-v3';
+  const GATE_HASH='8c29e7684849b14e4cb36f402e16471ec86f997d3f0e13489ea0d451f230f80d';
   const JOBS_UNLOCK_NOTICE_KEY='lukas-jobs-unlock-notified';
   const NOTIFY_URL='https://formsubmit.co/ajax/lazinka.music@gmail.com';
   const WORK_LANG_KEY='lukas-jobs-language';
