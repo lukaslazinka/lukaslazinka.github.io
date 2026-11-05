@@ -50,7 +50,26 @@ function enhanceGlobalNavigation() {
       else navigation.appendChild(link);
     }
 
-    navigation.querySelectorAll('a[href="articles.html"], a[href="darbai.html"]').forEach((link) => link.remove());
+    if (!navigation.querySelector('a[href="articles.html"]')) {
+      const articlesLink = document.createElement('a');
+      articlesLink.href = 'articles.html';
+      articlesLink.dataset.lt = 'Straipsniai';
+      articlesLink.dataset.en = 'Articles';
+      articlesLink.textContent = 'Straipsniai';
+      const worksLink = navigation.querySelector('a[href="compositions.html"]');
+      if (worksLink) worksLink.insertAdjacentElement('afterend', articlesLink);
+      else navigation.appendChild(articlesLink);
+    }
+
+    if (!navigation.querySelector('a[href="darbai.html"]')) {
+      const jobsLink = document.createElement('a');
+      jobsLink.href = 'darbai.html';
+      jobsLink.className = 'nav-work-link';
+      jobsLink.dataset.lt = 'Darbai';
+      jobsLink.dataset.en = 'Work';
+      jobsLink.textContent = 'Darbai';
+      navigation.appendChild(jobsLink);
+    }
 
     navigation.querySelectorAll('a').forEach((link) => link.classList.remove('active'));
     let activeHref = page;
