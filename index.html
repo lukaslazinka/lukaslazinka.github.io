@@ -24,6 +24,127 @@
   <link rel="stylesheet" href="homepage-experience.css?v=20260907-1310">
   <script src="script.js?v=20260907-1015" defer></script>
   <script src="homepage-experience.js?v=20260907-1448" defer></script>
+
+  <style>
+    /* November 20 song teaser — homepage only */
+    .song-teaser {
+      position: relative;
+      isolation: isolate;
+      width: min(calc(100% - 40px), 1220px);
+      min-height: 340px;
+      margin: 30px auto 14px;
+      padding: clamp(45px, 7vw, 90px) 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+      border: 1px solid rgba(217, 191, 147, .35);
+      border-radius: 26px;
+      background: radial-gradient(ellipse at 50% 115%, rgba(151, 96, 168, .26) 0, transparent 55%),
+                  radial-gradient(ellipse at 50% 0%, rgba(208, 166, 106, .19) 0, transparent 62%),
+                  linear-gradient(135deg, #101015 0%, #17151c 48%, #0d0d13 100%);
+      box-shadow: inset 0 0 70px rgba(234, 188, 116, .045), 0 28px 80px rgba(0,0,0,.16);
+    }
+    .song-teaser::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      width: min(72vw, 650px);
+      height: min(72vw, 650px);
+      left: 50%;
+      top: 48%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(210, 168, 111, .15), rgba(131, 89, 160, .07) 44%, transparent 70%);
+      filter: blur(8px);
+      animation: teaser-pulse 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .song-teaser::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(237, 218, 183, .09);
+      border-radius: 17px;
+      pointer-events: none;
+    }
+    .song-teaser-eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 0 0 25px;
+      color: #d9c7ac;
+      font: 600 .71rem/1.5 system-ui, sans-serif;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+    }
+    .song-teaser-eyebrow::before,
+    .song-teaser-eyebrow::after {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #cfb386);
+    }
+    .song-teaser-eyebrow::after { transform: rotate(180deg); }
+    .song-teaser-title {
+      max-width: 1100px;
+      margin: 0;
+      font-family: inherit;
+      font-size: clamp(2.25rem, 5.8vw, 5.6rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -.055em;
+      color: #fff9ed;
+      text-wrap: balance;
+      text-shadow: 0 4px 38px rgba(241, 204, 151, .16);
+    }
+    .song-teaser-title span {
+      display: block;
+      padding-top: 10px;
+      color: #e5c596;
+      font-size: clamp(2.65rem, 7.5vw, 7.6rem);
+      letter-spacing: -.06em;
+      background: linear-gradient(110deg, #b99a70 10%, #fff3d8 43%, #d2b07d 70%, #fff3d8 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .song-teaser-footer {
+      margin: 30px 0 0;
+      color: #c2b5b3;
+      font: 500 .71rem/1.7 system-ui, sans-serif;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    .song-teaser-stars {
+      position: absolute;
+      top: 35px;
+      right: 36px;
+      color: #ddc8a8;
+      font: 300 24px/1 Georgia, serif;
+      opacity: .65;
+    }
+    .song-teaser-stars:first-child { top: auto; right: auto; bottom: 34px; left: 36px; }
+    @keyframes teaser-pulse {
+      0%, 100% { opacity: .65; transform: translate(-50%, -50%) scale(.92); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+    }
+    @media (max-width: 600px) {
+      .song-teaser { width: calc(100% - 28px); min-height: 310px; margin-top: 16px; padding: 55px 16px; border-radius: 20px; }
+      .song-teaser::after { inset: 8px; border-radius: 13px; }
+      .song-teaser-eyebrow { font-size: .62rem; letter-spacing: .25em; gap: 9px; }
+      .song-teaser-eyebrow::before, .song-teaser-eyebrow::after { width: 19px; }
+      .song-teaser-footer { font-size: .59rem; letter-spacing: .15em; }
+      .song-teaser-stars { right: 20px; top: 20px; }
+      .song-teaser-stars:first-child { left: 20px; bottom: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .song-teaser::before { animation: none; }
+    }
+  </style>
 </head>
 <body data-title-lt="Lukas Lazinka — Kompozitorius" data-title-en="Lukas Lazinka — Composer" data-description-lt="Oficiali Lietuvos kompozitoriaus Luko Lazinkos svetainė — kūriniai, diskografija, partitūros ir kontaktai." data-description-en="Official website of Lithuanian composer Lukas Lazinka — works, discography, scores and contact information.">
 <header class="site-header">
@@ -46,6 +167,14 @@
   </div>
 </header>
 <main>
+
+  <section class="song-teaser" id="new-song-teaser" aria-labelledby="song-teaser-heading">
+    <span class="song-teaser-stars" aria-hidden="true">✧</span>
+    <p class="song-teaser-eyebrow">Something is coming</p>
+    <h2 class="song-teaser-title" id="song-teaser-heading">NEW SONG ON <span>20th of November</span></h2>
+    <p class="song-teaser-footer">No title. No hints. Just the date.</p>
+    <span class="song-teaser-stars" aria-hidden="true">✧</span>
+  </section>
   <section class="hero shell hero-rich">
     <div class="hero-copy">
       <div class="hero-identity-row">
