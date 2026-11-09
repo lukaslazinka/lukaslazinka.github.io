@@ -2,13 +2,13 @@
 /* Darbdavio testas / Employer fit quiz */
 .jobs-quiz {
   padding-top: 10px;
-  padding-bottom: clamp(60px, 7vw, 100px);
+  padding-bottom: clamp(36px, 5vw, 64px);
 }
 .jobs-quiz [hidden] { display: none !important; }
 .jq-frame {
   position: relative;
   isolation: isolate;
-  width: min(100%, 1010px);
+  width: min(100%, 800px);
   margin-inline: auto;
   overflow: hidden;
   border: 1px solid rgba(239, 196, 100, .3);
@@ -28,12 +28,12 @@
 }
 .jq-content {
   position: relative;
-  padding: clamp(30px, 5vw, 66px);
-  min-height: 420px;
+  padding: clamp(26px, 3.4vw, 42px);
+  min-height: 310px;
   animation: jqEnter .3s ease both;
 }
 .jq-overline {
-  margin: 0 0 22px;
+  margin: 0 0 14px;
   font-size: .68rem;
   font-weight: 750;
   letter-spacing: .2em;
@@ -49,36 +49,36 @@
   line-height: 1.08;
   color: #f6e8bd;
 }
-.jq-title { font-size: clamp(2.02rem, 4.85vw, 4.32rem); }
-.jq-question { font-size: clamp(1.74rem, 3.75vw, 3.04rem); }
+.jq-title { font-size: clamp(1.82rem, 3.55vw, 3.15rem); }
+.jq-question { font-size: clamp(1.65rem, 3.1vw, 2.6rem); }
 .jq-desc {
   max-width: 670px;
-  margin: 22px 0 0;
+  margin: 15px 0 0;
   font-size: clamp(.94rem, 1.4vw, 1.08rem);
-  line-height: 1.75;
+  line-height: 1.62;
   color: #c5bbab;
 }
 .jq-intro-lines {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 28px 0 34px;
+  margin: 18px 0 20px;
 }
 .jq-intro-lines span {
-  padding: 8px 12px;
+  padding: 7px 11px;
   border: 1px solid rgba(223, 184, 104, .23);
   border-radius: 999px;
   color: #dbcfb5;
   font-size: .74rem;
   letter-spacing: .02em;
 }
-.jq-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 32px; }
+.jq-actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 22px; }
 .jq-btn {
   appearance: none;
-  min-height: 56px;
+  min-height: 48px;
   border: 1px solid rgba(222, 185, 102, .32);
   border-radius: 14px 5px 14px 5px;
-  padding: 14px 26px;
+  padding: 12px 22px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -195,12 +195,12 @@
   font-size: .77rem;
 }
 .jq-endnote { margin-top: 20px; color: #978e7e; font-size: .75rem; line-height: 1.6; }
-.jq-bottom-rule { display: flex; align-items: center; gap: 20px; margin-top: 30px; color: #ac9a79; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+.jq-bottom-rule { display: flex; align-items: center; gap: 20px; margin-top: 21px; color: #ac9a79; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
 .jq-bottom-rule::after { content: ""; flex: 1; height: 1px; background: rgba(235, 206, 148, .2); }
 @keyframes jqEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 700px) {
-  .jobs-quiz { padding-top: 0; padding-bottom: 65px; }
-  .jq-content { min-height: 0; padding: 29px 23px 34px; }
+  .jobs-quiz { padding-top: 0; padding-bottom: 43px; }
+  .jq-content { min-height: 0; padding: 26px 20px 28px; }
   .jq-frame { border-radius: 24px 6px 24px 6px; }
   .jq-results-grid { grid-template-columns: 1fr; }
   .jq-actions { gap: 10px; }
