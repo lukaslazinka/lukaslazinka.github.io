@@ -85,7 +85,7 @@
          {lt:'Man patinka tvarka, bet darbo diena neturėtų virsti nuolatiniu atsiskaitymo egzaminu.',en:'I appreciate structure, but the workday should not become a permanent reporting exam.'}]
       ],
       expect: {lt:'Tikiuosi pasitikėjimo, aiškių tikslų ir konstruktyvios atskaitomybės, o ne mikrovadybos.',en:'I expect trust, clear goals, and constructive accountability rather than micromanagement.'},
-      fact: {lt:'Vadovaudamas „Enefit“ ir „Inbank“ komandoms stebėjau KPI, rengiau veiklos ataskaitas ir pristatydavau rezultatus suinteresuotiesiems asmenims.',en:'In Enefit and Inbank, I monitored KPIs, prepared performance reports and presented results to project stakeholders.'}
+      fact: {lt:'„Inbank“ vadovavau 36 darbuotojams ir prisidėjau prie lizingo sutarčių sudarymo rodiklio augimo nuo 46 % iki 58 %, analizuodamas rezultatus ir organizuodamas mokymus.',en:'In Inbank, I led 36 employees and contributed to an increase in the leasing agreement completion rate from 46% to 58% by analysing results and organising training.'}
     },
     {
       category: {lt:'Darbo pobūdis',en:'Day-to-day work'},
