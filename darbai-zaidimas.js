@@ -71,7 +71,7 @@
          {lt:'Telefonas reikalingas, bet norėčiau daugiau erdvės savo sukauptai patirčiai pritaikyti.',en:'Calls have their place, but I would like more room to put my accumulated experience to use.'}]
       ],
       expect: {lt:'Ieškau prasmingų užduočių klientų aptarnavimo, koordinavimo, kokybės ar administravimo srityse, ypač kai galiu prisiimti atsakomybę.',en:'I am interested in meaningful work in support, coordination, quality, or administration, especially where I can take responsibility.'},
-      fact: {lt:'Turiu daugiau kaip trejų metų aptarnavimo patirtį, esu dirbęs vyresniuoju specialistu ir vadovavęs komandai.',en:'I have over three years of support experience, have worked as a senior specialist, and have led a team.'}
+      fact: {lt:'Turiu daugiau kaip 3 metų klientų aptarnavimo ir 2 metų bei 3 mėnesių komandos vadovavimo patirtį. Vadovavau „ABOUT YOU“, „Enefit“, „Inbank“, „Vinted“ ir „Ignitis“ projektų komandoms.',en:'I have over 3 years in customer support and 2 years and 3 months of team leadership experience across ABOUT YOU, Enefit, Inbank, Vinted and Ignitis.'}
     },
     {
       category: {lt:'Pasitikėjimas',en:'Trust'},
@@ -85,7 +85,7 @@
          {lt:'Man patinka tvarka, bet darbo diena neturėtų virsti nuolatiniu atsiskaitymo egzaminu.',en:'I appreciate structure, but the workday should not become a permanent reporting exam.'}]
       ],
       expect: {lt:'Tikiuosi pasitikėjimo, aiškių tikslų ir konstruktyvios atskaitomybės, o ne mikrovadybos.',en:'I expect trust, clear goals, and constructive accountability rather than micromanagement.'},
-      fact: {lt:'Esu dirbęs savarankiškai ir su komandos rezultatais, todėl vertinu aiškiai sutartą atsakomybę.',en:'I have worked independently and with team results, so I value clearly agreed responsibilities.'}
+      fact: {lt:'Vadovaudamas „Enefit“ ir „Inbank“ komandoms stebėjau KPI, rengiau veiklos ataskaitas ir pristatydavau rezultatus suinteresuotiesiems asmenims.',en:'In Enefit and Inbank, I monitored KPIs, prepared performance reports and presented results to project stakeholders.'}
     },
     {
       category: {lt:'Darbo pobūdis',en:'Day-to-day work'},
@@ -99,7 +99,7 @@
          {lt:'Po ilgesnės patirties aptarnavime ieškau platesnio darbo turinio nei vien skambučių srautas.',en:'After years in support, I am looking for a broader role than handling an endless call queue.'}]
       ],
       expect: {lt:'Man artimesnis rašytinis, analitinis ir organizacinis darbas, nors bendravimas su žmonėmis irgi yra jo dalis.',en:'I am particularly interested in written, analytical, and organisational work, while still valuing communication with people.'},
-      fact: {lt:'Esu dirbęs su klientų laiškais, sudėtingais klausimais, administraciniais dokumentais ir kolegų konsultavimu.',en:'I have handled customer emails, complex enquiries, administrative documents, and colleague support.'}
+      fact: {lt:'„Vinted“ projekte vadovavau 10 specialistų komandai, klientus aptarnavusiai tik raštu. Taip pat rengiau darbuotojų dokumentus ir oficialius raštus.',en:'In Vinted, I led a team of 10 specialists handling customer issues exclusively in writing. I also prepared employee documentation and formal correspondence.'}
     },
     {
       category: {lt:'Komandos kultūra',en:'Team culture'},
@@ -113,7 +113,7 @@
          {lt:'Tokioje aplinkoje talentai dažniau ieško išėjimo, o ne sprendimų. Aš irgi rinkčiausi atsargiai.',en:'In that environment, talented people often look for the exit instead of solutions. I would be cautious too.'}]
       ],
       expect: {lt:'Vertinu pagarbius kolegas, normalų žmogišką ryšį ir bendrą atsakomybę už rezultatą.',en:'I value respectful colleagues, genuine human connection, and shared responsibility for outcomes.'},
-      fact: {lt:'Man patinka komandinė veikla, kolegų ugdymas ir darbas bendram tikslui.',en:'I enjoy teamwork, developing colleagues, and working towards a shared goal.'}
+      fact: {lt:'Esu vadovavęs nuo 10 iki 36 darbuotojų komandoms, organizavau susirinkimus, teikiau individualų grįžtamąjį ryšį ir rūpinausi darbuotojų mokymais.',en:'I have managed teams ranging from 10 to 36 employees, organised meetings, provided individual feedback and coordinated employee training.'}
     },
     {
       category: {lt:'Grįžtamasis ryšys',en:'Feedback'},
@@ -127,7 +127,7 @@
          {lt:'Viešas sugėdinimas nėra tas pats, kas kokybės gerinimas. Čia mūsų požiūriai išsiskirtų.',en:'Public embarrassment is not the same as improving quality. We would see this differently.'}]
       ],
       expect: {lt:'Tikiuosi aiškaus, privataus ir pagarbaus grįžtamojo ryšio, kai vertinami veiksmai ir rezultatai.',en:'I expect clear, private, and respectful feedback focused on actions and results.'},
-      fact: {lt:'Esu dirbęs su kokybės klausimais, darbuotojų ugdymu ir rezultatais.',en:'I have worked with quality matters, employee development, and results.'}
+      fact: {lt:'„Vinted“ projekte rengiau kokybės kalibravimo sesijas, „Ignitis“ vertinau darbuotojų skambučius, o „ABOUT YOU“ analizavau pasikartojančias klaidas.',en:'I held quality calibration sessions in Vinted, reviewed employee calls in Ignitis and analysed recurring errors in ABOUT YOU.'}
     },
     {
       category: {lt:'Tobulėjimas',en:'Development'},
@@ -141,7 +141,7 @@
          {lt:'Stabilumas gerai, bet norėčiau, kad galimybė tobulėti nebūtų laikoma nereikalingu priedu.',en:'Stability is fine, but I would not want professional growth treated as an unnecessary extra.'}]
       ],
       expect: {lt:'Noriu mokytis, gilinti kompetencijas ir matyti realias augimo galimybes.',en:'I want to keep learning, strengthen my skills, and see realistic opportunities to grow.'},
-      fact: {lt:'Derinu darbą su komunikacijos magistrantūros studijomis, taip pat turiu vadovavimo ir mokymo patirties.',en:'I combine work with master’s studies in communication and have experience in leadership and teaching.'}
+      fact: {lt:'Derinu darbą su komunikacijos magistrantūros studijomis. „Inbank“ projekte prisidėjau prie komandos papildymo 10 specialistų ir koordinavau jų mokymus.',en:'Alongside my master’s studies in communication, I have leadership and training experience. In Inbank, I helped expand the team by 10 specialists and coordinated their training.'}
     },
     {
       category: {lt:'Iniciatyva',en:'Initiative'},
@@ -155,7 +155,7 @@
          {lt:'Tokiu atveju mano noras tobulinti darbą tikriausiai liktų neišnaudotas.',en:'In that case, my motivation to improve things would probably go unused.'}]
       ],
       expect: {lt:'Man svarbu, kad pasiūlymus būtų galima išsakyti, o argumentai būtų išgirsti.',en:'It matters to me that I can suggest improvements and that ideas are heard and considered.'},
-      fact: {lt:'Esu dirbęs su KPI, procesų peržiūra ir komandos darbo gerinimo pasiūlymais.',en:'I have experience with KPIs, process reviews, and suggestions for team improvement.'}
+      fact: {lt:'„Enefit“ projekte sumažinau eilėje laukiančių klientų rodiklį nuo 87 % iki 36 %, o verslo klientų pardavimų rodiklis išaugo nuo 6 % iki 17,6 %.',en:'In Enefit, I reduced the share of customers waiting in the queue from 87% to 36%, while the business customer sales metric increased from 6% to 17.6%.'}
     },
     {
       category: {lt:'Darbo aplinka',en:'Working environment'},
@@ -169,7 +169,7 @@
          {lt:'Dirbti savarankiškai moku, bet norėčiau ir tikro komandinio ryšio.',en:'I can work independently, but I also value genuine team connection.'}]
       ],
       expect: {lt:'Ieškau kolegiškos aplinkos; man patrauklus darbas biure arba mišrus modelis su tikru komandos bendravimu.',en:'I want a collegial environment; office-based or hybrid work with real team interaction appeals to me.'},
-      fact: {lt:'Man patinka dirbti su kolegomis, dalintis žiniomis ir prisidėti prie komandos veiklos.',en:'I enjoy working alongside colleagues, sharing knowledge, and supporting team performance.'}
+      fact: {lt:'Vadovaudamas „Inbank“ 36 darbuotojų komandai, bendradarbiavau su pardavimų lyderiais ir mokymų metu skatinau juos dalytis patirtimi su kolegomis.',en:'While leading a team of 36 in Inbank, I involved sales leaders in training sessions so they could share their practical knowledge with colleagues.'}
     },
     {
       category: {lt:'Darbo pasiūlymas',en:'The offer'},
@@ -183,7 +183,7 @@
          {lt:'Skamba paslaptingai, bet darbo pasiūlymas nėra detektyvas. Norėčiau daugiau konkretumo.',en:'Intriguing, but a job offer should not be a mystery novel. I would prefer specifics.'}]
       ],
       expect: {lt:'Tikiuosi skaidriai aptartų pareigų, atlygio, darbo sąlygų ir abipusių įsipareigojimų.',en:'I expect transparent discussions of duties, compensation, working terms, and mutual commitments.'},
-      fact: {lt:'Galiu pasiūlyti aptarnavimo, vadovavimo, administravimo ir komunikacijos patirtį; svarbu, kad siūlomos sąlygos atitiktų atsakomybę.',en:'I bring experience in support, leadership, administration, and communication, and value terms that reflect the responsibilities.'}
+      fact: {lt:'Turiu 2 metų ir 3 mėnesių komandos vadovavimo patirtį keliuose BPO projektuose, taip pat dirbu administracinį darbą. Man svarbu, kad darbo sąlygos atitiktų atsakomybę.',en:'I bring 2 years and 3 months of leadership across several BPO projects as well as administrative experience. I value working terms that reflect the responsibilities.'}
     }
   ];
 
