@@ -60,7 +60,7 @@
       section: 'roles', role: 'support',
       title: {lt:'Ar ieškote darbuotojo klientų aptarnavimo srityje?', en:'Are you hiring for a customer support role?'},
       no: {lt:'Nieko tokio. Pirmas klausimas dar nelemia visos mūsų profesinės istorijos.', en:'No problem. The first question does not have to decide our entire professional story.'},
-      fact: {lt:'Turiu daugiau kaip 3 metų klientų aptarnavimo patirtį.', en:'I have over three years of experience in customer support.'},
+      fact: {lt:'Turiu daugiau kaip 3 metų klientų aptarnavimo patirtį, įgytą dirbant su skirtingų sričių verslo klientais ir vartotojais.', en:'I have over three years of customer support experience working with business customers and consumers across different projects.'},
       roleName: {lt:'Klientų aptarnavimas', en:'Customer support'}
     },
     {
@@ -81,7 +81,7 @@
       section: 'roles', role: 'admin',
       title: {lt:'Ar ieškote administravimo arba veiklos koordinavimo specialisto?', en:'Are you hiring for administration or operations coordination?'},
       no: {lt:'Vadinasi, segtuvai šiandien lieka stalčiuje. Dar turime kitų temų.', en:'Then the folders can stay in the drawer today. We still have other things to discuss.'},
-      fact: {lt:'Dirbu progimnazijos administracijoje: tvarkau dokumentus, korespondenciją ir organizacines užduotis.', en:'I work in school administration, handling documents, correspondence, and organisational tasks.'},
+      fact: {lt:'Dirbu progimnazijos administracijoje. Anksčiau vadovaudamas komandoms rengiau personalo dokumentus, tarnybinius įspėjimus ir veiklos ataskaitas.', en:'I work in school administration. As a Team Leader, I also prepared HR documents, formal employee warnings and performance reports.'},
       roleName: {lt:'Administravimas ir koordinavimas', en:'Administration and coordination'}
     },
     {"section":"roles","role":"coordination","title":{"lt":"Ar ieškote klientų aptarnavimo veiklos koordinatoriaus?","en":"Are you looking for a customer support operations coordinator?"},"no":{"lt":"Vadinasi, šį kartą procesai koordinuosis be mano pagalbos. Gal turite kitą kryptį?","en":"Looks like the processes will coordinate themselves without me this time. Another role, perhaps?"},"fact":{"lt":"Dirbau vyresniuoju klientų aptarnavimo specialistu ir 2 metus bei 3 mėnesius vadovavau komandoms skirtinguose BPO projektuose.","en":"I worked as a senior customer support specialist and led teams across multiple BPO projects for 2 years and 3 months."},"roleName":{"lt":"Aptarnavimo koordinavimas","en":"Support coordination"}},
@@ -91,7 +91,7 @@
       section: 'skills',
       title: {lt:'Ar Jūsų komandai būtų vertinga daugiau kaip 3 metų klientų aptarnavimo patirtis?', en:'Would over three years of customer support experience be valuable to your team?'},
       no: {lt:'Oops, šiandien kortos ne visai sukrito. Jei atrankos kriterijai kada nors pasikeis, šis testas niekur nedings.', en:'Oops, the cards are not quite falling into place. If your hiring criteria change, this quiz will still be here.'},
-      fact: {lt:'Daugiau kaip 3 metus sprendžiau klientų klausimus ir dirbau aptarnavimo srityje.', en:'I have spent over three years resolving customer enquiries and working in customer support.'}
+      fact: {lt:'Daugiau kaip 3 metus dirbau klientų aptarnavimo srityje, o „ABOUT YOU“ sprendžiau sudėtingus pristatymo, užsakymų ir pinigų grąžinimo klausimus.', en:'I have over three years of support experience, including handling complex delivery, order and refund issues in ABOUT YOU.'}
     },
     {
       section: 'skills',
@@ -109,16 +109,16 @@
       section: 'skills',
       title: {lt:'Ar Jums svarbus tikslumas, dokumentų valdymas ir organizuotumas?', en:'Are accuracy, document management, and organisation important to you?'},
       no: {lt:'Netikėta, bet gerai. Dokumentų segtuvai šios atrankos bent jau neužgoš.', en:'Unexpected, but fair enough. At least the paperwork will not steal the spotlight.'},
-      fact: {lt:'Administraciniame darbe kasdien tenka derinti tikslumą, dokumentų tvarkymą ir atsakomybę.', en:'My administrative work involves accuracy, document handling, and responsibility every day.'}
+      fact: {lt:'Vadovo pareigose administravau naujų darbuotojų priėmimo dokumentus, rengiau oficialius raštus, skaičiavau ir tvirtinau darbuotojų priedus.', en:'As a Team Leader, I handled onboarding documentation, prepared formal correspondence, and calculated and approved employee performance bonuses.'}
     },
     {
       section: 'skills',
       title: {lt:'Ar vertinate gebėjimą aiškiai komunikuoti ir mokytis naujų dalykų?', en:'Do you value clear communication and a willingness to learn?'},
       no: {lt:'Gana originalus personalo atrankos kriterijus. Bet komunikacijos magistrantūra man vis tiek pravers.', en:'That is quite an original hiring criterion. My master’s studies in communication may still come in handy.'},
-      fact: {lt:'Studijuoju komunikacijos magistrantūroje ir nuolat derinu profesinę praktiką su studijomis.', en:'I am pursuing a master’s degree in communication while combining my studies with professional work.'}
+      fact: {lt:'Studijuoju komunikacijos magistrantūroje. Vadovo pareigose pristatydavau KPI ir komandos rezultatus BPO vadovams bei projekto suinteresuotiesiems asmenims.', en:'I am pursuing a master’s degree in communication. As a Team Leader, I also presented KPIs and team results to BPO management and project stakeholders.'}
     },
     {"section":"skills","title":{"lt":"Ar Jums svarbu, kad darbuotojas suprastų ir specialisto, ir vadovo požiūrį?","en":"Is it important that an employee understands both the specialist’s and the manager’s perspective?"},"no":{"lt":"Teisinga, požiūrių kartais ir vieno pakanka. Aš tiesiog turiu abu.","en":"Fair enough, one perspective can be enough. I just happen to have both."},"fact":{"lt":"Esu dirbęs klientų aptarnavimo specialistu, vyresniuoju specialistu ir 2 metus bei 3 mėnesius komandos vadovu penkiuose BPO projektuose.","en":"My background includes customer support, senior specialist and 2 years and 3 months of team leadership roles across five BPO projects."}},
-    {"section":"skills","title":{"lt":"Ar vertinate gebėjimą spręsti klientų problemas, o ne tik perduoti jų klausimus kitiems?","en":"Do you value someone who can solve customer problems rather than simply forward them?"},"no":{"lt":"Na, persiųsti laišką irgi menas. Bet kartais norisi problemą išspręsti.","en":"Well, forwarding an email is an art of its own. Sometimes solving the issue is even better."},"fact":{"lt":"Klientų aptarnavimo srityje daugiau kaip 3 metus teko nagrinėti įvairius klientų klausimus ir ieškoti sprendimų.","en":"For over three years in customer support, I have handled customer enquiries and worked towards solutions."}},
+    {"section":"skills","title":{"lt":"Ar vertinate gebėjimą spręsti klientų problemas, o ne tik perduoti jų klausimus kitiems?","en":"Do you value someone who can solve customer problems rather than simply forward them?"},"no":{"lt":"Na, persiųsti laišką irgi menas. Bet kartais norisi problemą išspręsti.","en":"Well, forwarding an email is an art of its own. Sometimes solving the issue is even better."},"fact":{"lt":"„ABOUT YOU“ sprendžiau klientų problemas, o vadovaudamas „Enefit“ komandai sumažinau eilėje laukiančių klientų rodiklį nuo 87 % iki 36 %.","en":"In ABOUT YOU, I handled customer issues; in Enefit, I reduced the proportion of customers waiting in the service queue from 87% to 36%."}},
     {"section":"skills","title":{"lt":"Ar Jūsų darbe svarbi aiški, taisyklinga rašytinė komunikacija?","en":"Does your team need clear, professional written communication?"},"no":{"lt":"Tada mano redaktoriaus akis galės trumpam pailsėti. Tik trumpam.","en":"Then my inner editor can take a brief break. A very brief one."},"fact":{"lt":"Administracinės užduotys ir komunikacijos studijos reikalauja dėmesio tekstams bei jų tikslumui.","en":"Administrative work and communication studies call for attention to written detail and accuracy."}},
     {"section":"skills","title":{"lt":"Ar vertinate patirtį skirtingose darbo aplinkose?","en":"Do you value experience across different working environments?"},"no":{"lt":"Suprantama. Viena aplinka – mažiau slaptažodžių, kuriuos reikia prisiminti.","en":"Understandable. One workplace environment means fewer passwords to remember."},"fact":{"lt":"Vadovavau „ABOUT YOU“, „Enefit“, „Inbank“, „Vinted“ ir „Ignitis“ komandoms, o šiuo metu dirbu mokyklos administracijoje ir mokau muzikos.","en":"I led teams in the ABOUT YOU, Enefit, Inbank, Vinted and Ignitis projects and currently work in school administration and music education."}},
     {"section":"skills","title":{"lt":"Ar Jums praverstų kūrybiškas darbuotojo požiūris į užduotis?","en":"Would a creative approach to work be useful to your team?"},"no":{"lt":"Jokių staigmenų – supratau. Mano kūrybiškumą kol kas paliksime užkulisiuose.","en":"No surprises, understood. I will keep my creativity backstage for now."},"fact":{"lt":"Be pagrindinio darbo kuriu muziką ir mokomąją medžiagą, tad kūrybinis mąstymas yra svarbi mano veiklos dalis.","en":"Alongside my main job, I compose music and create educational materials, so creative thinking is an important part of my work."}},
