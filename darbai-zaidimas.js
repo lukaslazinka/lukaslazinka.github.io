@@ -71,7 +71,7 @@
          {lt:'Telefonas reikalingas, bet norėčiau daugiau erdvės savo sukauptai patirčiai pritaikyti.',en:'Calls have their place, but I would like more room to put my accumulated experience to use.'}]
       ],
       expect: {lt:'Ieškau prasmingų užduočių klientų aptarnavimo, koordinavimo, kokybės ar administravimo srityse, ypač kai galiu prisiimti atsakomybę.',en:'I am interested in meaningful work in support, coordination, quality, or administration, especially where I can take responsibility.'},
-      fact: {lt:'Turiu daugiau kaip trejų metų aptarnavimo patirtį, esu dirbęs vyresniuoju specialistu ir vadovavęs komandai.',en:'I have over three years of support experience, have worked as a senior specialist, and have led a team.'}
+      fact: {lt:'Turiu daugiau kaip trejų metų klientų aptarnavimo patirtį, dirbau vyresniuoju specialistu, o „ABOUT YOU“ projekte 3 mėnesius laikinai vadovavau 10 žmonių komandai.',en:'I have over three years of customer support experience and have worked as a senior specialist. I also served as an interim Team Leader for 3 months in ABOUT YOU, managing a team of 10.'}
     },
     {
       category: {lt:'Pasitikėjimas',en:'Trust'},
@@ -141,7 +141,7 @@
          {lt:'Stabilumas gerai, bet norėčiau, kad galimybė tobulėti nebūtų laikoma nereikalingu priedu.',en:'Stability is fine, but I would not want professional growth treated as an unnecessary extra.'}]
       ],
       expect: {lt:'Noriu mokytis, gilinti kompetencijas ir matyti realias augimo galimybes.',en:'I want to keep learning, strengthen my skills, and see realistic opportunities to grow.'},
-      fact: {lt:'Derinu darbą su komunikacijos magistrantūros studijomis, taip pat turiu vadovavimo ir mokymo patirties.',en:'I combine work with master’s studies in communication and have experience in leadership and teaching.'}
+      fact: {lt:'Derinu darbą su komunikacijos magistrantūros studijomis; taip pat 3 mėnesius laikinai vadovavau „ABOUT YOU“ komandai ir turiu darbuotojų mokymo patirties.',en:'I combine work with master’s studies in communication, have experience training employees and temporarily led the ABOUT YOU team for 3 months.'}
     },
     {
       category: {lt:'Iniciatyva',en:'Initiative'},
